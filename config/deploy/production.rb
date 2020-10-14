@@ -9,6 +9,6 @@ set :ssh_options, {
 }
 
 set :branch, 'master'
-set :deploy_to, '~/supermarket-rails'
+set :deploy_to, '~/wildlife-covid'
 
 set :rails_env, :production

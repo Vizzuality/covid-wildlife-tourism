@@ -21,8 +21,6 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'geocoder'
-gem 'jsonapi-resources'
-gem 'fast_jsonapi'
 gem 'rack-cors'
 gem 'dotenv-rails'
 gem 'activerecord-postgis-adapter'
@@ -85,14 +83,10 @@ gem 'devise-i18n'
 # authorization
 gem 'cancancan'
 gem 'rails-i18n', '~> 6.0.0'
-gem 'jwt'
 gem 'kaminari'
 
 # used to decode html in some imported strings
 gem 'htmlentities'
-
-# consume APIs
-gem 'httparty'
 
 # frontend stuff
 gem 'react-rails'

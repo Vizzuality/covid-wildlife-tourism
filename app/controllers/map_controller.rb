@@ -20,8 +20,6 @@ class MapController < ApplicationController
       @shops = @shops.where(id: current_user.user_stores.where(approved: true).pluck(:store_id))
     end
 
-    @shops = @shops.where(store_type: :beach) if current_user.beach_admin?
-
     @shops = @shops.index_by(&:id)
 
     respond_to do |format|

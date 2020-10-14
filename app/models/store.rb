@@ -2,34 +2,30 @@
 #
 # Table name: stores
 #
-#  id                  :bigint           not null, primary key
-#  name                :string
-#  group               :string
-#  street              :string
-#  city                :string
-#  district            :string
-#  country             :string
-#  zip_code            :string
-#  latitude            :float
-#  longitude           :float
-#  capacity            :integer
-#  details             :text
-#  store_type          :integer          default("1"), not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  lonlat              :geometry         point, 0
-#  state               :integer          default("1")
-#  reason_to_delete    :text
-#  open                :boolean          default("true")
-#  created_by_id       :bigint
-#  updated_by_id       :bigint
-#  from_osm            :boolean          default("false")
-#  original_id         :bigint
-#  source              :string
-#  make_phone_calls    :boolean          default("false")
-#  phone_call_interval :integer          default("60")
-#  municipality        :string
-#  search_name         :string
+#  id               :bigint           not null, primary key
+#  name             :string
+#  group            :string
+#  street           :string
+#  city             :string
+#  district         :string
+#  country          :string
+#  zip_code         :string
+#  latitude         :float
+#  longitude        :float
+#  capacity         :integer
+#  details          :text
+#  store_type       :integer          default("1"), not null
+#  url              :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  lonlat           :geometry         point, 0
+#  state            :integer          default("1")
+#  reason_to_delete :text
+#  created_by_id    :bigint
+#  updated_by_id    :bigint
+#  source           :string
+#  municipality     :string
+#  search_name      :string
 #
 class Store < ApplicationRecord
   include UserTrackable
@@ -40,25 +36,8 @@ class Store < ApplicationRecord
   RADIUS = 5000
   PROJECTION = 4326
 
-  has_many :status_crowdsources
-  has_many :status_store_owners
-  has_one :status_general
-  has_many :statuses
-  has_many :status_crowdsource_users
-  has_one :status_estimation
-
   has_many :user_stores, inverse_of: :store, dependent: :destroy
   has_many :managers, through: :user_stores
-
-  has_many :phones
-  accepts_nested_attributes_for :phones, allow_destroy: true, reject_if: :all_blank
-
-  has_one :beach_configuration, inverse_of: :store
-  accepts_nested_attributes_for :beach_configuration, allow_destroy: true, reject_if: :all_blank
-
-  has_many :week_days
-  has_one :current_day, -> { today }, class_name: 'WeekDay', inverse_of: 'store'
-  accepts_nested_attributes_for :week_days
 
   enum store_type: {supermarket: 1, pharmacy: 2, restaurant: 3,
                     gas_station: 4, bank: 5, coffee: 6, kiosk: 7,
@@ -66,7 +45,6 @@ class Store < ApplicationRecord
   enum state: {waiting_approval: 1, live: 2, marked_for_deletion: 3, archived: 4}
 
   validates :capacity, allow_nil: true, numericality: {greater_than: 0}
-  validates :phone_call_interval, allow_nil: true, numericality: {greater_than: 29, less_than: 180}
 
   scope :by_country, ->(country) { where(country: country) }
   scope :by_group, ->(group) { where(group: group) }
@@ -76,7 +54,6 @@ class Store < ApplicationRecord
 
   after_save :set_lonlat
   before_save :update_search_name, if: :will_save_change_to_name?
-  after_create :create_status
 
   pg_search_scope :full_text_search,
                   against: {
@@ -97,7 +74,7 @@ class Store < ApplicationRecord
                   using: {
                     tsearch: {
                       prefix: true,
-                      dictionary: 'portuguese'
+                      dictionary: 'english'
                     }
                   },
                   ignoring: :accents
@@ -116,22 +93,12 @@ class Store < ApplicationRecord
     str
   end
 
-  def open_right_now?
-    return current_day.open_now? if current_day&.times_set?
-
-    (Time.zone.parse('8:00')..Time.zone.parse('22:00')).cover?(Time.current)
-  end
-
   def self.groups
     select(:group).order(:group).distinct.pluck(:group).map(&:presence).compact
   end
 
   def self.countries
     select(:country).order(:country).distinct.pluck(:country).map(&:presence).compact
-  end
-
-  def latest_owner_status
-    status_store_owners.order(updated_at: :desc).limit(1)&.first
   end
 
   def self.search(search)
@@ -202,16 +169,7 @@ class Store < ApplicationRecord
   end
 
   def update_search_name
-    locale = case country&.strip
-             when 'United Kingdom', 'UK', 'England'
-               'en'
-             when 'España', 'Spain', 'ES'
-               'es'
-             when 'Slovakia', 'SK', 'Slovenská'
-               'sk'
-             else
-               'pt'
-             end
+    locale = 'en'
 
     prefix = I18n.t("activerecord.enums.store.store_types.#{store_type}", locale: locale)
     self.search_name = if name&.downcase&.include?(prefix.downcase)
@@ -219,28 +177,5 @@ class Store < ApplicationRecord
                        else
                          [prefix, name].compact.join(' ')
                        end
-  end
-
-  def create_status
-    create_crowdsource_status
-    create_store_owner_status
-    create_general_status
-  end
-
-  def create_crowdsource_status
-    status = StatusCrowdsource.find_by(store_id: id)
-    return if status
-
-    StatusCrowdsource.create(store_id: id, updated_time: Time.current)
-  end
-
-  def create_store_owner_status
-    status = StatusStoreOwner.new(store_id: id,
-                                  updated_time: Time.current, active: true)
-    status.save!(validate: false)
-  end
-
-  def create_general_status
-    StatusGeneral.create!(store_id: id, updated_time: Time.current, is_official: false)
   end
 end

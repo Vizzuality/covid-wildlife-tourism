@@ -8,12 +8,6 @@ en:
       user:
         one: 'User'
         other: 'Users'
-      status_crowdsource_user:
-        one: 'Status'
-        other: 'Statuses'
-      status:
-        one: 'Status'
-        other: 'Statuses'
       user_store:
         one: 'Managed Store'
         other: 'Managed Stores'
