@@ -42,8 +42,8 @@ module PossoIrApi
     # the framework and any gems in your application.
     config.time_zone = 'UTC'
     config.active_record.default_timezone = :utc
-    config.i18n.default_locale = :pt
-    config.i18n.available_locales = [:pt, :es, :en, :sk]
+    config.i18n.default_locale = :en
+    config.i18n.available_locales = [:en]
 
     # ActiveJob
     config.active_job.queue_adapter = :sidekiq

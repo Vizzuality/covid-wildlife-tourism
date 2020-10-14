@@ -9,12 +9,6 @@
     <% if can? :edit, @store %>
       <%= link_to t('views.actions.edit'), edit_store_path(@store),
         class: 'btn btn-sm btn-outline-primary' %>
-      <%= link_to t('views.stores.show.edit_schedule'), edit_schedule_store_path(@store),
-        class: 'btn btn-sm btn-outline-info' %>
-    <% end %>
-    <% if can? :read, :statuses_store %>
-      <%= link_to t('views.stores.show.statuses'), statuses_store_path(@store),
-        class: 'btn btn-sm btn-outline-info' %>
     <% end %>
     <% if can? :destroy, @store %>
       <%= link_to t('views.actions.destroy'), store_path(@store),
@@ -42,10 +36,6 @@
         </p>
         <% if current_user&.admin? %>
           <p>
-            <strong><%= Store.human_attribute_name(:open) %>:</strong>
-            <%= @store.open %>
-          </p>
-          <p>
           <strong><%= Store.human_attribute_name(:created_by) %>:</strong>
             <%= link_to(@store.created_by.display_name, @store.created_by) if @store.created_by %>
           </p>
@@ -55,13 +45,6 @@
           </p>
         <% end %>
         <% if current_user&.admin? || (current_user.store_owner? && current_user.stores.include?(@store)) %>
-          <p><strong><%= Store.human_attribute_name(:phones) %>:</strong><br>
-            <ul>
-              <% @store.phones.each do |p| %>
-                <li><%= "#{p.phone_number} (#{p.name})" %> <%= p.active? ? 'Active' : 'Not active' %></li>
-              <% end %>
-            </ul>
-          </p>
           <p><strong><%= t('activerecord.enums.user.roles.store_owner') %></strong><br>
             <ul>
               <% @store.managers.each do |user| %>

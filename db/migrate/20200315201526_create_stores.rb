@@ -13,6 +13,7 @@ class CreateStores < ActiveRecord::Migration[6.0]
       t.integer :capacity
       t.text :details
       t.integer :store_type
+      t.string :url
 
       t.timestamps
     end

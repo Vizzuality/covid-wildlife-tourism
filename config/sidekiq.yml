@@ -1,7 +1,3 @@
 :logfile: ./log/sidekiq.log
 :queues:
-  - phone_calls
-  - water_quality
-  - occupation
-  - ranking
-  - ranking_history
+  - emails
