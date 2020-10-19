@@ -1,65 +1,38 @@
 {
-  "name": "posso-ir-api",
-  "private": true,
+  "name": "covid-wildlife-tourism",
+  "version": "1.0.0",
+  "repository": "git@github.com:Vizzuality/covid-wildlife-tourism.git",
+  "author": "Vizzuality <hello@vizzuality.com>",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 12.16.1"
+  },
   "scripts": {
-    "test": "run-p rails:test rails:lint react:test",
+    "test": "run-p rails:test rails:lint",
     "rails:test": "bundle exec rspec",
-    "rails:lint": "bundle exec rubocop",
-    "react:test": "jest --colors --maxWorkers=2 --coverage"
+    "rails:lint": "bundle exec rubocop"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.9.4",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
-    "@ttskch/select2-bootstrap4-theme": "^1.3.2",
-    "axios": "^0.19.2",
-    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "bootstrap": "4.3.1",
-    "chart.js": "^2.9.3",
-    "chartkick": "^3.2.0",
-    "classnames": "^2.2.6",
-    "d3-ease": "^1.0.6",
-    "deck.gl": "7.3.6",
+    "bootstrap": "^4.4.1",
     "dotenv": "^8.2.0",
-    "expose-loader": "^0.7.5",
-    "immer": "^6.0.2",
-    "jquery": "3.5.1",
-    "layer-manager": "^3.0.4",
-    "lodash": "^4.17.19",
-    "luma.gl": "7.3.2",
-    "popper.js": "^1.16.1",
-    "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-map-gl": "^5.2.3",
-    "react_ujs": "^2.6.1",
-    "select2": "^4.0.13",
-    "stimulus": "^1.1.1",
-    "turbolinks": "^5.2.0",
-    "use-onclickoutside": "^0.3.1",
-    "uuid": "^7.0.2",
-    "viewport-mercator-project": "6.1.1",
     "webpack": "^4.42.0"
   },
-  "version": "0.1.0",
   "devDependencies": {
-    "babel-jest": "^25.4.0",
-    "jest": "^25.4.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.3",
+    "babel-eslint": "^10.0.3",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
+    "eslint-import-resolver-babel-module": "^5.1.2",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.2",
-    "webpack-dev-server": "^3.10.3"
-  },
-  "jest": {
-    "roots": [
-      "<rootDir>/app/javascript/components"
-    ],
-    "moduleDirectories": [
-      "<rootDir>/node_modules"
-    ],
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "coverageReporters": ["text"]
+    "webpack-dev-server": "^3.11.0"
   }
 }

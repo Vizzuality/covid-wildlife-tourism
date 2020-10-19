@@ -1,83 +1,24 @@
-![Posso Ir? Logo](https://raw.github.com/simaob/posso-ir-api/master/posso-ir.png)
-
-# README - Posso Ir API [![Build Status](https://travis-ci.org/simaob/posso-ir-api.svg?branch=master)](https://travis-ci.org/simaob/posso-ir-api)
-
-## Intro
-
-This tool is part of the [Posso Ir?](https://www.posso-ir.com) application.
-In this project we have the backoffice, data importing scripts and the API
-that powers the mobile applications.
-
-__Posso Ir?__ is an application that we started building when the
-[Coronavirus Pandemic](https://en.wikipedia.org/wiki/2019%E2%80%9320_coronavirus_pandemic)
-started hitting Portugal. The goal of the application is to rally the power of
-the people to report on the sizes of queues outsied of essential stores and services
-like Supermarkets, Pharmacies, Post Office, Banks, etc. In a time of recommended
-social distancing we want to help people decide when is the best time to buy the
-things they need, and where to go.
-
-Everyone using the application is invited to contribute with info about the shops
-they visit. So that we can all help each other in this time of need and uncertainty.
-
-__Posso Ir?__ is part of the [Tech4Covid19 Movement](https://tech4covid19.org/).
-
-
-# Contributing and Using this
-
-If you would like to contribute or try to use this tool on your own country, feel
-free to reach out to us or to just clone the tool and have a go at it!
+# covid-wildlife-tourism
 
 ## Dependencies
 
-- Ruby on Rails 6.0.2;
-- Ruby 2.6.3;
-- PostgreSQL 12;
-- PostGIS;
-- Node 10.15.2;
+- Ruby on Rails 6.0.2
+- Ruby 2.6.3
+- PostgreSQL 12
+- PostGIS
+- Node 12.16.1
 
 ## Setting up the project locally
 
-1. Clone the repository;
-2. Install dependencies: `bundle install` and `yarn install`
-3. Create and migrate database: `rails db:create db:migrate`
-4. Start the server with `rails server`
-5. Open your browser and visit `http://localhost:3000` and ta-da!
-
-## Running the API
-
-If you want to have a go at the API you'll need to setup a JWT_TOKEN in
-your `.env` file, check the `.env.sample` file;
-
-We are using JWT for authentication on the API access. Tokenizing and
-decoding tokens is handled by `app/services/jwt_service.rb`.
-
-Check the rails routes for the available API routes.
-
-
-## Importing Data
-
-Data importing is a bit random at the time as we are using data from different
-providers in different formats, if you want some samples, message us!
-Otherwise just use the web interface to create your own stores.
-
-# Contributors
-
-This tool is being built by the following people, who are part of the larger
-__Posso Ir?__ team.
-
-* Bruno Pinto
-* Danton Dornellas
-* Francisca Fonseca
-* Hugo Dias
-* Joana Silva
-* João Crisóstomo
-* João Lobato
-* João Rodrigues
-* Luís Certo
-* Miguel Torres
-* Paulo Leite
-* Pedro Bertucci
-* Rafael Pires
-* Rodrigo Solís
-* Tiago Santos
-* Simão Belchior
+1. Clone the repository
+2. Install the Ruby dependencies: `bundle install`
+3. Create and migrate the database: `rails db:create db:migrate`
+4. Make sure you you have [Node.js](https://nodejs.org/en/) installed
+5. (Optional) Install [NVM](https://github.com/nvm-sh/nvm) to manage your different Node.js versions
+6. (Optional) Use [Visual Studio Code](https://code.visualstudio.com/) as a text editor to benefit from automatic type checking
+7. Configure your text editor with the [Prettier](https://prettier.io/), [ESLint](https://eslint.org/) and [EditorConfig](https://editorconfig.org/) plugins
+8. Use the correct Node.js version for this app by running `nvm use`; if you didn't install NVM (step 5), then manually install the Node.js version described in `.nvmrc`
+9. Install the JS dependencies: `yarn`
+10. Create a `.env` file at the root of the project by copying `.env.default` and giving a value for each of the variables
+11. Start the server with `rails server`
+12. Open your browser and visit `http://localhost:3000` and ta-da!
