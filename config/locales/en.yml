@@ -96,25 +96,14 @@ en:
   views:
     layout:
       application:
-        title: 'Can I Go?'
-        page_time: 'Server time'
+        title: 'Covid Wildlife Tourism'
     home:
       index:
-        title: 'Can I Go?'
-        intro_html: 'In order to contribute to reducing the size of queues in stores and thus helping keep social distance, the application <i>Can I Go?</i> was born. See how you can contribute.'
-        store_owner: 'Own a shop?'
-        store_owner_1: 'Sign up and get your store owner code.'
-        store_owner_2: 'Add or claim your store.'
-        store_owner_3: 'Record the status of the queues on the website or in the application.'
-        store_owner_4: 'Help your customers!'
+        title: 'Covid Wildlife Tourism'
+        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt tincidunt lectus, a laoreet mauris. Vivamus vestibulum consequat neque at consequat. Aliquam ex augue, semper in eleifend ut, maximus id. '
+        log_in: 'Log in'
         register: 'Register'
-        contributor: 'Want to help out?'
-        contributor_1: 'Sign up to the website.'
-        contributor_2: 'Add missing stores near you.'
-        contributor_3: 'Report issues with existing stores.'
-        contributor_4: 'Help us offer a complete service!'
-        download_the_app: 'Download the app'
-        download_intro: "If you don't have the application yet download it now for your mobile phone."
+        explore: 'Explore the map'
     stats:
       index:
         title: 'Usage statistics'
@@ -158,7 +147,7 @@ en:
         creating: 'Adding store'
         remove_note: 'NOTE: When marking a store for deletion, please write the reason on the details field.'
     edit:
-      title: "Editing %{resource}"
+      title: 'Editing %{resource}'
     shared:
       navbar:
         stats: 'Metrics'
@@ -191,14 +180,15 @@ en:
         help_group: "Example: Tesco, Sainsbury's, Cooperative, etc."
         help_country: 'Example: Portugal, España, United Kingdom, etc.'
         help_coordinates: 'Latitude and Longitude are required for the store to be available in the application.'
-        help_state_html: "<strong>Waiting approval</strong>: An Admin will review the information and approve it;<br>
-                     <strong>Live</strong>: Store is available in the application;<br>
-                    <strong>Marked for deletion</strong>: The information will be reviewed and confirmed by an admin."
+        help_state_html:
+          '<strong>Waiting approval</strong>: An Admin will review the information and approve it;<br>
+          <strong>Live</strong>: Store is available in the application;<br>
+          <strong>Marked for deletion</strong>: The information will be reviewed and confirmed by an admin.'
         info_deleting: 'NOTE: When marking a store for deletion, please write the reason on the details field.'
         phone_number: 'Phone Numbers'
-        add_phone: "Add Phone"
-        schedule: "Schedule"
-        phone_call_interval: "Phone Call Interval (minutes)"
+        add_phone: 'Add Phone'
+        schedule: 'Schedule'
+        phone_call_interval: 'Phone Call Interval (minutes)'
     beaches:
       index:
         title: 'Beaches'
@@ -241,9 +231,9 @@ en:
         latest_status: 'Last state reported'
         state_valid_until: '%{state} | Valid until %{time}'
         state_invalid: '%{state} | Expired'
-        "0": 'No queue'
-        "5": 'Average queue'
-        "10": 'Long queue'
+        '0': 'No queue'
+        '5': 'Average queue'
+        '10': 'Long queue'
     status_store_owners:
       new:
         title: 'Updatings state of store %{resource}'
@@ -253,9 +243,9 @@ en:
         title_latest: 'Last state reported'
         valid_until: 'Valid until %{time}'
         expired_on: 'Expired at %{time}'
-        "0": 'No queue'
-        "5": 'Average queue'
-        "10": 'Long queue'
+        '0': 'No queue'
+        '5': 'Average queue'
+        '10': 'Long queue'
     status_estimations:
       index:
-        title: "Estimated Statuses"
+        title: 'Estimated Statuses'

@@ -1,5 +1,25 @@
+@import 'settings';
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-display: swap;
+}
+
+.font-base {
+  font-size: $font-size-base;
+}
+
+.font-s {
+  font-size: $font-size-s;
+}
+
+.background-black {
+  color: $text-color-3;
+  background: $background-color-1;
+}
+
+.background-white {
+  color: $body-color;
+  background: $body-bg;
 }

@@ -1,60 +1,22 @@
-<div class="home-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <div class="container">
-    <h1 class="display-4"><%= t('views.home.index.title') %></h1>
-    <p class="lead text-muted">
-      <%= t('views.home.index.intro_html') %>
-    </p>
-  </div>
-</div>
-<% if current_user %>
-  <div class="container">
-  </div>
-<% else %>
-  <div class="container">
-    <div class="card-deck mb-3 text-center">
-      <div class="card mb-6 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal"><%= t('views.home.index.store_owner') %></h4>
-        </div>
-        <div class="card-body">
-          <ol class="text-left mt-3 mb-4">
-            <li><%= t('views.home.index.store_owner_1') %></li>
-            <li><%= t('views.home.index.store_owner_2') %></li>
-            <li><%= t('views.home.index.store_owner_3') %></li>
-            <li><%= t('views.home.index.store_owner_4') %></li>
-          </ol>
-          <%= link_to t('views.home.index.register'), new_user_registration_path(role: :store_owner), class: 'btn btn-lg btn-block btn-primary' %>
-        </div>
-      </div>
-      <div class="card mb-6 shadow-sm">
-        <div class="card-header">
-          <h4 class="my-0 font-weight-normal"><%= t('views.home.index.contributor') %></h4>
-        </div>
-        <div class="card-body">
-          <ol class="text-left mt-3 mb-4">
-            <li><%= t('views.home.index.contributor_1') %></li>
-            <li><%= t('views.home.index.contributor_2') %></li>
-            <li><%= t('views.home.index.contributor_3') %></li>
-            <li><%= t('views.home.index.contributor_4') %></li>
-          </ol>
-          <%= link_to t('views.home.index.register'), new_user_registration_path(role: :contributor), class: 'btn btn-lg btn-block btn-primary' %>
-        </div>
+<div class="vh-100">
+  <div class="h-100 d-flex flex-column">
+    <div class="background-black py-4 flex-shrink-0">
+      <div class="container">
+        <h1 class="mt-0 mb-4 font-base text-center">
+          <%= t('views.home.index.title') %>
+        </h1>
+        <p class="font-s">
+          <%= t('views.home.index.intro') %>
+        </p>
+
+        <%= link_to t('views.home.index.log_in'), new_user_session_path, class: 'mt-4 btn btn-block btn-secondary' %>
+        <%= link_to t('views.home.index.register'), new_user_registration_path, class: 'btn btn-block btn-primary' %>
       </div>
     </div>
-  </div>
-<% end %>
-<hr>
-<div class="home-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-  <div class="container">
-    <h2 class="display-5"><%= t('views.home.index.download_the_app') %></h2>
-    <p class="lead text-muted">
-      <%= t('views.home.index.download_intro') %>
-    </p>
-    <a href="https://apps.apple.com/pt/app/posso-ir/id1503226327?l=pt", class="btn btn-lg btn-outline-dark">
-      Apple Store (iOS)
-    </a>
-    <a href="https://play.google.com/store/apps/details?id=com.findlapa.possoir", class="btn btn-lg btn-outline-success">
-      Play Store (Android)
-    </a>
+    <div class="flex-shrink-0 flex-grow-1 d-flex justify-content-center align-items-center" style="background: no-repeat url(<%= asset_path 'homepage-map-background.jpg' %>); background-size: cover;">
+      <div class="container">
+        <%= link_to t('views.home.index.explore'), map_index_path, class: 'my-5 btn btn-block btn-black' %>
+      </div>
+    </div>
   </div>
 </div>
