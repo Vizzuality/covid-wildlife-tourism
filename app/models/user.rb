@@ -42,7 +42,7 @@ class User < ApplicationRecord
   has_many :stores, through: :user_stores
   has_many :created_stores, class_name: 'Store', foreign_key: :created_by_id, inverse_of: :created_by
 
-  enum role: {user: 0, store_owner: 1, general_manager: 2, admin: 3, contributor: 4}
+  enum role: {user: 0, admin: 1}
 
   def self.search(search)
     return all unless search

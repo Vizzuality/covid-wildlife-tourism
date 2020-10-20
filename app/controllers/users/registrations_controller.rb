@@ -44,8 +44,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
     permitted_keys = [:name]
-    permitted_keys << :role if %w[store_owner contributor].include?(params[:user][:role])
-    permitted_keys << {store_ids: []} if params[:user][:role] == 'store_owner'
 
     devise_parameter_sanitizer.permit(:sign_up, keys: permitted_keys)
   end

@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_current_user
-  before_action :set_locale
   before_action :make_action_mailer_use_request_host_and_protocol
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -18,31 +17,9 @@ class ApplicationController < ActionController::Base
     ::Current.user = current_user
   end
 
-  def set_locale
-    I18n.locale = params_locale || domain_locale || I18n.default_locale
-
-    response.headers['Content-Language'] = I18n.locale.to_s
-  end
-
-  def params_locale
-    parsed_locale = params[:locale]
-    I18n.available_locales.map(&:to_s).include?(parsed_locale) ? parsed_locale : nil
-  end
-
-  DOMAIN_LOCALES = {
-    'api.posso-ir.com' => 'pt',
-    'api.puedo-ir.es' => 'es',
-    'api.puedo-ir.com' => 'es',
-    'api.can-i-go.co.uk' => 'en',
-    'api.necakajvrade.com' => 'sk'
-  }.freeze
-
-  def domain_locale
-    DOMAIN_LOCALES[request.host]
-  end
-
-  def default_url_options
-    {locale: I18n.locale}
+  # The path used after signing in
+  def after_sign_in_path_for(resource)
+    map_index_path
   end
 
   def make_action_mailer_use_request_host_and_protocol
