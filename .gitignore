@@ -43,3 +43,11 @@ coverage/
 /config/credentials/staging.key
 
 /config/credentials/production.key
+
+# misc
+.DS_Store
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
