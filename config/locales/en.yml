@@ -101,8 +101,6 @@ en:
       index:
         title: 'Covid Wildlife Tourism'
         intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt tincidunt lectus, a laoreet mauris. Vivamus vestibulum consequat neque at consequat. Aliquam ex augue, semper in eleifend ut, maximus id. '
-        log_in: 'Log in'
-        register: 'Register'
         explore: 'Explore the map'
     stats:
       index:
@@ -149,6 +147,10 @@ en:
     edit:
       title: 'Editing %{resource}'
     shared:
+      log_in: Log in
+      register: 'Register'
+      forgot_password: Forgot my password
+      resend_confirmation_instructions: Resend confirmation instructions
       navbar:
         stats: 'Metrics'
         current: 'Current'

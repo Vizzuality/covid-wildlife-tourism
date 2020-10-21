@@ -24,6 +24,11 @@ $body-bg: white;
 $body-color: $text-color-1;
 
 $background-color-1: $blackish;
+$background-color-2: #323232;
+
+$border-color-1: #888888;
+$border-color-2: $primary;
+$border-color-3: $white;
 
 // Typography
 $font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
@@ -55,6 +60,35 @@ $btn-block-spacing-y: map-get($spacers, 3);
 // $btn-border-radius: 0;
 // $btn-border-radius-sm: $btn-border-radius;
 // $btn-border-width: rem(2);
+
+// Forms
+
+$input-font-family: $font-family-base;
+$input-font-size: $font-size-base;
+$input-font-weight: $font-weight-base;
+$input-line-height: $line-height-base;
+
+$input-height: rem(50);
+
+$input-bg: transparent;
+$input-focus-bg: $input-bg;
+
+$input-color: $body-color;
+$input-color-secondary: $white;
+$input-focus-color: $input-color;
+$input-focus-color-secondary: $white;
+
+$input-border-color: $border-color-1;
+$input-border-color-secondary: $border-color-3;
+$input-focus-border-color: $body-color;
+$input-focus-border-color-secondary: $border-color-2;
+
+$input-box-shadow: none;
+$input-box-shadow-secondary: none;
+$input-focus-box-shadow: 0 0 0 $input-btn-focus-width rgba($border-color-1, 0.25);
+$input-focus-box-shadow-secondary: 0 0 0 $input-btn-focus-width rgba($border-color-3, 0.25);
+
+$form-text-margin-top: map-get($spacers, 2);
 
 // Controls
 

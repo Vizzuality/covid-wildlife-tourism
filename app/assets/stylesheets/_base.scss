@@ -6,17 +6,45 @@ body {
   font-display: swap;
 }
 
+label {
+  @include font-size($font-size-s);
+
+  input[type='checkbox'] + & {
+    @include font-size($font-size-base);
+  }
+}
+
 .font-base {
-  font-size: $font-size-base;
+  @include font-size($font-size-base);
 }
 
 .font-s {
-  font-size: $font-size-s;
+  @include font-size($font-size-s);
 }
 
 .background-black {
   color: $text-color-3;
   background: $background-color-1;
+
+  a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
+    color: $white;
+  }
+
+  .form-control {
+    color: $input-color-secondary;
+    border: $input-border-width solid $input-border-color-secondary;
+
+    &:focus {
+      color: $input-color-secondary;
+      border-color: $input-focus-border-color-secondary;
+      @if $enable-shadows {
+        @include box-shadow($input-box-shadow-secondary, $input-focus-box-shadow-secondary);
+      } @else {
+        // Avoid using mixin so we can pass custom focus shadow properly
+        box-shadow: $input-focus-box-shadow-secondary;
+      }
+    }
+  }
 }
 
 .background-white {
