@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-		<meta name="description" content="">
-    <title><%= [yield(:page_title).presence, t('views.layout.application.title')].compact.join(' | ') %></title>
-    <%= stylesheet_link_tag "application", media: "all" %>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-  </head>
-  <body>
-    <%= yield %>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <title><%= [yield(:page_title).presence, t('views.layout.application.title')].compact.join(' | ') %></title>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+</head>
+
+<body>
+  <%= yield %>
+</body>
+
 </html>

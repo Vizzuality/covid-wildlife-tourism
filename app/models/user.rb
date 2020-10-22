@@ -3,25 +3,32 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
+#  email                  :string           default("")
+#  encrypted_password     :string           default("")
 #  name                   :string
 #  reset_password_token   :string
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  role                   :integer          default("0")
+#  app_uuid               :string
+#  last_post              :datetime
+#  role                   :integer          default("user")
+#  store_owner_code       :string
 #  confirmation_token     :string
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
 #  unconfirmed_email      :string
 #  phone                  :string
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
+#  badges_tracker         :jsonb
+#  badges_won             :string           default("")
+#  organization           :string
+#  position               :string
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -29,14 +36,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :recoverable, :rememberable, :registerable,
          :confirmable, :trackable
 
-  with_options if: :admin? do
-    validates :email, presence: true
-    validates :password, presence: true, if: :password_required?
-    validates :password, confirmation: true, if: :password_required?
-    validates :password, length: {within: 8..128, allow_blank: true}
-  end
+  validates :name, presence: true
+  validates :email, presence: true
   validates :email, uniqueness: true, unless: proc { |u| u.email.blank? }
-  validates :phone, uniqueness: true, unless: proc { |u| u.phone.blank? }
+  validates :password, length: {within: 8..128, allow_blank: true}
+  validates :password, presence: true
+  validates :password, confirmation: true
 
   has_many :user_stores, inverse_of: :manager
   has_many :stores, through: :user_stores
@@ -56,13 +61,4 @@ class User < ApplicationRecord
     name.presence || email.presence || "ID: #{id}"
   end
   alias_method :text, :display_name
-
-  protected
-
-  # Checks whether a password is needed or not. For validations only.
-  # Passwords are always required if it's a new record, or if the password
-  # or confirmation are being set somewhere.
-  def password_required?
-    admin? && (!persisted? || !password.nil? || !password_confirmation.nil?)
-  end
 end

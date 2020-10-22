@@ -13,10 +13,10 @@
   <%= f.password_field :password, required: true, autocomplete: "current-password", class: 'form-control' %>
   <div class="form-text">
     <%- if devise_mapping.recoverable? %>
-    <%= link_to t('views.shared.forgot_password'), new_password_path(resource_name), class: 'd-block' %>
+    <%= link_to t('views.devise.sessions.forgot_password'), new_password_path(resource_name), class: 'd-block' %>
     <% end %>
     <%- if devise_mapping.confirmable? %>
-    <%= link_to t('views.shared.resend_confirmation_instructions'), new_user_confirmation_path(resource_name), class: 'd-block mt-2' %>
+    <%= link_to t('views.devise.sessions.resend_confirmation_instructions'), new_user_confirmation_path, class: 'd-block mt-2' %>
     <% end %>
   </div>
 </div>

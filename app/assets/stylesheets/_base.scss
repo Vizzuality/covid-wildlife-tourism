@@ -32,7 +32,10 @@ label {
 
   .form-control {
     color: $input-color-secondary;
-    border: $input-border-width solid $input-border-color-secondary;
+
+    &:not(.is-invalid) {
+      border: $input-border-width solid $input-border-color-secondary;
+    }
 
     &:focus {
       color: $input-color-secondary;

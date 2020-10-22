@@ -17,11 +17,6 @@ class ApplicationController < ActionController::Base
     ::Current.user = current_user
   end
 
-  # The path used after signing in
-  def after_sign_in_path_for(resource)
-    map_index_path
-  end
-
   def make_action_mailer_use_request_host_and_protocol
     ActionMailer::Base.default_url_options[:protocol] = request.protocol
     ActionMailer::Base.default_url_options[:host] = request.host_with_port

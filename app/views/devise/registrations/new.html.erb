@@ -1,51 +1,39 @@
-<h2><%= t('.sign_up') %></h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="form-group">
-    <%= f.label :name, class: 'col-sm-4 col-form-label' %>
-    <%= f.text_field :name, autofocus: true, autocomplete: "name", class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email, class: 'col-sm-4 col-form-label' %>
-    <%= f.email_field :email, autocomplete: "email", class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :role, class: "col-sm-2 col-form-label" %><br />
-    <%= f.hidden_field :role, value: params[:role] %>
-    <%= text_field_tag :display_role, nil, value: t("activerecord.enums.user.roles.#{params[:role]}"),
-      class: 'form-control', readonly: true %>
-  </div>
-
-  <% if params[:role] == 'store_owner' %>
-    <div class="form-group">
-      <%= f.label :store_ids, value: Store.model_name.human(count: 2), class: "col-sm-2 col-form-label" %>
-      <%= f.select :store_ids, [], {}, {class: "form-control store-managers-select", multiple: true} %>
-      <small class="form-text text-muted">
-        <%= t('views.devise.registrations.new.help_stores') %>
-      </small>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :password, class: 'col-sm-4 col-form-label' %>
-    <% if @minimum_password_length %>
-      <em><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation, class: 'col-sm-4 col-form-label' %>
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
-  </div>
+<% content_for :title do %>
+<%= t('views.shared.register') %>
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<div class="form-group">
+  <%= f.label :name %>
+  <%= f.text_field :name, required: true, autofocus: true, autocomplete: "name", class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email %>
+  <%= f.email_field :email, required: true, autocomplete: "email", class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :password %>
+  <%= f.password_field :password, required:true, autocomplete: "new-password", class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :organization %>
+  <%= f.text_field :organization, autocomplete: "organization", class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :position %>
+  <%= f.text_field :position, class: 'form-control' %>
+</div>
+
+<div class="form-group mt-5">
+  <%= f.submit t('views.shared.register'), class: 'btn btn-block btn-secondary' %>
+</div>
+<% end %>

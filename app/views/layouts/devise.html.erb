@@ -30,12 +30,22 @@
           <%= yield %>
         </div>
       </div>
-      <% flash.each do |type, msg| %>
+      <% flash.reject { |key| key == :timedout }.each do |type, value| %>
+      <% if !value.kind_of?(Array) %>
+      <div class="flex-shrink-0 py-3 text-center c-notification">
+        <div class="container">
+          <%= value %>
+        </div>
+      </div>
+      <% else %>
+      <% value.each do |msg| %>
       <div class="flex-shrink-0 py-3 text-center c-notification">
         <div class="container">
           <%= msg %>
         </div>
       </div>
+      <% end %>
+      <% end %>
       <% end %>
     </div>
     <div>
