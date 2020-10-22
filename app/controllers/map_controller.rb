@@ -1,4 +1,6 @@
 class MapController < ApplicationController
+  skip_before_action :authenticate_user!
+
   include EnumI18nHelper
 
   # GET /stores
@@ -74,29 +76,29 @@ class MapController < ApplicationController
     end
   end
 
-  private
+  # private
 
-  def map_params
-    params.permit(:name, :group, :street, :city,
-                  :zip_code, :country, :district, :store_type,
-                  :latitude, :longitude, :capacity, :details, :coordinates)
-  end
+#   def map_params
+#     params.permit(:name, :group, :street, :city,
+#                   :zip_code, :country, :district, :store_type,
+#                   :latitude, :longitude, :capacity, :details, :coordinates)
+#   end
 
-  def default_bounds
-    bounds = {
-      'pt' => [
-        [-8.693305501609501, 41.11531424472605],
-        [-8.520026252042584, 41.17823491872437]
-      ],
-      'es' => [
-        [-3.941566736714776, 40.328785315750025],
-        [-3.4482048268615415, 40.515118259540344]
-      ],
-      'sk' => [
-        [16.641476790705553, 47.6684309174384],
-        [22.732738732476804, 49.66387636689515]
-      ]
-    }
-    bounds.fetch(I18n.locale.to_s) { bounds['pt'] }
-  end
+#   def default_bounds
+#     bounds = {
+#       'pt' => [
+#         [-8.693305501609501, 41.11531424472605],
+#         [-8.520026252042584, 41.17823491872437]
+#       ],
+#       'es' => [
+#         [-3.941566736714776, 40.328785315750025],
+#         [-3.4482048268615415, 40.515118259540344]
+#       ],
+#       'sk' => [
+#         [16.641476790705553, 47.6684309174384],
+#         [22.732738732476804, 49.66387636689515]
+#       ]
+#     }
+#     bounds.fetch(I18n.locale.to_s) { bounds['pt'] }
+#   end
 end
