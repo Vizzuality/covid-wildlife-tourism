@@ -7,10 +7,12 @@
 
 $primary: #f5cf00;
 $blackish: #111111;
+$grey-1: #888888;
 
 $text-color-1: #222222;
 $text-color-2: $primary;
 $text-color-3: #d8d8d8;
+$text-color-4: $grey-1;
 
 $theme-colors: (
   'primary': $primary,
@@ -26,7 +28,7 @@ $body-color: $text-color-1;
 $background-color-1: $blackish;
 $background-color-2: #323232;
 
-$border-color-1: #888888;
+$border-color-1: $grey-1;
 $border-color-2: $primary;
 $border-color-3: $white;
 

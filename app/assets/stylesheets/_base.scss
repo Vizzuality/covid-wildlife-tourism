@@ -8,9 +8,15 @@ body {
 
 label {
   @include font-size($font-size-s);
+  color: $text-color-4;
+
+  &.required:after {
+    content: ' *';
+  }
 
   input[type='checkbox'] + & {
     @include font-size($font-size-base);
+    color: currentColor;
   }
 }
 
