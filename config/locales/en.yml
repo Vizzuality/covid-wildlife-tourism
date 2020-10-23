@@ -21,8 +21,11 @@ en:
       sessions:
         forgot_password: Forgot my password
         resend_confirmation_instructions: Resend confirmation instructions
+    map:
+      edit_profile: Edit profile
     shared:
       log_in: Log in
+      log_out: Log out
       register: 'Register'
     stats:
       index:
@@ -51,21 +54,6 @@ en:
       approve_all: 'Approve listed'
       confirm_destroy: 'Are you sure you want to remove this record? This action is permanent'
       download: 'Download (.csv)'
-    map:
-      index:
-        title: 'Map'
-        add_store: 'Create store'
-        edit: 'Edit'
-        delete_store: 'Delete store'
-        cancel: 'Cancel'
-        delete: 'Delete'
-        close: 'Close'
-        save: 'Save'
-        confirm: 'Confirm'
-        editing: 'Editing store'
-        deleting: 'Deleting store'
-        creating: 'Adding store'
-        remove_note: 'NOTE: When marking a store for deletion, please write the reason on the details field.'
     edit:
       title: 'Editing %{resource}'
     form:

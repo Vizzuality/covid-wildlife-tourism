@@ -20,6 +20,10 @@ label {
   }
 }
 
+a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
+  color: $body-color;
+}
+
 .font-base {
   @include font-size($font-size-base);
 }

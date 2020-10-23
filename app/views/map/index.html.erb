@@ -1,1 +1,25 @@
-Hello world!
+<div class="d-flex flex-column c-drawer">
+  <div class="flex-shrink-0 pt-5 pb-4 background-black">
+    <div class="container">
+      <% if user_signed_in? %>
+      <%= current_user.display_name %>
+      <% else %>
+      <%= link_to t("views.shared.log_in"), new_user_session_path %>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex-grow-1 py-5 d-flex flex-column justify-content-between background-white">
+    <div class="container">
+    </div>
+    <div class="container">
+      <% if user_signed_in? %>
+      <%= link_to t("views.map.edit_profile"), edit_user_registration_path, class: 'd-block mb-4' %>
+      <%= link_to t("views.shared.log_out"), destroy_user_session_path, class: 'd-block' %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  Hello world!
+</div>

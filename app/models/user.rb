@@ -58,7 +58,8 @@ class User < ApplicationRecord
   end
 
   def display_name
-    name.presence || email.presence || "ID: #{id}"
+    name.presence || email.presence.split('@')[0]
   end
+
   alias_method :text, :display_name
 end
