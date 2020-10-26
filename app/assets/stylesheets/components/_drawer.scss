@@ -1,5 +1,15 @@
 @import 'settings';
 
+@keyframes drawer-translate {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
 .c-drawer {
   position: fixed;
   top: 0;
@@ -8,16 +18,5 @@
   max-width: rem(290);
   height: 100vh;
   overflow: hidden;
-
-  &:after {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba($black, 0.3);
-    z-index: -1;
-    content: '';
-  }
+  animation: drawer-translate 300ms 150ms 1 both;
 }

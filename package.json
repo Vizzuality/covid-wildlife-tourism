@@ -17,6 +17,7 @@
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.2.1",
+    "a11y-dialog": "^5.4.2",
     "bootstrap": "^4.4.1",
     "dotenv": "^8.2.0",
     "webpack": "^4.42.2"
