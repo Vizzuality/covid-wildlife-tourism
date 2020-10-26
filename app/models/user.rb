@@ -40,8 +40,8 @@ class User < ApplicationRecord
   validates :email, presence: true
   validates :email, uniqueness: true, unless: proc { |u| u.email.blank? }
   validates :password, length: {within: 8..128, allow_blank: true}
-  validates :password, presence: true
-  validates :password, confirmation: true
+  validates :password, presence: true, if: :password_required?
+  validates :password, confirmation: true, if: :password_required?
 
   has_many :user_stores, inverse_of: :manager
   has_many :stores, through: :user_stores
@@ -62,4 +62,13 @@ class User < ApplicationRecord
   end
 
   alias_method :text, :display_name
+
+  protected
+
+  # Checks whether a password is needed or not. For validations only.
+  # Passwords are always required if it's a new record, or if the password
+  # or confirmation are being set somewhere.
+  def password_required?
+    admin? && (!persisted? || !password.nil? || !password_confirmation.nil?)
+  end
 end

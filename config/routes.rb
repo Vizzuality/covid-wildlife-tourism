@@ -12,6 +12,12 @@ Rails.application.routes.draw do
       sign_up: 'register'
     }
 
+  scope '/users' do
+    devise_scope :user do
+      get :close, to: 'users/registrations#destroy', as: 'close_user_registration'
+    end
+  end
+
   root to: "home#index"
   resources :stats, only: [:index]
   resources :stores do
