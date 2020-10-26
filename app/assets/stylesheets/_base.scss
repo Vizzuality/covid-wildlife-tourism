@@ -82,7 +82,7 @@ a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
   width: 100%;
   height: 100vh;
   background: rgba($black, 0.3);
-  z-index: -1;
+  z-index: 1;
   animation: dialog-fade-in 200ms 1 both;
 }
 

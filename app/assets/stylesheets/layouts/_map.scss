@@ -1,0 +1,21 @@
+@import 'settings';
+
+.l-map {
+  .drawer-button,
+  .locate-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: rem(50);
+    height: rem(50);
+    border-radius: 100%;
+
+    svg path {
+      fill: currentColor;
+    }
+  }
+
+  .pin-button {
+    border-radius: rem(25);
+  }
+}

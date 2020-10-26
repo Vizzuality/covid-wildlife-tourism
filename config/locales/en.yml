@@ -27,6 +27,9 @@ en:
         new_password_confirmation: New password confirmation
         update: Update
         close_account: Close account
+    map:
+      open_drawer: Open drawer menu
+      locate_me: Locate me
     shared:
       log_in: Log in
       log_out: Log out
