@@ -24,30 +24,33 @@
 </div>
 
 <div id="main" class="l-map">
-  <div class="container">
-    <div class="position-relative">
-      <div class="position-absolute w-100 mt-2 d-flex justify-content-between">
-        <button type="button" class="btn btn-black drawer-button" data-a11y-dialog-show="drawer">
-          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.open_drawer') %>">
-            <path d="M22 16.111v2.222H2v-2.222h20zm0-5.555v2.222H2v-2.222h20zM22 5v2.222H2V5h20z" fill-rule="evenodd" /></svg>
-        </button>
-        <button type="button" class="flex-grow-1 mx-3 btn btn-primary text-center pin-button">
-          <svg class="d-inline-block mr-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(2 2)" fill-rule="nonzero" fill="none">
-              <path d="M9.684 16.387a.499.499 0 0 0 .632 0C10.55 16.197 16 11.672 16 6A6 6 0 1 0 4 6c0 5.672 5.451 10.197 5.684 10.387zM7 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" fill="#222" />
-              <circle cx="10" cy="6" r="2" />
-              <path d="M13.764 14.204a20.258 20.258 0 0 1-2.816 2.958 1.499 1.499 0 0 1-1.898-.002 20.226 20.226 0 0 1-2.814-2.956C3.014 14.566 0 15.446 0 17c0 1.97 5.03 3 10 3s10-1.03 10-3c0-1.554-3.014-2.434-6.236-2.796z" fill="#FFF" />
-            </g>
-          </svg>
-          Add pin</button>
-        <button type="button" class="btn btn-secondary locate-button">
-          <svg width="26" height="26" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.locate_me') %>">
-            <g fill-rule="nonzero" transform="translate(-303 -99)">
-              <path d="M316 119.607a7.561 7.561 0 0 0 7.608-7.607 7.562 7.562 0 0 0-7.607-7.607 7.562 7.562 0 0 0-7.607 7.607 7.562 7.562 0 0 0 7.607 7.607zm9.753-8.68h1.174a1.072 1.072 0 1 1 0 2.145h-1.174c-.51 4.545-4.136 8.17-8.68 8.681v1.174a1.072 1.072 0 1 1-2.145 0v-1.174c-4.545-.51-8.17-4.136-8.681-8.68h-1.174a1.072 1.072 0 1 1 0-2.145h1.174c.51-4.545 4.136-8.17 8.68-8.681v-1.174a1.072 1.072 0 1 1 2.145 0v1.174c4.545.51 8.17 4.136 8.681 8.68z" stroke="#FFF" stroke-width=".3" />
-              <path d="M318.179 112a2.179 2.179 0 1 1-4.358 0 2.179 2.179 0 0 1 4.358 0z" />
-            </g>
-          </svg>
-        </button>
+  <div id="map" class="vw-100 vh-100"></div>
+  <div class="position-absolute w-100" style="top: 0;">
+    <div class="container">
+      <div class="position-relative">
+        <div class=" mt-2 d-flex justify-content-between">
+          <button type="button" class="btn btn-black drawer-button" data-a11y-dialog-show="drawer">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.open_drawer') %>">
+              <path d="M22 16.111v2.222H2v-2.222h20zm0-5.555v2.222H2v-2.222h20zM22 5v2.222H2V5h20z" fill-rule="evenodd" /></svg>
+          </button>
+          <button type="button" class="flex-grow-1 mx-3 btn btn-primary text-center pin-button">
+            <svg class="d-inline-block mr-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(2 2)" fill-rule="nonzero" fill="none">
+                <path d="M9.684 16.387a.499.499 0 0 0 .632 0C10.55 16.197 16 11.672 16 6A6 6 0 1 0 4 6c0 5.672 5.451 10.197 5.684 10.387zM7 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" fill="#222" />
+                <circle cx="10" cy="6" r="2" />
+                <path d="M13.764 14.204a20.258 20.258 0 0 1-2.816 2.958 1.499 1.499 0 0 1-1.898-.002 20.226 20.226 0 0 1-2.814-2.956C3.014 14.566 0 15.446 0 17c0 1.97 5.03 3 10 3s10-1.03 10-3c0-1.554-3.014-2.434-6.236-2.796z" fill="#FFF" />
+              </g>
+            </svg>
+            Add pin</button>
+          <button type="button" class="btn btn-secondary locate-button">
+            <svg width="26" height="26" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.locate_me') %>">
+              <g fill-rule="nonzero" transform="translate(-303 -99)">
+                <path d="M316 119.607a7.561 7.561 0 0 0 7.608-7.607 7.562 7.562 0 0 0-7.607-7.607 7.562 7.562 0 0 0-7.607 7.607 7.562 7.562 0 0 0 7.607 7.607zm9.753-8.68h1.174a1.072 1.072 0 1 1 0 2.145h-1.174c-.51 4.545-4.136 8.17-8.68 8.681v1.174a1.072 1.072 0 1 1-2.145 0v-1.174c-4.545-.51-8.17-4.136-8.681-8.68h-1.174a1.072 1.072 0 1 1 0-2.145h1.174c.51-4.545 4.136-8.17 8.68-8.681v-1.174a1.072 1.072 0 1 1 2.145 0v1.174c4.545.51 8.17 4.136 8.681 8.68z" stroke="#FFF" stroke-width=".3" />
+                <path d="M318.179 112a2.179 2.179 0 1 1-4.358 0 2.179 2.179 0 0 1 4.358 0z" />
+              </g>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>

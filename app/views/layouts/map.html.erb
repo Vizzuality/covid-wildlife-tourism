@@ -8,6 +8,10 @@
   <title><%= [yield(:page_title).presence, t('views.layout.application.title')].compact.join(' | ') %></title>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= javascript_pack_tag "map", defer: true %>
+  <%= preload_link_tag stylesheet_path("map"), as: :style, onload: "this.onload=null;this.rel='stylesheet'" %>
+  <noscript>
+    <%= stylesheet_link_tag "map", media: "all" %>
+  </noscript>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 </head>
