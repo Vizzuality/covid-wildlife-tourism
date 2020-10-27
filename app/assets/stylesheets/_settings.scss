@@ -94,6 +94,12 @@ $input-focus-box-shadow-secondary: 0 0 0 $input-btn-focus-width rgba($border-col
 
 $form-text-margin-top: map-get($spacers, 2);
 
+$custom-select-height: rem(50);
+$custom-select-border-color: $input-border-color;
+$custom-select-focus-border-color: $input-focus-border-color;
+$custom-select-box-shadow: none;
+$custom-select-focus-box-shadow: $input-focus-box-shadow;
+
 // Controls
 
 // $custom-control-gutter: map-get($spacers, 3);
