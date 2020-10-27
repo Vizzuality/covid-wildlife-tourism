@@ -30,6 +30,9 @@ en:
     map:
       open_drawer: Open drawer menu
       locate_me: Locate me
+      map_view: Map view
+      standard: Standard
+      satellite: Satellite
     shared:
       log_in: Log in
       log_out: Log out

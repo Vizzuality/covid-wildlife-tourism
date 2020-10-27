@@ -10,8 +10,13 @@
         <% end %>
       </div>
     </div>
-    <div class="flex-grow-1 py-5 d-flex flex-column justify-content-between background-white">
+    <div class="flex-grow-1 pt-4 pb-5 d-flex flex-column justify-content-between background-white">
       <div class="container">
+        <label for="map-view"><%= t('views.map.map_view') %></label>
+        <select class="custom-select js-map-view">
+          <option value="standard"><%= t('views.map.standard') %></option>
+          <option value="satellite"><%= t('views.map.satellite') %></option>
+        </select>
       </div>
       <div class="container">
         <% if user_signed_in? %>
