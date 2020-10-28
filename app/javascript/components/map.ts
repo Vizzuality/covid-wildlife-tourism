@@ -3,8 +3,9 @@ import mapboxgl from 'mapbox-gl';
 const EL_SELECTOR = '#map';
 
 export default class Map {
-  private map;
   private el = document.querySelector(EL_SELECTOR);
+  private map;
+  private userMarker;
 
   constructor({ mapView }: { mapView: string }) {
     this.init(mapView);
@@ -75,5 +76,23 @@ export default class Map {
 
   setMapView(mapView: string) {
     this.map.setStyle(this.getMapStyle(mapView));
+  }
+
+  setUserLocation(coordinates: [number, number]) {
+    const lngLat = [...coordinates].reverse();
+
+    if (!this.userMarker) {
+      const div = document.createElement('div');
+      div.classList.add('marker', 'user-marker')
+
+      this.userMarker = new mapboxgl.Marker({
+        element: div
+      }).setLngLat(lngLat)
+        .addTo(this.map);
+    } else {
+      this.userMarker.setLngLat(lngLat);
+    }
+
+    this.map.setCenter(lngLat);
   }
 }

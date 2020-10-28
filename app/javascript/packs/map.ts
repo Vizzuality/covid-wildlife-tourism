@@ -1,5 +1,6 @@
 import MapDrawer from 'components/map-drawer';
 import { default as MapViewSettingType } from 'components/map-view-setting';
+import { default as MapGeolocationButtonType } from 'components/map-geolocation-button';
 import { default as MapType } from 'components/map';
 
 
@@ -8,12 +9,25 @@ import { default as MapType } from 'components/map';
 
 new MapDrawer();
 
-Promise.all([import('../components/map'), import('../components/map-view-setting')])
-  .then(([{ default: Map }, { default: MapViewSetting }]) => {
-    let map: MapType, mapViewSetting: MapViewSettingType;
+Promise.all([
+  import('../components/map'),
+  import('../components/map-view-setting'),
+  import('../components/map-geolocation-button'),
+])
+  .then(([{ default: Map }, { default: MapViewSetting }, { default: MapGeolocationButton }]) => {
+    let
+      map: MapType,
+      mapViewSetting: MapViewSettingType,
+      mapGeolocationButton: MapGeolocationButtonType;
 
-    mapViewSetting = new MapViewSetting({ onChange: mapView => map.setMapView(mapView) });
+    mapViewSetting = new MapViewSetting({
+      onChange: mapView => map.setMapView(mapView)
+    });
+
+    mapGeolocationButton = new MapGeolocationButton({
+      onChange: coordinates => map.setUserLocation(coordinates)
+    });
+
     map = new Map({ mapView: mapViewSetting.mapView });
   })
   .catch((e) => console.error('Unable to load the map and/or map view setting module', e));
-

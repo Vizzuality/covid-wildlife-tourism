@@ -1,5 +1,14 @@
 @import 'settings';
 
+@keyframes map-marker-pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.8);
+  }
+}
+
 .l-map {
   .drawer-button,
   .locate-button {
@@ -17,5 +26,30 @@
 
   .pin-button {
     border-radius: rem(25);
+  }
+
+  .marker {
+    width: rem(33);
+    height: rem(33);
+    border: rem(3) solid $white;
+    border-radius: 100%;
+  }
+
+  .user-marker {
+    position: relative;
+    border: none;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: rem(3) solid $white;
+      border-radius: 100%;
+      background: $blue-1;
+      animation: map-marker-pulse 800ms 6 alternate ease-in-out;
+      content: '';
+    }
   }
 }
