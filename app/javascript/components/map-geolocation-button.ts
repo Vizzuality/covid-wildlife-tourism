@@ -13,7 +13,7 @@ export default class MapGeolocationButton {
   private getUserLocation(): Promise<[number, number]> {
     return new Promise((resolve, reject) => {
       navigator?.geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
-        resolve([latitude, longitude]);
+        resolve([longitude, latitude]);
       }, reject);
     });
   }

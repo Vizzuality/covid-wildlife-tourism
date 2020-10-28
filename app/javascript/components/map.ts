@@ -1,6 +1,8 @@
 import mapboxgl from 'mapbox-gl';
 
 const EL_SELECTOR = '#map';
+const VIEW_KEY = 'map';
+const VIEW_DEFAULT: { center: [number, number], zoom: number } = { center: [28.3, -13.67], zoom: 3 };
 
 export default class Map {
   private el = document.querySelector(EL_SELECTOR);
@@ -9,6 +11,43 @@ export default class Map {
 
   constructor({ mapView }: { mapView: string }) {
     this.init(mapView);
+  }
+
+  private get view(): { center: [number, number], zoom: number } {
+    if (this.map) {
+      return {
+        center: [
+          this.map.getCenter().longitude,
+          this.map.getCenter().latitude
+        ],
+        zoom: this.map.getZoom(),
+      };
+    }
+
+    let view = VIEW_DEFAULT;
+    try {
+      const serializedView = sessionStorage.getItem(VIEW_KEY);
+      if (serializedView) {
+        view = JSON.parse(serializedView);
+      }
+    } catch (e) {
+      console.error(`Unable to access "${VIEW_KEY}" in sessionStorage`);
+    }
+
+    return view;
+  }
+
+  private set view(view: { center: [number, number], zoom: number }) {
+    if (this.map) {
+      this.map.setCenter(view.center);
+      this.map.setZoom(view.zoom);
+    }
+
+    try {
+      sessionStorage.setItem(VIEW_KEY, JSON.stringify(view));
+    } catch (e) {
+      console.error(`Unable to set "${VIEW_KEY}" in sessionStorage`);
+    }
   }
 
   private getMapStyle(mapView: string): mapboxgl.Style {
@@ -69,8 +108,25 @@ export default class Map {
     this.map = new mapboxgl.Map({
       container: this.el,
       style: this.getMapStyle(mapView),
-      center: [28.3, -13.67],
-      zoom: 3,
+      center: this.view.center,
+      zoom: this.view.zoom,
+    });
+
+    this.map.dragRotate.disable();
+    this.map.touchZoomRotate.disableRotation();
+
+    this.map.on('dragend', () => {
+      this.view = {
+        center: this.map.getCenter(),
+        zoom: this.map.getZoom(),
+      };
+    });
+
+    this.map.on('zoomend', () => {
+      this.view = {
+        center: this.map.getCenter(),
+        zoom: this.map.getZoom(),
+      };
     });
   }
 
@@ -79,20 +135,21 @@ export default class Map {
   }
 
   setUserLocation(coordinates: [number, number]) {
-    const lngLat = [...coordinates].reverse();
-
     if (!this.userMarker) {
       const div = document.createElement('div');
       div.classList.add('marker', 'user-marker')
 
       this.userMarker = new mapboxgl.Marker({
         element: div
-      }).setLngLat(lngLat)
+      }).setLngLat(coordinates)
         .addTo(this.map);
     } else {
-      this.userMarker.setLngLat(lngLat);
+      this.userMarker.setLngLat(coordinates);
     }
 
-    this.map.setCenter(lngLat);
+    this.view = {
+      center: coordinates,
+      zoom: this.view.zoom,
+    };
   }
 }
