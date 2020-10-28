@@ -37,6 +37,8 @@
 
   .user-marker {
     position: relative;
+    width: rem(20);
+    height: rem(20);
     border: none;
 
     &:after {
@@ -47,7 +49,7 @@
       height: 100%;
       border: rem(3) solid $white;
       border-radius: 100%;
-      background: $blue-1;
+      background: $black;
       animation: map-marker-pulse 800ms 6 alternate ease-in-out;
       content: '';
     }
