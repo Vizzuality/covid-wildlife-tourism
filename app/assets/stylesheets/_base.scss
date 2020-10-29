@@ -58,6 +58,36 @@ a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
       }
     }
   }
+
+  .custom-checkbox {
+    .custom-control-label {
+      &:before {
+        border-color: $input-border-color-secondary;
+      }
+    }
+
+    .custom-control-input {
+      &:focus + .custom-control-label {
+        &:before {
+          border-color: $input-focus-border-color-secondary;
+          @if $enable-shadows {
+            @include box-shadow($input-box-shadow-secondary, $input-focus-box-shadow-secondary);
+          } @else {
+            // Avoid using mixin so we can pass custom focus shadow properly
+            box-shadow: $input-focus-box-shadow-secondary;
+          }
+        }
+      }
+
+      &:checked ~ .custom-control-label {
+        &::after {
+          background-image: escape-svg(
+            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#{$input-border-color-secondary}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>")
+          );
+        }
+      }
+    }
+  }
 }
 
 .background-white {
