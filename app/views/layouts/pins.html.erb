@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <title><%= [yield(:page_title).presence, t('views.layout.application.title')].compact.join(' | ') %></title>
+  <%= stylesheet_link_tag "application", media: "all" %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+</head>
+
+<body>
+  <div class="vh-100">
+    <div class="h-100 d-flex flex-column">
+      <div class="py-3 flex-shrink-0">
+        <div class="container">
+          <a href="<%= root_path %>" class="mr-3 text-decoration-none">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+              <title>Back</title>
+              <path d="M12 0l2.1 2.1-8.4 8.4H24v3H5.7l8.4 8.4L12 24 0 12z" fill="#222" fill-rule="evenodd" />
+            </svg>
+          </a>
+          <h1 class="d-inline-block m-0 font-base font-weight-normal"><%= yield :title %></h1>
+        </div>
+      </div>
+      <div class="flex-shrink-1 flex-grow-1 overflow-auto">
+        <div class="container py-4">
+          <%= yield %>
+        </div>
+      </div>
+      <% flash.reject { |key| key == :timedout }.each do |type, value| %>
+      <% if !value.kind_of?(Array) %>
+      <div class="flex-shrink-0 py-3 text-center c-notification">
+        <div class="container">
+          <%= value %>
+        </div>
+      </div>
+      <% else %>
+      <% value.each do |msg| %>
+      <div class="flex-shrink-0 py-3 text-center c-notification">
+        <div class="container">
+          <%= msg %>
+        </div>
+      </div>
+      <% end %>
+      <% end %>
+      <% end %>
+    </div>
+    <div>
+</body>
+
+</html>

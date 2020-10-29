@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   resources :user_stores, only: [:index, :update]
   resources :users
   resources :map
+  resources :pins, except: [:show, :destroy]
 
   require 'sidekiq/web'
   authenticate :user, ->(user) { user.admin? } do

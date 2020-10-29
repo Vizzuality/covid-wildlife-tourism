@@ -1,0 +1,58 @@
+@import 'settings';
+
+@keyframes map-marker-pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.8);
+  }
+}
+
+.c-marker {
+  display: inline-block;
+  vertical-align: middle;
+  width: rem(33);
+  height: rem(33);
+  border: rem(3) solid $white;
+  border-radius: 100%;
+
+  &.marker-sm {
+    width: rem(22);
+    height: rem(22);
+  }
+
+  &.user-marker {
+    position: relative;
+    width: rem(20);
+    height: rem(20);
+    border: none;
+
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: rem(3) solid $white;
+      border-radius: 100%;
+      background: $black;
+      animation: map-marker-pulse 800ms 6 alternate ease-in-out;
+      content: '';
+    }
+  }
+
+  &.community-marker {
+    border-radius: 0;
+    clip-path: polygon(
+      50% rem(3),
+      rem(3) calc(100% - #{rem(3)}),
+      calc(100% - #{rem(3)}) calc(100% - #{rem(3)})
+    );
+    background: $border-color-1;
+  }
+
+  &.business-marker {
+    background: $border-color-1;
+  }
+}

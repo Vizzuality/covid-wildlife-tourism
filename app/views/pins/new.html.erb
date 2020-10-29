@@ -1,0 +1,33 @@
+<% content_for :title do %>
+<%= t('views.shared.add_pin') %>
+<% end %>
+
+<p class="font-s text-muted">
+  <%= t('views.pins.add_pin_intro') %>
+</p>
+
+<%= form_for(@pin, url: pins_path, class: 'mt-5') do |f| %>
+<p>
+  <%= t('views.pins.type_intro') %>
+</p>
+
+<div class="form-group">
+  <div class="custom-control custom-radio">
+    <%= f.radio_button :store_type, 'community', class: 'custom-control-input', required: true %>
+    <%= f.label :store_type, class: 'custom-control-label', value: 'community' do %>
+    <%= t('views.pins.type_community') %> <div class="c-marker marker-sm community-marker"></div>
+    <% end %>
+  </div>
+
+  <div class="custom-control custom-radio">
+    <%= f.radio_button :store_type, 'business', class: 'custom-control-input', required: true %>
+    <%= f.label :store_type, class: 'custom-control-label', value: 'business' do %>
+    <%= t('views.pins.type_business') %> <div class="c-marker marker-sm business-marker"></div>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group mt-5">
+  <%= f.submit t('views.pins.select_location'), class: 'btn btn-block btn-black' %>
+</div>
+<% end %>

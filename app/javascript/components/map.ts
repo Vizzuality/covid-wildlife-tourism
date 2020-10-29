@@ -180,7 +180,7 @@ export default class Map {
   setUserLocation(coordinates: [number, number]) {
     if (!this.userMarker) {
       const div = document.createElement('div');
-      div.classList.add('marker', 'user-marker')
+      div.classList.add('c-marker', 'user-marker')
 
       this.userMarker = new mapboxgl.Marker({
         element: div
