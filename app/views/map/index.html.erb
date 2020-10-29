@@ -1,6 +1,6 @@
 <div id="drawer" class="dialog-container" aria-hidden="true">
   <div tabindex="-1" data-a11y-dialog-hide></div>
-  <div role="dialog" aria-label="Drawer menu" class="d-flex flex-column c-drawer">
+  <div role="dialog" aria-label="<%= t("views.map.drawer_menu") %>" class="d-flex flex-column c-drawer">
     <div class="flex-shrink-0 pt-5 pb-4 background-black">
       <div class="container">
         <% if user_signed_in? %>
@@ -28,16 +28,48 @@
   </div>
 </div>
 
+<% if !user_signed_in? %>
+<div id="login-wall" class="dialog-container" aria-hidden="true">
+  <div tabindex="-1" data-a11y-dialog-hide></div>
+  <div role="dialog" aria-label="<%= t("views.map.login_or_register") %>" class="c-login-wall">
+    <div class="background-black">
+      <div class="container">
+        <div class="position-relative">
+          <button type="button" class="position-absolute mt-2 btn btn-black" data-a11y-dialog-hide style="top: 0; right: 0;">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t("views.shared.close_dialog") %>">
+              <path d="M21.677 0l2.19 2.121-9.532 9.517.375.362-.375.362 9.532 9.517L21.677 24 12 14.625 2.323 24l-2.19-2.121 9.531-9.517L9.29 12l.374-.362-9.53-9.517L2.322 0 12 9.375 21.677 0z" fill="#FFF" fill-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+
+        <div class="pt-5 pb-4">
+          <h1 class="mt-3 mb-5 font-base text-center">
+            <%= t('views.layout.application.title') %>
+          </h1>
+          <p class="mb-5 font-s">
+            <%= t('views.map.login_wall_intro') %>
+          </p>
+
+          <%= link_to t('views.shared.log_in'), new_user_session_path, class: 'mt-4 btn btn-block btn-secondary' %>
+          <%= link_to t('views.shared.register'), new_user_registration_path, class: 'btn btn-block btn-primary' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
+
 <div id="main" class="l-map">
   <div id="map" class="vw-100 vh-100"></div>
   <div class="position-absolute w-100" style="top: 0;">
     <div class="container">
       <div class="position-relative">
-        <div class=" mt-2 d-flex justify-content-between">
+        <div class="mt-2 d-flex justify-content-between">
           <button type="button" class="btn btn-black drawer-button" data-a11y-dialog-show="drawer">
             <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.open_drawer') %>">
               <path d="M22 16.111v2.222H2v-2.222h20zm0-5.555v2.222H2v-2.222h20zM22 5v2.222H2V5h20z" fill-rule="evenodd" /></svg>
           </button>
+          <% if user_signed_in? %>
           <button type="button" class="flex-grow-1 mx-3 btn btn-primary text-center pin-button">
             <svg class="d-inline-block mr-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
               <g transform="translate(2 2)" fill-rule="nonzero" fill="none">
@@ -46,7 +78,20 @@
                 <path d="M13.764 14.204a20.258 20.258 0 0 1-2.816 2.958 1.499 1.499 0 0 1-1.898-.002 20.226 20.226 0 0 1-2.814-2.956C3.014 14.566 0 15.446 0 17c0 1.97 5.03 3 10 3s10-1.03 10-3c0-1.554-3.014-2.434-6.236-2.796z" fill="#FFF" />
               </g>
             </svg>
-            Add pin</button>
+            <%= t("views.map.add_pin") %>
+          </button>
+          <% else %>
+          <button type="button" class="flex-grow-1 mx-3 btn btn-primary text-center pin-button" data-a11y-dialog-show="login-wall">
+            <svg class="d-inline-block mr-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+              <g transform="translate(2 2)" fill-rule="nonzero" fill="none">
+                <path d="M9.684 16.387a.499.499 0 0 0 .632 0C10.55 16.197 16 11.672 16 6A6 6 0 1 0 4 6c0 5.672 5.451 10.197 5.684 10.387zM7 6a3 3 0 1 1 6 0 3 3 0 0 1-6 0z" fill="#222" />
+                <circle cx="10" cy="6" r="2" />
+                <path d="M13.764 14.204a20.258 20.258 0 0 1-2.816 2.958 1.499 1.499 0 0 1-1.898-.002 20.226 20.226 0 0 1-2.814-2.956C3.014 14.566 0 15.446 0 17c0 1.97 5.03 3 10 3s10-1.03 10-3c0-1.554-3.014-2.434-6.236-2.796z" fill="#FFF" />
+              </g>
+            </svg>
+            <%= t("views.map.add_pin") %>
+          </button>
+          <% end %>
           <button type="button" class="btn btn-secondary locate-button js-map-geolocation">
             <svg width="26" height="26" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.locate_me') %>">
               <g fill-rule="nonzero" transform="translate(-303 -99)">

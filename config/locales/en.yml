@@ -6,7 +6,6 @@ en:
         title: 'Covid Wildlife Tourism'
     home:
       index:
-        title: 'Covid Wildlife Tourism'
         intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt tincidunt lectus, a laoreet mauris. Vivamus vestibulum consequat neque at consequat. Aliquam ex augue, semper in eleifend ut, maximus id. '
         explore: 'Explore the map'
     devise:
@@ -33,11 +32,16 @@ en:
       map_view: Map view
       standard: Standard
       satellite: Satellite
+      drawer_menu: Drawer menu
+      add_pin: Add pin
+      login_or_register: Log in or register
+      login_wall_intro: To add a pin or report an error, you need to have an account.
     shared:
       log_in: Log in
       log_out: Log out
       register: 'Register'
       edit_profile: Edit profile
+      close_dialog: Close this dialog window
     stats:
       index:
         title: 'Usage statistics'
