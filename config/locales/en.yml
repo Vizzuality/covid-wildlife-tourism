@@ -36,6 +36,7 @@ en:
       add_pin: Add pin
       login_or_register: Log in or register
       login_wall_intro: To add a pin or report an error, you need to have an account.
+      protected_areas_layer: Protected areas layer
     shared:
       log_in: Log in
       log_out: Log out

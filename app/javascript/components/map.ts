@@ -9,8 +9,8 @@ export default class Map {
   private map;
   private userMarker;
 
-  constructor({ mapView }: { mapView: string }) {
-    this.init(mapView);
+  constructor({ mapView, protectedAreas }: { mapView: string, protectedAreas: boolean }) {
+    this.init(mapView, protectedAreas);
   }
 
   private get view(): { center: [number, number], zoom: number } {
@@ -50,15 +50,11 @@ export default class Map {
     }
   }
 
-  private getMapStyle(mapView: string): mapboxgl.Style {
+  private getMapStyle(): mapboxgl.Style {
     return {
       version: 8,
+      glyphs: 'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labs/VectorTileServer/resources/fonts/{fontstack}/{range}.pbf',
       sources: {
-        'carto-tiles': {
-          type: 'raster',
-          tiles: ['https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png'],
-          tileSize: 256,
-        },
         'esri-satellite': {
           type: 'raster',
           tiles: [
@@ -76,44 +72,30 @@ export default class Map {
         'protected-areas': {
           type: 'vector',
           tiles: [
-            'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_VTL/VectorTileServer/tile/{z}/{y}/{x}.pbf',
+            'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labs/VectorTileServer/tile/{z}/{y}/{x}.pbf',
           ],
         },
       },
-      layers: [
-        {
-          id: 'basemap',
-          type: 'raster',
-          source: mapView === 'standard' ? 'esri-street' : 'esri-satellite',
-          minzoom: 0,
-          maxzoom: 22,
-        },
-        // {
-        //   // Sample data coming from Half Earth
-        //   id: 'WDPA_africa_0',
-        //   type: 'fill',
-        //   source: 'protected-areas',
-        //   'source-layer': 'WDPA_africa_0',
-        //   layout: {},
-        //   paint: {
-        //     'fill-color': 'rgba(80,132,125,0.6)',
-        //     'fill-outline-color': '#FFFFFF',
-        //   },
-        // },
-      ],
+      layers: [],
     };
   }
 
-  private init(mapView: string) {
+  private init(mapView: string, protectedAreas: boolean) {
     this.map = new mapboxgl.Map({
       container: this.el,
-      style: this.getMapStyle(mapView),
+      style: this.getMapStyle(),
       center: this.view.center,
       zoom: this.view.zoom,
     });
 
     this.map.dragRotate.disable();
     this.map.touchZoomRotate.disableRotation();
+
+    this.map.on('load', () => {
+      // The order here is important: the basemap must be below the protected areas
+      this.setMapView(mapView);
+      this.toggleProtectedAreas(protectedAreas);
+    });
 
     this.map.on('dragend', () => {
       this.view = {
@@ -131,7 +113,68 @@ export default class Map {
   }
 
   setMapView(mapView: string) {
-    this.map.setStyle(this.getMapStyle(mapView));
+    if (mapView === 'standard') {
+      if (this.map.getLayer('basemap-satellite')) {
+        this.map.removeLayer('basemap-satellite');
+      }
+    } else {
+      if (this.map.getLayer('basemap-standard')) {
+        this.map.removeLayer('basemap-standard');
+      }
+    }
+
+    this.map.addLayer(
+      {
+        id: `basemap-${mapView}`,
+        type: 'raster',
+        source: mapView === 'standard' ? 'esri-street' : 'esri-satellite',
+        minzoom: 0,
+        maxzoom: 22,
+      },
+      // We make sure to display the basemap below the protected areas
+      this.map.getLayer('protected-areas-1') ? 'protected-areas-1' : undefined
+    );
+  }
+
+  toggleProtectedAreas(active: boolean) {
+    if (active) {
+      if (!this.map.getLayer('protected-areas-1')) {
+        this.map.addLayer({
+          id: 'protected-areas-1',
+          type: 'fill',
+          source: 'protected-areas',
+          'source-layer': 'WDPA_africa_0',
+          layout: {},
+          paint: {
+            'fill-color': 'rgba(80,132,125,0.6)',
+            'fill-outline-color': '#FFFFFF',
+          },
+        });
+        this.map.addLayer({
+          id: 'protected-areas-2',
+          type: 'symbol',
+          source: 'protected-areas',
+          'source-layer': 'WDPA_africa_0/label',
+          layout: {
+            'text-font': ['Tahoma Regular'],
+            'text-size': 13.3333,
+            'text-field': '{_name}',
+            'text-optional': true
+          },
+          paint: {
+            'text-color': '#000000',
+            'text-halo-width': 1,
+            'text-halo-blur': 2,
+            'text-halo-color': '#FFFFFF',
+          }
+        });
+      }
+    } else {
+      if (this.map.getLayer('protected-areas-1')) {
+        this.map.removeLayer('protected-areas-1');
+        this.map.removeLayer('protected-areas-2');
+      }
+    }
   }
 
   setUserLocation(coordinates: [number, number]) {

@@ -32,6 +32,19 @@ a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
   @include font-size($font-size-s);
 }
 
+.custom-switch {
+  .custom-control-input:checked ~ .custom-control-label {
+    &:before {
+      border-color: $background-color-1;
+      background-color: $background-color-1;
+    }
+
+    &:after {
+      background-color: $white;
+    }
+  }
+}
+
 .background-black {
   color: $text-color-3;
   background: $background-color-1;

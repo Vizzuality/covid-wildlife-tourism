@@ -17,6 +17,13 @@
           <option value="standard"><%= t('views.map.standard') %></option>
           <option value="satellite"><%= t('views.map.satellite') %></option>
         </select>
+
+        <div class="mt-4 custom-control custom-switch">
+          <input type="checkbox" id="toggle-protected-areas" class="custom-control-input js-protected-areas-toggle">
+          <label class="custom-control-label" for="toggle-protected-areas">
+            <%= t("views.map.protected_areas_layer") %>
+          </label>
+        </div>
       </div>
       <div class="container">
         <% if user_signed_in? %>
