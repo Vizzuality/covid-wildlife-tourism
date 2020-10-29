@@ -119,6 +119,10 @@ $custom-control-indicator-checked-color: $body-color;
 $custom-checkbox-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'><path fill='#{$custom-control-indicator-checked-color}' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/></svg>");
 $custom-control-indicator-focus-box-shadow: $input-focus-box-shadow;
 
+$custom-control-indicator-bg-size: 75% 75%;
+
+$custom-radio-indicator-icon-checked: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'><circle r='3' fill='#{$custom-control-indicator-checked-color}'/></svg>");
+
 $custom-switch-width: rem(50);
 $custom-switch-indicator-border-radius: rem(15);
 $custom-switch-indicator-size: rem(26);

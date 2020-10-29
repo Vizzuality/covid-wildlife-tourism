@@ -14,7 +14,8 @@ label {
     content: ' *';
   }
 
-  input[type='checkbox'] + & {
+  input[type='checkbox'] + &,
+  input[type='radio'] + & {
     @include font-size($font-size-base);
     color: currentColor;
   }
@@ -42,6 +43,12 @@ a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
     &:after {
       background-color: $white;
     }
+  }
+}
+
+.custom-radio {
+  & + .custom-radio {
+    margin-top: map-get($spacers, 4);
   }
 }
 
