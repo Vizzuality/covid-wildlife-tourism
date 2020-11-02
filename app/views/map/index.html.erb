@@ -77,6 +77,7 @@
               <path d="M22 16.111v2.222H2v-2.222h20zm0-5.555v2.222H2v-2.222h20zM22 5v2.222H2V5h20z" fill-rule="evenodd" /></svg>
           </button>
           <% if user_signed_in? %>
+          <% if params[:operation].nil? || params[:operation] != 'location' %>
           <%= link_to new_pin_path, class: 'flex-grow-1 mx-3 btn btn-primary text-center pin-button' do %>
           <svg class="d-inline-block mr-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
             <g transform="translate(2 2)" fill-rule="nonzero" fill="none">
@@ -86,6 +87,14 @@
             </g>
           </svg>
           <%= t("views.shared.add_pin") %>
+          <% end %>
+          <% else %>
+          <%= link_to map_index_path, class: 'flex-grow-1 mx-3 btn btn-secondary text-center pin-button' do %>
+          <svg class="d-inline-block mr-1" width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="d-block" aria-label="<%= t("views.shared.close_dialog") %>">
+            <path d="M21.677 0l2.19 2.121-9.532 9.517.375.362-.375.362 9.532 9.517L21.677 24 12 14.625 2.323 24l-2.19-2.121 9.531-9.517L9.29 12l.374-.362-9.53-9.517L2.322 0 12 9.375 21.677 0z" fill="#222" fill-rule="evenodd" />
+          </svg>
+          <%= t("views.shared.cancel") %>
+          <% end %>
           <% end %>
           <% else %>
           <button type="button" class="flex-grow-1 mx-3 btn btn-primary text-center pin-button" data-a11y-dialog-show="login-wall">

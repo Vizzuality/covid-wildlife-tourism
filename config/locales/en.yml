@@ -50,6 +50,7 @@ en:
       edit_profile: Edit profile
       close_dialog: Close this dialog window
       add_pin: Add a pin
+      cancel: Cancel
     stats:
       index:
         title: 'Usage statistics'

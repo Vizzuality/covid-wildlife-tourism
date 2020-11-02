@@ -30,6 +30,19 @@ Promise.all([
       mapProtectedAreasToggle: MapProtectedAreasToggleType,
       mapGeolocationButton: MapGeolocationButtonType;
 
+    const onClickMap = (event) => {
+      const coords = event.lngLat.toArray();
+      const searchParams = window.location.search.substr(1);
+      const split = searchParams.split('&');
+      const nextParam = split.find(param => param.startsWith('next'))?.substr(5);
+
+      if (!nextParam) {
+        console.error('Unable to find the “next” param in the URL');
+      } else {
+        window.location.href = `${decodeURIComponent(nextParam)}&store_longitude=${coords[0]}&store_latitude=${coords[1]}`;
+      }
+    };
+
     mapViewSetting = new MapViewSetting({
       onChange: mapView => map.setMapView(mapView)
     });
@@ -45,6 +58,9 @@ Promise.all([
     map = new Map({
       mapView: mapViewSetting.mapView,
       protectedAreas: mapProtectedAreasToggle.active,
+      onClick: window.location.search.includes('operation=location')
+        ? onClickMap
+        : undefined,
     });
   })
   .catch((e) => console.error('Unable to load the map and/or map view setting module', e));

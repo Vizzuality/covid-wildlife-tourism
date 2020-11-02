@@ -9,7 +9,7 @@ class PinsController < ApplicationController
       flash[:alert] = t 'views.pins.select_type_error'
       redirect_to new_pin_path
     else
-      redirect_to map_index_path pin_params.merge(action: 'location')
+      redirect_to map_index_path pin_params.merge(operation: 'location', next: new_pin_path(pin_params))
     end
   end
 

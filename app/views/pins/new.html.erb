@@ -2,11 +2,14 @@
 <%= t('views.shared.add_pin') %>
 <% end %>
 
+<% if params[:store_type].nil? %>
 <p class="font-s text-muted">
   <%= t('views.pins.add_pin_intro') %>
 </p>
+<% end %>
 
 <%= form_for(@pin, url: pins_path, class: 'mt-5') do |f| %>
+<% if params[:store_type].nil? %>
 <p>
   <%= t('views.pins.type_intro') %>
 </p>
@@ -30,4 +33,10 @@
 <div class="form-group mt-5">
   <%= f.submit t('views.pins.select_location'), class: 'btn btn-block btn-black' %>
 </div>
+<% else %>
+Hello world!
+<pre>
+<%= params %>
+</pre>
+<% end %>
 <% end %>

@@ -1,15 +1,17 @@
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, { MapLayerMouseEvent } from 'mapbox-gl';
 
 const EL_SELECTOR = '#map';
 const VIEW_KEY = 'map';
 const VIEW_DEFAULT: { center: [number, number], zoom: number } = { center: [28.3, -13.67], zoom: 3 };
 
 export default class Map {
-  private el = document.querySelector(EL_SELECTOR);
+  private el: HTMLElement = document.querySelector(EL_SELECTOR);
   private map;
   private userMarker;
+  private callback: (event: MapLayerMouseEvent) => void | undefined;
 
-  constructor({ mapView, protectedAreas }: { mapView: string, protectedAreas: boolean }) {
+  constructor({ mapView, protectedAreas, onClick }: { mapView: string, protectedAreas: boolean, onClick?: (event: MapLayerMouseEvent) => void }) {
+    this.callback = onClick;
     this.init(mapView, protectedAreas);
   }
 
@@ -110,6 +112,10 @@ export default class Map {
         zoom: this.map.getZoom(),
       };
     });
+
+    if (this.callback) {
+      this.map.on('click', this.callback);
+    }
   }
 
   setMapView(mapView: string) {
