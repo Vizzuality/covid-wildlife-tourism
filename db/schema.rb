@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_164712) do
+ActiveRecord::Schema.define(version: 2020_11_02_155828) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,6 @@ ActiveRecord::Schema.define(version: 2020_10_21_164712) do
 
   create_table "stores", force: :cascade do |t|
     t.string "name"
-    t.string "group"
     t.string "street"
     t.string "city"
     t.string "district"
@@ -242,27 +241,28 @@ ActiveRecord::Schema.define(version: 2020_10_21_164712) do
     t.string "zip_code"
     t.float "latitude"
     t.float "longitude"
-    t.integer "capacity"
-    t.text "details"
-    t.integer "store_type", default: 1, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.geometry "lonlat", limit: {:srid=>0, :type=>"st_point"}
     t.integer "state", default: 1
-    t.text "reason_to_delete"
-    t.boolean "open", default: true
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
-    t.boolean "from_osm", default: false
-    t.bigint "original_id"
-    t.string "source"
-    t.boolean "make_phone_calls", default: false
-    t.integer "phone_call_interval", default: 60
     t.string "municipality"
     t.string "search_name"
+    t.string "website"
+    t.string "type", null: false
+    t.integer "population_size"
+    t.boolean "user_is_owner", default: false, null: false
+    t.text "owner_details"
+    t.integer "farming_reliance"
+    t.integer "wildlife_reliance"
+    t.string "enterprise_type", default: [], array: true
+    t.string "ownership"
+    t.text "reason_to_change"
+    t.bigint "related_store_id"
     t.index ["created_by_id"], name: "index_stores_on_created_by_id"
     t.index ["lonlat"], name: "index_stores_on_lonlat", using: :gist
-    t.index ["make_phone_calls"], name: "index_stores_on_make_phone_calls"
+    t.index ["related_store_id"], name: "index_stores_on_related_store_id"
     t.index ["updated_by_id"], name: "index_stores_on_updated_by_id"
   end
 
@@ -350,6 +350,7 @@ ActiveRecord::Schema.define(version: 2020_10_21_164712) do
   add_foreign_key "status_user_count_users", "stores", on_delete: :cascade
   add_foreign_key "status_user_count_users", "users", on_delete: :cascade
   add_foreign_key "statuses", "stores", on_delete: :cascade
+  add_foreign_key "stores", "stores", column: "related_store_id"
   add_foreign_key "stores", "users", column: "created_by_id"
   add_foreign_key "stores", "users", column: "updated_by_id"
   add_foreign_key "user_badges", "badges"

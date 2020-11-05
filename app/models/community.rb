@@ -31,15 +31,11 @@
 #  reason_to_change  :text
 #  related_store_id  :bigint
 #
-FactoryBot.define do
-  factory :store do
-    name { 'MyString' }
-    group { 'MyString' }
-    street { 'MyString' }
-    city { 'MyString' }
-    latitude { 1.5 }
-    longitude { 1.5 }
-    capacity { 1 }
-    details { 'MyText' }
-  end
+class Community < Store
+  enum population_size: { '<50': 0, '51-100': 1, '101-200': 2, '201-500': 3, '501-1000': 4, '>1000': 5 }
+  enum farming_reliance: { 'f_high': 0, 'f_medium': 1, 'f_low': 2, 'f_nil': 3 }
+  enum wildlife_reliance: { 'w_high': 0, 'w_medium': 1, 'w_low': 2, 'w_nil': 3 }
+
+  validates :enterprise_type, absence: true
+  validates :ownership, absence: true
 end

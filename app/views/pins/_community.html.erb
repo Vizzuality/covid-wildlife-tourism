@@ -1,0 +1,50 @@
+<div class="form-group">
+  <div class="form-group">
+    <%= f.label :name, t('views.pins.community_name'), class: 'required' %>
+    <%= f.text_field :name, required: true, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <%= f.hidden_field :type %>
+
+  <div class="form-group">
+    <%= f.label :website %>
+    <%= f.url_field :website, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :latitude, class: 'required' %>
+    <%= f.number_field :latitude, required: true, min: -90, max: 90, step: 0.0001, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :longitude, class: 'required' %>
+    <%= f.number_field :longitude, required: true, min: -180, max: 180, step: 0.0001, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :population_size, t('views.pins.population_size') %>
+    <%= f.select :population_size, Community.population_sizes.map { |key, value| [key.humanize, key] }, {}, class: 'custom-select' %>
+  </div>
+
+  <div class="form-group mt-4">
+    <div class="custom-control custom-checkbox">
+      <%= f.check_box :user_is_owner, class: 'custom-control-input' %>
+      <%= f.label :user_is_owner, t('views.pins.i_am_community_spokesperson'), class: 'custom-control-label' %>
+    </div>
+  </div>
+
+  <div class="form-group mt-4">
+    <%= f.label :owner_details, t('views.pins.spokesperson_recommendation') %>
+    <%= f.text_area :owner_details, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :farming_reliance, t('views.pins.reliance_on_farming') %>
+    <%= f.select :farming_reliance, Community.farming_reliances.map { |key, value| [key[2..-1].humanize, key] }, {}, class: 'custom-select' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :wildlife_reliance, t('views.pins.reliance_on_wildlife') %>
+    <%= f.select :wildlife_reliance, Community.wildlife_reliances.map { |key, value| [key[2..-1].humanize, key] }, {}, class: 'custom-select' %>
+  </div>
+</div>

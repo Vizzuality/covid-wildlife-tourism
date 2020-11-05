@@ -55,7 +55,7 @@ export default class Map {
   private getMapStyle(): mapboxgl.Style {
     return {
       version: 8,
-      glyphs: 'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labs/VectorTileServer/resources/fonts/{fontstack}/{range}.pbf',
+      glyphs: 'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labels_arial_spacing/VectorTileServer/resources/fonts/{fontstack}/{range}.pbf',
       sources: {
         'esri-satellite': {
           type: 'raster',
@@ -74,7 +74,7 @@ export default class Map {
         'protected-areas': {
           type: 'vector',
           tiles: [
-            'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labs/VectorTileServer/tile/{z}/{y}/{x}.pbf',
+            'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labels_arial_spacing/VectorTileServer/tile/{z}/{y}/{x}.pbf',
           ],
         },
       },
@@ -162,13 +162,14 @@ export default class Map {
           source: 'protected-areas',
           'source-layer': 'WDPA_africa_0/label',
           layout: {
-            'text-font': ['Tahoma Regular'],
-            'text-size': 13.3333,
+            'text-font': ['Arial Regular'],
+            'text-size': 12,
+            'text-letter-spacing': 0.05,
             'text-field': '{_name}',
             'text-optional': true
           },
           paint: {
-            'text-color': '#000000',
+            'text-color': '#222222',
             'text-halo-width': 1,
             'text-halo-blur': 2,
             'text-halo-color': '#FFFFFF',

@@ -2,59 +2,53 @@
 #
 # Table name: stores
 #
-#  id                  :bigint           not null, primary key
-#  name                :string
-#  group               :string
-#  street              :string
-#  city                :string
-#  district            :string
-#  country             :string
-#  zip_code            :string
-#  latitude            :float
-#  longitude           :float
-#  capacity            :integer
-#  details             :text
-#  store_type          :integer          default("supermarket"), not null
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  lonlat              :geometry         point, 0
-#  state               :integer          default("waiting_approval")
-#  reason_to_delete    :text
-#  open                :boolean          default(TRUE)
-#  created_by_id       :bigint
-#  updated_by_id       :bigint
-#  from_osm            :boolean          default(FALSE)
-#  original_id         :bigint
-#  source              :string
-#  make_phone_calls    :boolean          default(FALSE)
-#  phone_call_interval :integer          default(60)
-#  municipality        :string
-#  search_name         :string
+#  id                :bigint           not null, primary key
+#  name              :string
+#  street            :string
+#  city              :string
+#  district          :string
+#  country           :string
+#  zip_code          :string
+#  latitude          :float
+#  longitude         :float
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  lonlat            :geometry         point, 0
+#  state             :integer          default("waiting_approval")
+#  created_by_id     :bigint
+#  updated_by_id     :bigint
+#  municipality      :string
+#  search_name       :string
+#  website           :string
+#  type              :string           not null
+#  population_size   :integer
+#  user_is_owner     :boolean          default(FALSE), not null
+#  owner_details     :text
+#  farming_reliance  :integer
+#  wildlife_reliance :integer
+#  enterprise_type   :string           default([]), is an Array
+#  ownership         :string
+#  reason_to_change  :text
+#  related_store_id  :bigint
 #
 class Store < ApplicationRecord
   include UserTrackable
   include PgSearch::Model
 
-  has_one_attached :photo
-
-  RADIUS = 5000
   PROJECTION = 4326
+
+  #self.abstract_class = true
 
   has_many :user_stores, inverse_of: :store, dependent: :destroy
   has_many :managers, through: :user_stores
 
-  enum store_type: {supermarket: 1, pharmacy: 2, restaurant: 3,
-                    gas_station: 4, bank: 5, coffee: 6, kiosk: 7,
-                    other: 8, atm: 9, post_office: 10, beach: 11}
+  validates_presence_of :name
+
   enum state: {waiting_approval: 1, live: 2, marked_for_deletion: 3, archived: 4}
 
-  validates :capacity, allow_nil: true, numericality: {greater_than: 0}
-
   scope :by_country, ->(country) { where(country: country) }
-  scope :by_group, ->(group) { where(group: group) }
   scope :by_state, ->(state) { where(state: state) }
-  scope :by_store_type, ->(store_type) { where(store_type: store_type) }
-  scope :available, -> { where(state: [:live, :marked_for_deletion]).where(open: true) }
+  scope :available, -> { where(state: [:live, :marked_for_deletion]) }
 
   after_save :set_lonlat
   before_save :update_search_name, if: :will_save_change_to_name?
@@ -97,10 +91,6 @@ class Store < ApplicationRecord
     str
   end
 
-  def self.groups
-    select(:group).order(:group).distinct.pluck(:group).map(&:presence).compact
-  end
-
   def self.countries
     select(:country).order(:country).distinct.pluck(:country).map(&:presence).compact
   end
@@ -113,28 +103,6 @@ class Store < ApplicationRecord
           "%#{search}%", "%#{search}%")
   end
 
-  def self.retrieve_stores(lat, lon)
-    query = <<~SQL
-      ST_CONTAINS(
-        ST_BUFFER(
-          ST_SetSRID(
-            ST_MakePoint(#{lon}, #{lat}), 4326)::geography,
-              #{RADIUS})::geometry, lonlat)
-    SQL
-
-    where(query).available
-  end
-
-  def self.retrieve_closest(lat, lon)
-    query = <<~SQL
-      DISTINCT
-      stores.*,
-      ST_SetSRID(ST_MakePoint(#{lon}, #{lat}),4326) <-> stores.lonlat AS distance
-    SQL
-
-    select(query).order('distance ASC')
-  end
-
   def self.in_bounding_box(coordinates)
     Store.where(['lonlat && ST_MakeEnvelope(?, ?, ?, ?, 4326)',
                  coordinates.flatten(1)].flatten(1))
@@ -142,19 +110,15 @@ class Store < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true, force_quotes: true) do |csv|
-      csv << %w(id name store_type latitude longitude street city district
-                country source created_at created_by updated_at updated_by)
+      csv << %w(id name latitude longitude street city district
+                country created_at created_by updated_at updated_by)
       all.find_each do |store|
-        csv << [store.id, store.name, store.store_type, store.latitude, store.longitude,
-                store.street, store.city, store.district, store.country, store.source,
+        csv << [store.id, store.name, store.latitude, store.longitude,
+                store.street, store.city, store.district, store.country,
                 store.created_at.strftime('%d/%m/%Y %H:%M'), store.created_by&.display_name,
                 store.updated_at.strftime('%d/%m/%Y %H:%M'), store.updated_by&.display_name]
       end
     end
-  end
-
-  def cache_key
-    updated_at
   end
 
   private
@@ -175,11 +139,6 @@ class Store < ApplicationRecord
   def update_search_name
     locale = 'en'
 
-    prefix = I18n.t("activerecord.enums.store.store_types.#{store_type}", locale: locale)
-    self.search_name = if name&.downcase&.include?(prefix.downcase)
-                         name
-                       else
-                         [prefix, name].compact.join(' ')
-                       end
+    self.search_name = name
   end
 end

@@ -31,15 +31,16 @@
 #  reason_to_change  :text
 #  related_store_id  :bigint
 #
-FactoryBot.define do
-  factory :store do
-    name { 'MyString' }
-    group { 'MyString' }
-    street { 'MyString' }
-    city { 'MyString' }
-    latitude { 1.5 }
-    longitude { 1.5 }
-    capacity { 1 }
-    details { 'MyText' }
+class Enterprise < Store
+  validate :enterprise_type_is_array
+
+  validates :website, absence: true
+  validates :population_size, absence: true
+  validates :farming_reliance, absence: true
+  validates :wildlife_reliance, absence: true
+
+  def enterprise_type_is_array
+    valid = enterprise_type.kind_of?(Array) && !enterprise_type.empty? && enterprise_type.all? do |type| type.length >= 3 end
+    errors.add(:enterprise_type, I18n.t('errors.messages.blank')) unless valid
   end
 end

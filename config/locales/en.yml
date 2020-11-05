@@ -43,6 +43,31 @@ en:
       type_business: Small and Medium Tourism Enterprises
       select_location: Select a location
       select_type_error: Type of place can't be blank
+      community_name: Community name
+      enterprise_name: Enterprise name
+      population_size: Population size (inhabitants)
+      i_am_community_spokesperson: I am the community's spokesperson
+      i_am_enterprise_owner: I am the enterprise's owner
+      spokesperson_recommendation: If not, could you recommend a contact and give their details?
+      owner_recommendation: If not, could you recommend a contact and give their details?
+      reliance_on_farming: Estimated reliance of local livelihoods on farming
+      reliance_on_wildlife: Estimated reliance of local livelihood on activities related to wildlife management
+      ownership: Ownership
+      private: Private
+      protected_area: Protected area authority
+      community_group: Community group
+      ownership_other: If other, indicate the type of ownership
+      enterprise_type_other: If you selected other, indicate an enterprise type
+      enterprise_type: Enterprise type
+      tourism: Tourism
+      photo_tourism: Photo tourism
+      hunting_tourism: Hunting tourism
+      accomodation: Accomodation
+      accommodation_hotel: Hotel
+      accommodation_lodge: Lodge
+      accommodation_camping_site: Camping site
+      accommodation_guesthouse: Guesthouse
+      accommodation_other: Other
     shared:
       log_in: Log in
       log_out: Log out
@@ -51,6 +76,8 @@ en:
       close_dialog: Close this dialog window
       add_pin: Add a pin
       cancel: Cancel
+      save: Save
+      other: Other
     stats:
       index:
         title: 'Usage statistics'

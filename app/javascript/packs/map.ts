@@ -31,7 +31,9 @@ Promise.all([
       mapGeolocationButton: MapGeolocationButtonType;
 
     const onClickMap = (event) => {
-      const coords = event.lngLat.toArray();
+      const coords = event.lngLat
+        .toArray()
+        .map(coord => coord.toFixed(4));
       const searchParams = window.location.search.substr(1);
       const split = searchParams.split('&');
       const nextParam = split.find(param => param.startsWith('next'))?.substr(5);
@@ -39,7 +41,7 @@ Promise.all([
       if (!nextParam) {
         console.error('Unable to find the “next” param in the URL');
       } else {
-        window.location.href = `${decodeURIComponent(nextParam)}&store_longitude=${coords[0]}&store_latitude=${coords[1]}`;
+        window.location.href = `${decodeURIComponent(nextParam)}&lon=${coords[0]}&lat=${coords[1]}`;
       }
     };
 
