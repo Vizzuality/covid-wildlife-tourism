@@ -22,12 +22,14 @@ new MapDrawer();
 new MapLoginWall();
 
 Promise.all([
+  import('../utils/url'),
   import('../components/map'),
   import('../components/map-view-setting'),
   import('../components/map-protected-areas-toggle'),
   import('../components/map-geolocation-button'),
 ])
   .then(([
+    { getSearchParam },
     { default: Map },
     { default: MapViewSetting },
     { default: MapProtectedAreasToggle },
@@ -43,10 +45,8 @@ Promise.all([
       const coords = event.lngLat
         .toArray()
         .map(coord => coord.toFixed(4));
-      const searchParams = window.location.search.substr(1);
-      const split = searchParams.split('&');
-      const nextParam = split.find(param => param.startsWith('next'))?.substr(5);
 
+      const nextParam = getSearchParam('next');
       if (!nextParam) {
         console.error('Unable to find the “next” param in the URL');
       } else {
@@ -57,6 +57,24 @@ Promise.all([
     const onClickMarker = (id, markerData) => {
       map.resetMarkersState();
       map.setMarkerActive(id);
+    };
+
+    const onLoadPins = (pins: Pin[]) => {
+      map.setMarkers(pins.map(pin => ({
+        id: `${pin.id}`,
+        coordinates: [pin.longitude, pin.latitude],
+        classes: [
+          `marker-${pin.type.toLowerCase()}`,
+          `marker-${pin.is_owner ? 'blue' : 'yellow'}`,
+        ],
+        data: pin,
+        onClick: onClickMarker,
+      })));
+
+      const defaultActivePin = getSearchParam('pin');
+      if (defaultActivePin) {
+        map.setMarkerActive(defaultActivePin);
+      }
     };
 
     mapViewSetting = new MapViewSetting({
@@ -81,17 +99,7 @@ Promise.all([
 
     fetch('/map.json')
       .then(res => res.json())
-      .then(({ data }: { data: Pin[] }) => {
-        map.setMarkers(data.map(pin => ({
-          coordinates: [pin.longitude, pin.latitude],
-          classes: [
-            `marker-${pin.type.toLowerCase()}`,
-            `marker-${pin.is_owner ? 'blue' : 'yellow'}`,
-          ],
-          data: pin,
-          onClick: onClickMarker,
-        })));
-      })
+      .then(({ data }: { data: Pin[] }) => onLoadPins(data))
       .catch(e => console.error('Unable to get the map pins', e));
   })
   .catch((e) => console.error('Unable to load the map and/or map view setting module', e));

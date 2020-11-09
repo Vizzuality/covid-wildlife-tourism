@@ -8,7 +8,7 @@ export default class Map {
   private el: HTMLElement = document.querySelector(EL_SELECTOR);
   private map;
   private userMarker;
-  private markers;
+  private markers: { [id: string]: any } = {};
   private callback: (event: MapLayerMouseEvent) => void | undefined;
 
   constructor({ mapView, protectedAreas, onClick }: { mapView: string, protectedAreas: boolean, onClick?: (event: MapLayerMouseEvent) => void }) {
@@ -204,12 +204,12 @@ export default class Map {
     };
   }
 
-  setMarkers(markers: { coordinates: [number, number], classes?: string[], data: any, onClick: (id: number, data: any) => void | undefined }[]) {
-    if (this.markers) {
-      this.markers.forEach(marker => marker.remove());
-    }
+  setMarkers(markers: { id: string, coordinates: [number, number], classes?: string[], data: any, onClick: (id: string, data: any) => void | undefined }[]) {
+    // We remove the previous markers
+    Object.values(this.markers).forEach(marker => marker.remove());
+    this.markers = {};
 
-    this.markers = markers.map((marker, index) => {
+    markers.forEach((marker) => {
       const classes = ['c-marker'];
       if (marker.classes) {
         classes.push(...marker.classes);
@@ -218,34 +218,30 @@ export default class Map {
       const div = document.createElement('div');
       div.classList.add(...classes);
 
-      div.addEventListener('click', () => marker.onClick(index, marker.data));
+      div.addEventListener('click', () => marker.onClick(marker.id, marker.data));
 
-      return new mapboxgl.Marker({
+      this.markers[marker.id] = new mapboxgl.Marker({
         element: div
       }).setLngLat(marker.coordinates)
         .addTo(this.map)
-    })
+    });
   }
 
   resetMarkersState() {
-    if (this.markers) {
-      this.markers.forEach((_, index) => this.setMarkerActive(index, false));
-    }
+    Object.keys(this.markers).forEach(id => this.setMarkerActive(id, false));
   }
 
-  setMarkerActive(id: number, active: boolean = true) {
-    if (this.markers) {
-      const marker = this.markers[id];
-      if (marker) {
-        (<HTMLElement>marker.getElement()).classList.toggle('marker-active', active);
+  setMarkerActive(id: string, active: boolean = true) {
+    const marker = this.markers[id];
+    if (marker) {
+      (<HTMLElement>marker.getElement()).classList.toggle('marker-active', active);
 
-        // We center the map on the active marker
-        if (active) {
-          this.view = {
-            center: marker.getLngLat().toArray(),
-            zoom: this.view.zoom,
-          };
-        }
+      // We center the map on the active marker
+      if (active) {
+        this.view = {
+          center: marker.getLngLat().toArray(),
+          zoom: this.view.zoom,
+        };
       }
     }
   }
