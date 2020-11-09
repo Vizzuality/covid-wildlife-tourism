@@ -28,7 +28,9 @@ Rails.application.routes.draw do
   resources :user_stores, only: [:index, :update]
   resources :users
   resources :map
-  resources :pins, except: [:show, :destroy]
+  resources :pins, except: [:show]
+
+  get '/pins/:id/delete', to: 'pins#destroy', as: 'delete_pin'
 
   require 'sidekiq/web'
   authenticate :user, ->(user) { user.admin? } do

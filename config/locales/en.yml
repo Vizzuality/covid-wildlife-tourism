@@ -78,7 +78,10 @@ en:
       add_pin: Add a pin
       cancel: Cancel
       save: Save
+      edit: Edit
+      delete: Delete
       other: Other
+      report_error: Report an error
     stats:
       index:
         title: 'Usage statistics'
