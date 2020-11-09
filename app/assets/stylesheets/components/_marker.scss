@@ -20,6 +20,18 @@
   &.marker-sm {
     width: rem(22);
     height: rem(22);
+
+    &.marker-community {
+      border: none;
+    }
+  }
+
+  &.marker-active {
+    border-color: $body-color;
+
+    &.marker-community:before {
+      background: $body-color;
+    }
   }
 
   &.user-marker {
@@ -42,17 +54,49 @@
     }
   }
 
-  &.community-marker {
+  &.marker-community {
+    position: relative;
+    border-color: transparent;
     border-radius: 0;
-    clip-path: polygon(
-      50% rem(3),
-      rem(3) calc(100% - #{rem(3)}),
-      calc(100% - #{rem(3)}) calc(100% - #{rem(3)})
-    );
+
+    &:before {
+      position: absolute;
+      top: #{-1 * rem(3)};
+      left: #{-1 * rem(3)};
+      width: calc(100% + #{rem(6)});
+      height: calc(100% + #{rem(6)});
+      background: $white;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+      content: '';
+    }
+
+    &:after {
+      position: absolute;
+      top: rem(4);
+      left: rem(2);
+      width: calc(100% - #{rem(4)});
+      height: calc(100% - #{rem(4)});
+      background: $border-color-1;
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+      content: '';
+    }
+  }
+
+  &.marker-business {
     background: $border-color-1;
   }
 
-  &.business-marker {
-    background: $border-color-1;
+  &.marker-blue {
+    &:not(.marker-community),
+    &.marker-community:after {
+      background: $blue-1;
+    }
+  }
+
+  &.marker-yellow {
+    &:not(.marker-community),
+    &.marker-community:after {
+      background: $primary;
+    }
   }
 }

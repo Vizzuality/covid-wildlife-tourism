@@ -8,6 +8,7 @@ export default class Map {
   private el: HTMLElement = document.querySelector(EL_SELECTOR);
   private map;
   private userMarker;
+  private markers;
   private callback: (event: MapLayerMouseEvent) => void | undefined;
 
   constructor({ mapView, protectedAreas, onClick }: { mapView: string, protectedAreas: boolean, onClick?: (event: MapLayerMouseEvent) => void }) {
@@ -201,5 +202,51 @@ export default class Map {
       center: coordinates,
       zoom: this.view.zoom,
     };
+  }
+
+  setMarkers(markers: { coordinates: [number, number], classes?: string[], data: any, onClick: (id: number, data: any) => void | undefined }[]) {
+    if (this.markers) {
+      this.markers.forEach(marker => marker.remove());
+    }
+
+    this.markers = markers.map((marker, index) => {
+      const classes = ['c-marker'];
+      if (marker.classes) {
+        classes.push(...marker.classes);
+      }
+
+      const div = document.createElement('div');
+      div.classList.add(...classes);
+
+      div.addEventListener('click', () => marker.onClick(index, marker.data));
+
+      return new mapboxgl.Marker({
+        element: div
+      }).setLngLat(marker.coordinates)
+        .addTo(this.map)
+    })
+  }
+
+  resetMarkersState() {
+    if (this.markers) {
+      this.markers.forEach((_, index) => this.setMarkerActive(index, false));
+    }
+  }
+
+  setMarkerActive(id: number, active: boolean = true) {
+    if (this.markers) {
+      const marker = this.markers[id];
+      if (marker) {
+        (<HTMLElement>marker.getElement()).classList.toggle('marker-active', active);
+
+        // We center the map on the active marker
+        if (active) {
+          this.view = {
+            center: marker.getLngLat().toArray(),
+            zoom: this.view.zoom,
+          };
+        }
+      }
+    }
   }
 }
