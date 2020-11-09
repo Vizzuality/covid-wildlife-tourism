@@ -3,6 +3,7 @@ import MapLoginWall from 'components/map-login-wall';
 import { default as MapViewSettingType } from 'components/map-view-setting';
 import { default as MapProtectedAreasToggleType } from 'components/map-protected-areas-toggle';
 import { default as MapGeolocationButtonType } from 'components/map-geolocation-button';
+import { default as MapPinDetailsType } from 'components/map-pin-details';
 import { default as MapType } from 'components/map';
 
 type Pin = {
@@ -27,6 +28,7 @@ Promise.all([
   import('../components/map-view-setting'),
   import('../components/map-protected-areas-toggle'),
   import('../components/map-geolocation-button'),
+  import('../components/map-pin-details'),
 ])
   .then(([
     { getSearchParam },
@@ -34,29 +36,42 @@ Promise.all([
     { default: MapViewSetting },
     { default: MapProtectedAreasToggle },
     { default: MapGeolocationButton },
+    { default: MapPinDetails },
   ]) => {
     let
       map: MapType,
       mapViewSetting: MapViewSettingType,
       mapProtectedAreasToggle: MapProtectedAreasToggleType,
-      mapGeolocationButton: MapGeolocationButtonType;
+      mapGeolocationButton: MapGeolocationButtonType,
+      mapPinDetails: MapPinDetailsType;
 
     const onClickMap = (event) => {
-      const coords = event.lngLat
-        .toArray()
-        .map(coord => coord.toFixed(4));
+      const clickedOnMarker = (<HTMLElement>event.originalEvent.target).classList.contains('c-marker');
+      if (clickedOnMarker) {
+        return;
+      }
 
-      const nextParam = getSearchParam('next');
-      if (!nextParam) {
-        console.error('Unable to find the “next” param in the URL');
+      if (getSearchParam('operation') === 'location') {
+        const coords = event.lngLat
+          .toArray()
+          .map(coord => coord.toFixed(4));
+
+        const nextParam = getSearchParam('next');
+        if (!nextParam) {
+          console.error('Unable to find the “next” param in the URL');
+        } else {
+          window.location.href = `${decodeURIComponent(nextParam)}&lon=${coords[0]}&lat=${coords[1]}`;
+        }
       } else {
-        window.location.href = `${decodeURIComponent(nextParam)}&lon=${coords[0]}&lat=${coords[1]}`;
+        mapPinDetails.hideDialog();
+        map.resetMarkersState();
       }
     };
 
     const onClickMarker = (id, markerData) => {
       map.resetMarkersState();
       map.setMarkerActive(id);
+      mapPinDetails.showDialog();
     };
 
     const onLoadPins = (pins: Pin[]) => {
@@ -74,6 +89,7 @@ Promise.all([
       const defaultActivePin = getSearchParam('pin');
       if (defaultActivePin) {
         map.setMarkerActive(defaultActivePin);
+        mapPinDetails.showDialog();
       }
     };
 
@@ -89,17 +105,19 @@ Promise.all([
       onChange: coordinates => map.setUserLocation(coordinates)
     });
 
+    mapPinDetails = new MapPinDetails();
+
     map = new Map({
       mapView: mapViewSetting.mapView,
       protectedAreas: mapProtectedAreasToggle.active,
-      onClick: window.location.search.includes('operation=location')
-        ? onClickMap
-        : undefined,
+      onClick: onClickMap,
     });
 
-    fetch('/map.json')
-      .then(res => res.json())
-      .then(({ data }: { data: Pin[] }) => onLoadPins(data))
-      .catch(e => console.error('Unable to get the map pins', e));
+    if (!getSearchParam('operation')) {
+      fetch('/map.json')
+        .then(res => res.json())
+        .then(({ data }: { data: Pin[] }) => onLoadPins(data))
+        .catch(e => console.error('Unable to get the map pins', e));
+    }
   })
   .catch((e) => console.error('Unable to load the map and/or map view setting module', e));

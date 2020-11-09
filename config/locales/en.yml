@@ -36,6 +36,7 @@ en:
       login_or_register: Log in or register
       login_wall_intro: To add a pin or report an error, you need to have an account.
       protected_areas_layer: Protected areas layer
+      pin_details: Pin details
     pins:
       add_pin_intro: Add a pin on the map by selecting a location on the map and filling some information.
       type_intro: What type of place do you want to add?
