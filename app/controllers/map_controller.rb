@@ -3,29 +3,31 @@ class MapController < ApplicationController
 
   include EnumI18nHelper
 
-  # GET /stores
-  # GET /stores.json
+  SERIALIZABLE_ATTRS= %W[id name latitude longitude website type created_by_id]
+
+  # GET /map
+  # GET /map.json
   def index
     authorize! :read, :map
 
-    # @bounds = if params[:coordinates].present?
-    #             params[:coordinates].map { |s| s.split(',').map(&:to_f) }
-    #           else
-    #             default_bounds
-    #           end
+    @pins = Store
+      .where.not(latitude: nil)
+      .where.not(longitude: nil)
+      #.where(state: :live)
 
-    # @shops = Store.where.not(latitude: nil).where.not(longitude: nil)
-    #   .where.not(state: :archived).in_bounding_box(@bounds)
+    # We only send the fields needed to build the UI (no private info)
+    serialized_pins = @pins.pluck(SERIALIZABLE_ATTRS).map { |p| SERIALIZABLE_ATTRS.zip(p).to_h }
 
-    # if current_user.store_owner?
-    #   @shops = @shops.where(id: current_user.user_stores.where(approved: true).pluck(:store_id))
-    # end
-
-    # @shops = @shops.index_by(&:id)
+    # We add whether or not the user is the owner of the pin
+    serialized_pins.map! do |pin|
+      id = pin.delete('created_by_id')
+      pin[:is_owner] = user_signed_in? && (id == current_user.id)
+      pin
+    end
 
     respond_to do |format|
       format.html { render :index }
-      # format.json { render json: @shops, status: :ok }
+      format.json {render json: { :data => serialized_pins }.to_json, status: :ok }
     end
   end
 
