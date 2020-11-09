@@ -1,14 +1,14 @@
 # config valid for current version and patch releases of Capistrano
-lock "~> 3.12.1"
+lock "~> 3.14.1"
 
-set :application, "supermarket-api"
-set :repo_url, "git@github.com:simaob/covid19_shopping_assistant.git"
+set :application, "covid-wildlife-tourism"
+set :repo_url, "git@github.com:Vizzuality/covid-wildlife-tourism.git"
 
 set :default_env, {
-    'PATH' => "/home/ubuntu/.rvm/gems/ruby-2.6.3/bin:/home/ubuntu/.rvm/bin:$PATH",
+    'PATH' => "/home/vizzuality/.rvm/gems/ruby-2.6.3/bin:/home/ubuntu/.rvm/bin:$PATH",
     'RUBY_VERSION' => 'ruby-2.4.6',
-    'GEM_HOME' => '/home/ubuntu/.rvm/gems/ruby-2.6.3',
-    'GEM_PATH' => '/home/ubuntu/.rvm/gems/ruby-2.6.3',
+    'GEM_HOME' => '/home/vizzuality/.rvm/gems/ruby-2.6.3',
+    'GEM_PATH' => '/home/vizzuality/.rvm/gems/ruby-2.6.3',
     'BUNDLE_PATH' => '/home/ubuntu/.rvm/gems/ruby-2.6.3'
 }
 

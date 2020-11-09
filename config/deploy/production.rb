@@ -8,7 +8,7 @@ set :ssh_options, {
   password: fetch(:password)
 }
 
-set :branch, 'master'
+set :branch, 'develop'
 set :deploy_to, '~/wildlife-covid'
 
 set :rails_env, :production
