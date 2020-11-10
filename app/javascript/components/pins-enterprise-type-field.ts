@@ -36,6 +36,28 @@ export default class PinsEnterpriseTypeField {
     }
   }
 
+  private restore() {
+    if (!MAIN_INPUT_EL.value) {
+      return;
+    }
+
+    const values = MAIN_INPUT_EL.value.split(',');
+    Array.from(LIST_EL.options).forEach((option) => {
+      const index = values.findIndex(value => value === option.value);
+      if (index > -1) {
+        option.selected = true;
+        values.splice(index, 1);
+      }
+    });
+
+    // If we still have some values, it's because the user clicked “Other” and added their own
+    // enterprise type(s)
+    if (values.length > 0) {
+      Array.from(LIST_EL.options).find(option => option.value === 'other').selected = true;
+      FREE_INPUT_EL.value = values.join(',');
+    }
+  }
+
   private update() {
     this.listValues = Array.from(LIST_EL.selectedOptions).map(option => option.value);
     this.freeInputValue = FREE_INPUT_EL.value;
@@ -48,6 +70,9 @@ export default class PinsEnterpriseTypeField {
     LIST_EL.addEventListener('change', this.update.bind(this));
 
     FREE_INPUT_EL.addEventListener('change', this.update.bind(this));
+
+    // We restore the state of the inputs
+    this.restore();
 
     // We set the initial values
     this.update();

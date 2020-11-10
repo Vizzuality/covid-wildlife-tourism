@@ -8,7 +8,7 @@ class PinsController < ApplicationController
       .where.not(latitude: nil)
       .where.not(longitude: nil)
 
-    @pins = @pins.where(state: :live) unless user_signed_in? && current_user.admin?
+    @pins = @pins.mine_or_live(current_user.id) unless user_signed_in? && current_user.admin?
 
     # We only send the fields needed to build the UI (no private info)
     serialized_pins = @pins.pluck(SERIALIZABLE_ATTRS).map { |p| SERIALIZABLE_ATTRS.zip(p).to_h }
@@ -61,21 +61,29 @@ class PinsController < ApplicationController
 
   def edit
     @pin = Store.find(params[:id])
-
-    if pin.created_by_id == current_user.id || current_user.admin?
-      # User is editing their own pin or the user is an admin
-    else
-      # User is reporting an error
-    end
   end
 
   def update
+    @pin = Store.find(params[:id])
+
+    if @pin.created_by_id == current_user.id || current_user.admin?
+      # User is editing their own pin or the user is an admin
+      if (@pin.update(pin_params))
+        redirect_to map_index_path(pin: @pin.id)
+      else
+        flash.now[:alert] = @pin.errors.full_messages
+        render :edit
+      end
+    else
+      # User is reporting an error
+      # We create a new pin linked to @pin
+    end
   end
 
   def destroy
     pin = Store.find(params[:id])
 
-    if pin.created_by_id == current_user.id
+    if pin.created_by_id == current_user.id || current_user.admin?
       pin.destroy
       redirect_to map_index_path
     end
@@ -93,7 +101,7 @@ class PinsController < ApplicationController
       :owner_details,
       :farming_reliance,
       :wildlife_reliance,
-      :enterprise_type,
+      :enterprise_types,
       :ownership
     ]
 

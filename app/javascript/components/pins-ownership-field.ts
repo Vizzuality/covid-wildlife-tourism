@@ -29,6 +29,21 @@ export default class PinsOwnershipField {
     }
   }
 
+  private restore() {
+    const value = MAIN_INPUT_EL.value;
+    if (!value) {
+      return;
+    }
+
+    const option = Array.from(LIST_EL.options).find(option => option.value === value);
+    if (option) {
+      option.selected = true;
+    } else {
+      Array.from(LIST_EL.options).find(option => option.value === 'other').selected = true;
+      FREE_INPUT_EL.value = value;
+    }
+  }
+
   private update() {
     this.listValue = LIST_EL.selectedOptions[0].value;
     this.freeInputValue = FREE_INPUT_EL.value;
@@ -41,6 +56,9 @@ export default class PinsOwnershipField {
     LIST_EL.addEventListener('change', this.update.bind(this));
 
     FREE_INPUT_EL.addEventListener('change', this.update.bind(this));
+
+    // We restore the state of the inputs
+    this.restore();
 
     // We set the initial values
     this.update();

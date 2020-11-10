@@ -1,0 +1,12 @@
+<% content_for :title do %>
+<%= t('views.shared.edit_pin') %>
+<% end %>
+
+<%= form_for(@pin, url: pin_path(@pin), class: 'mt-5') do |f| %>
+<%= render partial: 'community', locals: { f: f } if @pin.type == 'Community' %>
+<%= render partial: 'enterprise', locals: { f: f } if @pin.type == 'Enterprise' %>
+
+<div class="form-group mt-5">
+  <%= f.submit t('views.shared.save'), class: 'btn btn-block btn-black' %>
+</div>
+<% end %>
