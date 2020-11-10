@@ -36,9 +36,25 @@ class PinsController < ApplicationController
   end
 
   def edit
+    @pin = Store.find(params[:id])
+
+    if pin.created_by_id == current_user.id
+      # User is editing their own pin
+    else
+      # User is reporting an error
+    end
   end
 
   def update
+  end
+
+  def destroy
+    pin = Store.find(params[:id])
+
+    if pin.created_by_id == current_user.id
+      pin.destroy
+      redirect_to map_index_path
+    end
   end
 
   def pin_params
