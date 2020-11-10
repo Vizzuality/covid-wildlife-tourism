@@ -35,7 +35,6 @@
   }
 
   &.user-marker {
-    position: relative;
     width: rem(20);
     height: rem(20);
     border: none;
@@ -55,7 +54,6 @@
   }
 
   &.marker-community {
-    position: relative;
     border-color: transparent;
     border-radius: 0;
 
