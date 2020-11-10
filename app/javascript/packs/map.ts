@@ -110,7 +110,7 @@ Promise.all([
     });
 
     if (!getSearchParam('operation')) {
-      fetch('/map.json')
+      fetch('/pins.json')
         .then(res => res.json())
         .then(({ data }: { data: Pin[] }) => onLoadPins(data))
         .catch(e => console.error('Unable to get the map pins', e));

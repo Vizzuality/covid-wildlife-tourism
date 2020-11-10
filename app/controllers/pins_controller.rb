@@ -1,7 +1,27 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!
 
+  SERIALIZABLE_ATTRS= %W[id name latitude longitude website type created_by_id]
+
   def index
+    @pins = Store
+      .where.not(latitude: nil)
+      .where.not(longitude: nil)
+      #.where(state: :live)
+
+    # We only send the fields needed to build the UI (no private info)
+    serialized_pins = @pins.pluck(SERIALIZABLE_ATTRS).map { |p| SERIALIZABLE_ATTRS.zip(p).to_h }
+
+    # We add whether or not the user is the owner of the pin
+    serialized_pins.map! do |pin|
+      id = pin.delete('created_by_id')
+      pin[:is_owner] = user_signed_in? && (id == current_user.id)
+      pin
+    end
+
+    respond_to do |format|
+      format.json {render json: { :data => serialized_pins }.to_json, status: :ok }
+    end
   end
 
   def create
