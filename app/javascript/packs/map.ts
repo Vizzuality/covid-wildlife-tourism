@@ -5,16 +5,7 @@ import { default as MapProtectedAreasToggleType } from 'components/map-protected
 import { default as MapGeolocationButtonType } from 'components/map-geolocation-button';
 import { default as MapPinDetailsType } from 'components/map-pin-details';
 import { default as MapType } from 'components/map';
-
-type Pin = {
-  id: number;
-  name: string;
-  latitude: number;
-  longitude: number;
-  website?: string;
-  type: 'Community' | 'Enterprise';
-  is_owner: boolean;
-};
+import { Pin } from 'utils/types';
 
 // NOTE: all non-vital code for the navigation should be dynamically imported to speed up the
 // page load time on slow connections
@@ -45,6 +36,8 @@ Promise.all([
       mapGeolocationButton: MapGeolocationButtonType,
       mapPinDetails: MapPinDetailsType;
 
+    let pins: Pin[] = [];
+
     const onClickMap = (event) => {
       const clickedOnMarker = (<HTMLElement>event.originalEvent.target).classList.contains('c-marker');
       if (clickedOnMarker) {
@@ -63,7 +56,7 @@ Promise.all([
           window.location.href = `${decodeURIComponent(nextParam)}&lon=${coords[0]}&lat=${coords[1]}`;
         }
       } else {
-        mapPinDetails.hideDialog();
+        mapPinDetails.hide();
         map.resetMarkersState();
       }
     };
@@ -71,10 +64,12 @@ Promise.all([
     const onClickMarker = (id, markerData) => {
       map.resetMarkersState();
       map.setMarkerActive(id);
-      mapPinDetails.showDialog();
+      mapPinDetails.show(markerData);
     };
 
     const onLoadPins = (pins: Pin[]) => {
+      pins = pins;
+
       map.setMarkers(pins.map(pin => ({
         id: `${pin.id}`,
         coordinates: [pin.longitude, pin.latitude],
@@ -87,9 +82,10 @@ Promise.all([
       })));
 
       const defaultActivePin = getSearchParam('pin');
-      if (defaultActivePin) {
+      const pin = pins.find(pin => pin.id === +defaultActivePin);
+      if (defaultActivePin && pin) {
         map.setMarkerActive(defaultActivePin);
-        mapPinDetails.showDialog();
+        mapPinDetails.show(pin);
       }
     };
 

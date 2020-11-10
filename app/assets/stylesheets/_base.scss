@@ -115,6 +115,10 @@ a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
   background: $body-bg;
 }
 
+.box-shadow-white {
+  box-shadow: 0 1px 5px 0 $grey-2;
+}
+
 // The following styles are necessary for the dialog library
 @keyframes dialog-fade-in {
   from {

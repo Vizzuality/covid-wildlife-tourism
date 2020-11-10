@@ -6,4 +6,8 @@
   left: 0;
   width: 100%;
   z-index: 2;
+
+  a:not(.btn) {
+    color: $blue-2 !important;
+  }
 }

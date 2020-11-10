@@ -69,9 +69,9 @@
 <div id="pin-details" class="dialog-container" aria-hidden="true">
   <div tabindex="-1" hidden></div>
   <div role="alertdialog" aria-label="<%= t("views.map.pin_details") %>" class="c-pin-details">
-    <div class="py-4 background-white">
+    <div class="py-4 background-white box-shadow-white">
       <div class="container">
-        <strong class="d-block mb-2 js-name" hidden></strong>
+        <strong class="d-block mb-2 js-name"></strong>
         <a class="mb-0 js-website" target="_blank" rel="noopener noreferrer" hidden></a>
 
         <div class="mt-4 js-edit-group" hidden>
@@ -82,7 +82,7 @@
               </svg>
               <%= t('views.shared.edit') %>
             </a>
-            <a data-href="<%= delete_pin_path(':id') %>" class="btn btn-block btn-black mt-0 js-edit">
+            <a data-href="<%= delete_pin_path(':id') %>" class="btn btn-block btn-black mt-0 js-delete">
               <%= t('views.shared.delete') %>
             </a>
           </div>
