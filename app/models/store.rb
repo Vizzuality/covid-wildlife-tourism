@@ -48,8 +48,11 @@ class Store < ApplicationRecord
 
   scope :by_country, ->(country) { where(country: country) }
   scope :by_state, ->(state) { where(state: state) }
-  scope :available, -> { where(state: [:live, :marked_for_deletion]) }
+  # scope :available, -> { where(state: [:live, :marked_for_deletion]) }
   scope :mine_or_live, ->(id) { where("(state = #{Store.states[:live]} or created_by_id = #{id})")}
+  scope :live, -> { where(state: :live) }
+  scope :with_location, -> { where.not(latitude: nil, longitude: nil) }
+  scope :mine, ->(id) { where(created_by_id: id) }
 
   after_save :set_lonlat
   before_save :update_search_name, if: :will_save_change_to_name?

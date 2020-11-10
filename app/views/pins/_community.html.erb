@@ -26,6 +26,7 @@
     <%= f.select :population_size, Community.population_sizes.map { |key, value| [key.humanize, key] }, {}, class: 'custom-select' %>
   </div>
 
+  <% if action?('editing') || action?('creating') %>
   <div class="form-group mt-4">
     <div class="custom-control custom-checkbox">
       <%= f.check_box :user_is_owner, class: 'custom-control-input' %>
@@ -47,4 +48,6 @@
     <%= f.label :wildlife_reliance, t('views.pins.reliance_on_wildlife') %>
     <%= f.select :wildlife_reliance, Community.wildlife_reliances.map { |key, value| [key[2..-1].humanize, key] }, {}, class: 'custom-select' %>
   </div>
+  <% end %>
+
 </div>

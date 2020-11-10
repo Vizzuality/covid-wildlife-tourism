@@ -1,14 +1,21 @@
 class PinsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
 
+  include PinsHelper
+
   SERIALIZABLE_ATTRS= %W[id name latitude longitude website type state created_by_id]
 
   def index
-    @pins = Store
-      .where.not(latitude: nil)
-      .where.not(longitude: nil)
+    @pins = Store.with_location
 
-    @pins = @pins.mine_or_live(current_user.id) unless user_signed_in? && current_user.admin?
+    if user_signed_in?
+      if !current_user.admin?
+        @pins = @pins.mine_or_live(current_user.id)
+        @pins = @pins.where.not(id: Store.mine(current_user.id).pluck(:related_store_id))
+      end
+    else
+      @pins = @pins.live
+    end
 
     # We only send the fields needed to build the UI (no private info)
     serialized_pins = @pins.pluck(SERIALIZABLE_ATTRS).map { |p| SERIALIZABLE_ATTRS.zip(p).to_h }
@@ -66,7 +73,7 @@ class PinsController < ApplicationController
   def update
     @pin = Store.find(params[:id])
 
-    if @pin.created_by_id == current_user.id || current_user.admin?
+    if action?('editing')
       # User is editing their own pin or the user is an admin
       if (@pin.update(pin_params))
         redirect_to map_index_path(pin: @pin.id)
@@ -77,6 +84,16 @@ class PinsController < ApplicationController
     else
       # User is reporting an error
       # We create a new pin linked to @pin
+      new_pin = Store.new(pin_public_params)
+      new_pin.related_store_id = @pin.id
+      @pin = new_pin
+
+      if (@pin.save)
+        redirect_to map_index_path(pin: @pin.id)
+      else
+        flash.now[:alert] = @pin.errors.full_messages
+        render :edit
+      end
     end
   end
 
@@ -101,6 +118,27 @@ class PinsController < ApplicationController
       :owner_details,
       :farming_reliance,
       :wildlife_reliance,
+      :enterprise_types,
+      :ownership
+    ]
+
+    if params[:community].present?
+      params.require(:community).permit(permitted_params)
+    elsif params[:enterprise].present?
+      params.require(:enterprise).permit(permitted_params)
+    else
+      params.require(:store).permit(permitted_params)
+    end
+  end
+
+  def pin_public_params
+    permitted_params = [
+      :type,
+      :name,
+      :website,
+      :latitude,
+      :longitude,
+      :population_size,
       :enterprise_types,
       :ownership
     ]

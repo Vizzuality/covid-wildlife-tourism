@@ -83,6 +83,7 @@ en:
       delete: Delete
       other: Other
       report_error: Report an error
+      send_suggestions: Send suggestions
     stats:
       index:
         title: 'Usage statistics'

@@ -1,5 +1,5 @@
 <% content_for :title do %>
-<%= t('views.shared.edit_pin') %>
+<%=  action?('editing') ? t('views.shared.edit_pin') : t('views.shared.report_error') %>
 <% end %>
 
 <%= form_for(@pin, url: pin_path(@pin), class: 'mt-5') do |f| %>
@@ -7,6 +7,6 @@
 <%= render partial: 'enterprise', locals: { f: f } if @pin.type == 'Enterprise' %>
 
 <div class="form-group mt-5">
-  <%= f.submit t('views.shared.save'), class: 'btn btn-block btn-black' %>
+  <%= f.submit action?('editing') ? t('views.shared.save') : t('views.shared.send_suggestions'), class: 'btn btn-block btn-black' %>
 </div>
 <% end %>
