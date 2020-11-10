@@ -12,25 +12,29 @@ Rails.application.routes.draw do
       sign_up: 'register'
     }
 
+  root to: "home#index"
+
+  resources :map
+  resources :pins, except: [:show]
+  get '/pins/:id/delete', to: 'pins#destroy', as: 'delete_pin'
+
   scope '/users' do
     devise_scope :user do
       get :close, to: 'users/registrations#destroy', as: 'close_user_registration'
     end
   end
 
-  root to: "home#index"
-  resources :stats, only: [:index]
-  resources :stores do
-    post :approve_all, on: :collection
-    resources :status_store_owners, only: [:new, :create]
-  end
-  resources :manage_stores, only: [:index]
-  resources :user_stores, only: [:index, :update]
-  resources :users
-  resources :map
-  resources :pins, except: [:show]
+  namespace :admin do
+    resources :stats, only: [:index]
+    resources :stores do
+      post :approve_all, on: :collection
+      resources :status_store_owners, only: [:new, :create]
+    end
+    resources :manage_stores, only: [:index]
+    resources :user_stores, only: [:index, :update]
+    resources :users
 
-  get '/pins/:id/delete', to: 'pins#destroy', as: 'delete_pin'
+  end
 
   require 'sidekiq/web'
   authenticate :user, ->(user) { user.admin? } do

@@ -1,0 +1,51 @@
+<div class="font-s mb-3">
+  <%= page_entries_info stores %>
+</div>
+<div class="table-responsive">
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th><%= Store.human_attribute_name(:name) %></th>
+        <th><%= Store.human_attribute_name(:state) %></th>
+        <th><%= Store.human_attribute_name(:created_by_id) %></th>
+        <th><%= Store.human_attribute_name(:updated_by_id) %></th>
+        <th><%= Store.human_attribute_name(:latitude) %></th>
+        <th><%= Store.human_attribute_name(:longitude) %></th>
+        <th><%= t('views.shared.actions') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% stores.each do |store| %>
+      <tr>
+        <td><%= link_to store.name, admin_store_path(store) %></td>
+        <td><%= enum_i18n(Store, :state, store.state) %></td>
+        <td>
+          <%= link_to(store.created_by.display_name, admin_user_path(store.created_by)) if store.created_by %>
+        </td>
+        <td>
+          <%= link_to(store.updated_by.display_name, admin_user_path(store.updated_by)) if store.updated_by %>
+        </td>
+        <td><%= store.latitude&.round(3) %></td>
+        <td><%= store.longitude&.round(3) %></td>
+        <td>
+          <%= link_to t('views.actions.show'), admin_store_path(store) %>
+          |
+          <%= link_to t('views.actions.edit'), edit_admin_store_path(store) %>
+          <% if can? :destroy, store %>
+          |
+          <%= link_to t('views.actions.destroy'),
+                admin_store_path(store, state: params[:state], group: params[:group],
+                                 search: params[:search], country: params[:country],
+                                 type: params[:type]), method: :delete,
+                                 data: { confirm: t('views.actions.confirm_destroy') } %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="c-table-pagination mt-3">
+  <%= paginate stores %>
+</div>

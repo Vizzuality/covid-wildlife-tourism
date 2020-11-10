@@ -1,0 +1,14 @@
+@import 'settings';
+
+.c-table-pagination {
+  ul {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+
+    li:not(:last-of-type) {
+      margin-right: map-get($spacers, 2);
+    }
+  }
+}

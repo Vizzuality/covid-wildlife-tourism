@@ -2,12 +2,12 @@
 
 <div class="row mt-3">
   <div class="col-md-11">
-    <h1><%= "#{t('views.actions.edit')} #{Store.model_name.human(count: 1)}" %></h1>
+    <h1><%= "#{t('views.shared.edit')} #{Store.model_name.human(count: 1)}" %></h1>
   </div>
   <div class="col-md-1">
-    <%= link_to t('views.actions.show'), @store,
+    <%= link_to t('views.shared.show'), admin_store_path(@store),
       class: 'btn btn-sm btn-outline-primary' %>
-</div>
+  </div>
 </div>
 
 <%= render 'form', store: @store %>

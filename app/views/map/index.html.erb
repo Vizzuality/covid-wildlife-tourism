@@ -24,6 +24,10 @@
             <%= t("views.map.protected_areas_layer") %>
           </label>
         </div>
+
+        <% if user_signed_in? && current_user.admin? %>
+        <%= link_to t("views.shared.pins_list"), admin_stores_path, class: 'd-block mt-4' %>
+        <% end %>
       </div>
       <div class="container">
         <% if user_signed_in? %>

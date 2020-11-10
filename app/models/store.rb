@@ -44,10 +44,11 @@ class Store < ApplicationRecord
 
   validates_presence_of :name
 
-  enum state: {waiting_approval: 1, live: 2, marked_for_deletion: 3, archived: 4}
+  enum state: {waiting_approval: 1, live: 2, to_replace: 3}
 
   scope :by_country, ->(country) { where(country: country) }
   scope :by_state, ->(state) { where(state: state) }
+  scope :by_type, ->(type) { where(type: type) }
   # scope :available, -> { where(state: [:live, :marked_for_deletion]) }
   scope :mine_or_live, ->(id) { where("(state = #{Store.states[:live]} or created_by_id = #{id})")}
   scope :live, -> { where(state: :live) }
@@ -55,6 +56,7 @@ class Store < ApplicationRecord
   scope :mine, ->(id) { where(created_by_id: id) }
 
   after_save :set_lonlat
+  before_save :update_state
   before_save :update_search_name, if: :will_save_change_to_name?
 
   pg_search_scope :full_text_search,
@@ -133,6 +135,10 @@ class Store < ApplicationRecord
     enterprise_type.join(',') rescue ''
   end
 
+  def self.types
+    {'Community' => 'Community', 'Enterprise' => 'Enterprise'}
+  end
+
   private
 
   # x: longitude
@@ -152,5 +158,13 @@ class Store < ApplicationRecord
     locale = 'en'
 
     self.search_name = name
+  end
+
+  private
+
+  def update_state
+    return if related_store_id.nil?
+
+    self.state = :to_replace
   end
 end
