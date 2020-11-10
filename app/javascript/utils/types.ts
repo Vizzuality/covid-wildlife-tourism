@@ -6,4 +6,5 @@ export type Pin = {
   website?: string;
   type: 'Community' | 'Enterprise';
   is_owner: boolean;
+  public: boolean;
 };

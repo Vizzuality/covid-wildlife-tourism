@@ -1,13 +1,14 @@
 class PinsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index]
 
-  SERIALIZABLE_ATTRS= %W[id name latitude longitude website type created_by_id]
+  SERIALIZABLE_ATTRS= %W[id name latitude longitude website type state created_by_id]
 
   def index
     @pins = Store
       .where.not(latitude: nil)
       .where.not(longitude: nil)
-      #.where(state: :live)
+
+    @pins = @pins.where(state: :live) unless user_signed_in? && current_user.admin?
 
     # We only send the fields needed to build the UI (no private info)
     serialized_pins = @pins.pluck(SERIALIZABLE_ATTRS).map { |p| SERIALIZABLE_ATTRS.zip(p).to_h }
@@ -15,7 +16,9 @@ class PinsController < ApplicationController
     # We add whether or not the user is the owner of the pin
     serialized_pins.map! do |pin|
       id = pin.delete('created_by_id')
+      state = pin.delete('state')
       pin[:is_owner] = user_signed_in? && (id == current_user.id)
+      pin[:public] = state == 'live'
       pin
     end
 
