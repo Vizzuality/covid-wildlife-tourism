@@ -58,8 +58,8 @@ class PinsController < ApplicationController
   def edit
     @pin = Store.find(params[:id])
 
-    if pin.created_by_id == current_user.id
-      # User is editing their own pin
+    if pin.created_by_id == current_user.id || current_user.admin?
+      # User is editing their own pin or the user is an admin
     else
       # User is reporting an error
     end
