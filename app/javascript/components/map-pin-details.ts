@@ -34,7 +34,7 @@ export default class MapPinDetails {
       WEBSITE_EL.setAttribute('hidden', 'true');
     }
 
-    if (pin.is_owner) {
+    if (pin.can_edit) {
       EDIT_GROUP_EL.removeAttribute('hidden');
       REPORT_GROUP_EL.setAttribute('hidden', 'true');
 

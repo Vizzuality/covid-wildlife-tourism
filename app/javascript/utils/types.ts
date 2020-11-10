@@ -7,4 +7,5 @@ export type Pin = {
   type: 'Community' | 'Enterprise';
   is_owner: boolean;
   public: boolean;
+  can_edit: boolean;
 };

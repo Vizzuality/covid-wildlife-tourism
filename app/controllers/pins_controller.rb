@@ -17,7 +17,8 @@ class PinsController < ApplicationController
     serialized_pins.map! do |pin|
       id = pin.delete('created_by_id')
       state = pin.delete('state')
-      pin[:is_owner] = user_signed_in? && (id == current_user.id)
+      pin[:is_owner] = user_signed_in? && id == current_user.id
+      pin[:can_edit] = user_signed_in?  && (id == current_user.id || current_user.admin?)
       pin[:public] = state == 'live'
       pin
     end
