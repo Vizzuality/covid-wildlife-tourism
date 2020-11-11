@@ -78,7 +78,7 @@ en:
         all_types: All types
         pin_deleted_successfully: Pin deleted successfully
         pin_approved_successfully: Pin approved successfully
-        pin_deleted_unsuccessfully: Unable to approve the pin
+        pin_approved_unsuccessfully: Unable to approve the pin
     shared:
       log_in: Log in
       log_out: Log out

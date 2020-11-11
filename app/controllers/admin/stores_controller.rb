@@ -73,7 +73,7 @@ module Admin
       if @store.approve
         redirect_to admin_pins_path, notice: t('views.admin.stores.pin_approved_successfully')
       else
-        redirect_to admin_pins_path, notice: @store.errors
+        redirect_to admin_pins_path, notice:t('views.admin.stores.pin_approved_unsuccessfully')
       end
     end
 

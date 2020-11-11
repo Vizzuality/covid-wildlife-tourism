@@ -144,7 +144,7 @@ class Store < ApplicationRecord
     elsif state.eql? 'to_replace'
       approve_replacement
     else
-      errors.add(:state, 'Cannot approve this state')
+      errors.add(:state, t('views.admin.stores.pin_approved_unsuccessfully'))
       false
     end
   end
@@ -185,8 +185,9 @@ class Store < ApplicationRecord
     end
 
     rs = Store.find(related_store_id)
-    %i[name latitude longitude].each do |attr|
+    %i[name latitude longitude website population_size enterprise_type ownership].each do |attr|
       rs.write_attribute(attr, self[attr])
+      rs.updated_by = self.created_by
     end
 
     if rs.save
