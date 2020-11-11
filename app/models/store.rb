@@ -43,7 +43,7 @@ class Store < ApplicationRecord
 
   validates_presence_of :name
 
-  enum state: {waiting_approval: 1, live: 2, to_replace: 3}
+  enum state: {live: 2, waiting_approval: 1, to_replace: 3}
 
   scope :by_country, ->(country) { where(country: country) }
   scope :by_state, ->(state) { where(state: state) }

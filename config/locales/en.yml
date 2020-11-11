@@ -71,8 +71,13 @@ en:
       accommodation_other: Other
     admin:
       stores:
-        search_placeholder: Search by name
         state: State
+        search_by_name: Search by name
+        all_states: All states
+        all_types: All types
+        pin_deleted_successfully: Pin deleted successfully
+        pin_approved_successfully: Pin approved successfully
+        pin_deleted_unsuccessfully: Unable to approve the pin
     shared:
       log_in: Log in
       log_out: Log out
@@ -86,7 +91,6 @@ en:
       edit: Edit
       show: Show
       delete: Delete
-      destroy: 'Destroy'
       other: Other
       report_error: Report an error
       send_suggestions: Send suggestions
@@ -96,12 +100,6 @@ en:
       type: Type
       actions: Actions
       approve: 'Approve'
-      replace: 'Replace'
-      confirm_destroy: 'Are you sure you want to destroy this?'
-    stores:
-      index:
-        confirm_approval: 'Are you sure you want to approve this store?'
-        confirm_replace: 'Are you sure you want to replace the current store data with this one?'
   activerecord:
     models:
       store:
@@ -133,9 +131,9 @@ en:
           admin: 'Administrator'
       store:
         states:
-          waiting_approval: 'Waiting approval'
-          live: 'Active'
-          to_replace: 'Replacement suggestion'
+          live: 'Approved'
+          waiting_approval: 'Pending approval'
+          to_replace: 'Change suggestions'
         types:
           Community: 'Community'
           Enterprise: 'Enterprise'
