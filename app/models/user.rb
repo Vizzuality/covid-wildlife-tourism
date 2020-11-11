@@ -11,10 +11,7 @@
 #  remember_created_at    :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  app_uuid               :string
-#  last_post              :datetime
 #  role                   :integer          default("user")
-#  store_owner_code       :string
 #  confirmation_token     :string
 #  confirmed_at           :datetime
 #  confirmation_sent_at   :datetime
@@ -25,8 +22,6 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :inet
 #  last_sign_in_ip        :inet
-#  badges_tracker         :jsonb
-#  badges_won             :string           default("")
 #  organization           :string
 #  position               :string
 #
@@ -52,9 +47,8 @@ class User < ApplicationRecord
   def self.search(search)
     return all unless search
 
-    where('users.name ilike ? OR email ilike ? OR app_uuid ilike ?',
-          "%#{search}%", "%#{search}%",
-          "%#{search}%")
+    where('users.name ilike ? OR email ilike ?',
+          "%#{search}%", "%#{search}%")
   end
 
   def display_name
