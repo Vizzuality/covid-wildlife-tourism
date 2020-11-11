@@ -1,54 +1,24 @@
-<% content_for :page_title, @store.name&.titleize %>
+<% content_for :title do %>
+<%= t('views.shared.pin_details') %>
+<% end %>
 
-<div class="row mt-3">
-  <div class="col-md-8">
-    <span class="h2"><%= @store.name %></span>
-  </div>
-  <div class="col-md-4">
-    <% if can? :edit, @store %>
-      <%= link_to t('views.actions.edit'), edit_admin_pin_path(@store),
-        class: 'btn btn-sm btn-outline-primary' %>
-    <% end %>
-    <% if can? :destroy, @store %>
-      <%= link_to t('views.actions.destroy'), admin_pin_path(@store),
-        method: :delete, data: { confirm: t('views.actions.confirm_destroy') },
-        class: 'btn btn-sm btn-outline-danger' %>
-    <% end %>
-  </div>
+<%= form_for(@store, url: admin_pin_path(@store), class: 'mt-5') do |f| %>
+<%= render partial: 'community', locals: { f: f } if @store.type == 'Community' %>
+<%= render partial: 'enterprise', locals: { f: f } if @store.type == 'Enterprise' %>
+
+<div class="form-group mt-5">
+  <% if @store.state.eql? 'waiting_approval' %>
+  <%= link_to t('views.shared.approve'), approve_admin_pin_path(@store), method: :post, class: 'btn btn-block btn-black' %>
+  <% elsif @store.state.eql? 'to_replace' %>
+  <%= link_to t('views.shared.approve'), approve_admin_pin_path(@store), method: :post, class: 'btn btn-block btn-black' %>
+  <% else %>
+  <%= link_to t('views.shared.edit'), edit_admin_pin_path(@store), class: 'btn btn-block btn-black' %>
+  <% end %>
 </div>
 
-<div class="row mt-4">
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-body">
-        <p>
-          <strong><%= Store.human_attribute_name(:name) %>:</strong>
-          <%= @store.name %>
-        </p>
-        <p>
-          <strong><%= Store.human_attribute_name(:type) %>:</strong>
-          <%= link_to enum_i18n(Store, :type, @store.type), admin_pins_path(type: @store.type) %>
-        </p>
-        <p>
-        <strong><%= Store.human_attribute_name(:created_by) %>:</strong>
-          <%= link_to(@store.created_by.display_name, admin_user_path(@store.created_by)) if @store.created_by %>
-        </p>
-        <p>
-          <strong><%= Store.human_attribute_name(:updated_by) %>:</strong>
-          <%= link_to(@store.updated_by.display_name, admin_user_path(@store.updated_by)) if @store.updated_by %>
-        </p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-body">
-        <p>
-          <strong><%= t('views.stores.index.coordinates') %>:</strong>
-          <%= [@store.latitude, @store.longitude].compact.join(', ') %>
-        </p>
-      </div>
-    </div>
-  </div>
+<% if can? :destroy, @store %>
+<div class="form-group mt-3">
+  <%= link_to t('views.shared.delete'), admin_pin_path(@store), method: :delete, data: { confirm: t('views.shared.delete_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
 </div>
+<% end %>
+<% end %>

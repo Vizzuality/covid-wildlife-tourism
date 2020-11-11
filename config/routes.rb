@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :pins, controller: 'stores' do
+    resources :pins, controller: 'stores', except: [:new] do
       # post :approve_all, on: :collection
       post :approve, on: :member
     end

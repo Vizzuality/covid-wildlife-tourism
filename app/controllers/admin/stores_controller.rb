@@ -45,11 +45,10 @@ module Admin
     def update
       respond_to do |format|
         if @store.update(store_params)
-          format.html { redirect_to admin_pin_path(@store), notice: 'Store was successfully updated.' }
-          format.json { render :show, status: :ok, location: @store }
+          format.html { redirect_to admin_pin_path(@store), notice: t('views.admin.stores.pin_edited_successfully') }
         else
+          flash.now[:alert] = @store.errors.full_messages
           format.html { render :edit }
-          format.json { render json: @store.errors, status: :unprocessable_entity }
         end
       end
     end

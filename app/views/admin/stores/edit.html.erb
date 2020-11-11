@@ -1,13 +1,18 @@
-<% content_for :page_title, t('views.edit.title', resource: Store.model_name.human) %>
+<% content_for :title do %>
+<%= t('views.shared.edit_pin') %>
+<% end %>
 
-<div class="row mt-3">
-  <div class="col-md-11">
-    <h1><%= "#{t('views.shared.edit')} #{Store.model_name.human(count: 1)}" %></h1>
-  </div>
-  <div class="col-md-1">
-    <%= link_to t('views.shared.show'), admin_pin_path(@store),
-      class: 'btn btn-sm btn-outline-primary' %>
-  </div>
+<%= form_for(@store, url: admin_pin_path(@store), class: 'mt-5') do |f| %>
+<%= render partial: 'community', locals: { f: f } if @store.type == 'Community' %>
+<%= render partial: 'enterprise', locals: { f: f } if @store.type == 'Enterprise' %>
+
+<div class="form-group mt-5">
+  <%= f.submit t('views.shared.save'), class: "btn btn-block btn-black" %>
 </div>
 
-<%= render 'form', store: @store %>
+<% if can? :destroy, @store %>
+<div class="form-group mt-3">
+  <%= link_to t('views.shared.delete'), admin_pin_path(@store), method: :delete, data: { confirm: t('views.shared.delete_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
+</div>
+<% end %>
+<% end %>

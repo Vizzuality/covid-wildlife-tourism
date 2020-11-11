@@ -37,7 +37,6 @@ en:
       login_or_register: Log in or register
       login_wall_intro: To add a pin or report an error, you need to have an account.
       protected_areas_layer: Protected areas layer
-      pin_details: Pin details
       pin_approved: Approved
       pin_pending: Pending approval
       pin_pending_changes: Changes pending approval
@@ -82,6 +81,7 @@ en:
         search_by_name: Search by name
         all_states: All states
         all_types: All types
+        pin_edited_successfully: Pin edited successfully
         pin_deleted_successfully: Pin deleted successfully
         pin_approved_successfully: Pin approved successfully
         pin_approved_unsuccessfully: Unable to approve the pin
@@ -109,6 +109,7 @@ en:
       approve: 'Approve'
       delete_confirmation: Are you sure? The pin will be permanently deleted.
       users: Users
+      pin_details: Pin details
   activerecord:
     models:
       store:

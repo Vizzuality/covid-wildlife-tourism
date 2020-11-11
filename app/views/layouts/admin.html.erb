@@ -7,6 +7,7 @@
   <meta name="description" content="">
   <title><%= [yield(:page_title).presence, t('views.layout.application.title')].compact.join(' | ') %></title>
   <%= javascript_pack_tag "application", defer: true %>
+  <%= javascript_pack_tag "admin", defer: true %>
   <%= stylesheet_link_tag "application", media: "all" %>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
