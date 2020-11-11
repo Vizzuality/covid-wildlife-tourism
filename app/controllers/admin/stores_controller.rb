@@ -1,5 +1,5 @@
 module Admin
-  class StoresController < ApplicationController
+  class StoresController < AdminController
     load_and_authorize_resource :store
     before_action :set_stores, only: [:index, :approve_all]
 
