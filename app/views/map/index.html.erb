@@ -26,12 +26,15 @@
         </div>
 
         <% if user_signed_in? && current_user.admin? %>
-        <%= link_to t("views.shared.pins_list"), admin_pins_path, class: 'd-block mt-4' %>
+        <%= link_to t("views.map.all_pins"), admin_pins_path, class: 'd-block mt-3' %>
+        <%= link_to t("views.map.approve_pins"), admin_pins_path(state: :waiting_approval), class: 'd-block mt-2' %>
+        <%= link_to t("views.map.approve_changes"), admin_pins_path(state: :to_replace), class: 'd-block mt-2' %>
+        <%= link_to t("views.map.users"), admin_users_path, class: 'd-block mt-2' %>
         <% end %>
       </div>
       <div class="container">
         <% if user_signed_in? %>
-        <%= link_to t("views.shared.edit_profile"), edit_user_registration_path, class: 'd-block mb-4' %>
+        <%= link_to t("views.shared.edit_profile"), edit_user_registration_path, class: 'd-block mb-2' %>
         <%= link_to t("views.shared.log_out"), destroy_user_session_path, class: 'd-block' %>
         <% end %>
       </div>

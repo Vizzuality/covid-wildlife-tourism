@@ -41,6 +41,9 @@ en:
       pin_approved: Approved
       pin_pending: Pending approval
       pin_pending_changes: Changes pending approval
+      all_pins: All pins
+      approve_pins: Approve pins
+      approve_changes: Approve changes
     pins:
       add_pin_intro: Add a pin on the map by selecting a location on the map and filling some information.
       type_intro: What type of place do you want to add?
@@ -105,6 +108,7 @@ en:
       actions: Actions
       approve: 'Approve'
       delete_confirmation: Are you sure? The pin will be permanently deleted.
+      users: Users
   activerecord:
     models:
       store:
