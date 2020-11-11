@@ -6,11 +6,11 @@
   </div>
   <div class="col-md-4">
     <% if can? :edit, @store %>
-      <%= link_to t('views.actions.edit'), edit_admin_store_path(@store),
+      <%= link_to t('views.actions.edit'), edit_admin_pin_path(@store),
         class: 'btn btn-sm btn-outline-primary' %>
     <% end %>
     <% if can? :destroy, @store %>
-      <%= link_to t('views.actions.destroy'), admin_store_path(@store),
+      <%= link_to t('views.actions.destroy'), admin_pin_path(@store),
         method: :delete, data: { confirm: t('views.actions.confirm_destroy') },
         class: 'btn btn-sm btn-outline-danger' %>
     <% end %>
@@ -27,7 +27,7 @@
         </p>
         <p>
           <strong><%= Store.human_attribute_name(:type) %>:</strong>
-          <%= link_to enum_i18n(Store, :type, @store.type), admin_stores_path(type: @store.type) %>
+          <%= link_to enum_i18n(Store, :type, @store.type), admin_pins_path(type: @store.type) %>
         </p>
         <p>
         <strong><%= Store.human_attribute_name(:created_by) %>:</strong>

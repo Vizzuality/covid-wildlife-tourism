@@ -45,7 +45,7 @@ module Admin
     def update
       respond_to do |format|
         if @store.update(store_params)
-          format.html { redirect_to admin_store_path(@store), notice: 'Store was successfully updated.' }
+          format.html { redirect_to admin_pin_path(@store), notice: 'Store was successfully updated.' }
           format.json { render :show, status: :ok, location: @store }
         else
           format.html { render :edit }
@@ -71,9 +71,9 @@ module Admin
       @store = Store.find(params[:id])
 
       if @store.approve
-        redirect_to admin_stores_path, notice: t('views.admin.stores.pin_approved_successfully')
+        redirect_to admin_pins_path, notice: t('views.admin.stores.pin_approved_successfully')
       else
-        redirect_to admin_stores_path, notice: @store.errors
+        redirect_to admin_pins_path, notice: @store.errors
       end
     end
 

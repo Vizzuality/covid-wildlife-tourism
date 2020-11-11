@@ -26,7 +26,7 @@
         </div>
 
         <% if user_signed_in? && current_user.admin? %>
-        <%= link_to t("views.shared.pins_list"), admin_stores_path, class: 'd-block mt-4' %>
+        <%= link_to t("views.shared.pins_list"), admin_pins_path, class: 'd-block mt-4' %>
         <% end %>
       </div>
       <div class="container">

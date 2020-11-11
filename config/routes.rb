@@ -24,8 +24,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :stats, only: [:index]
-    resources :stores do
+    resources :pins, controller: 'stores' do
       # post :approve_all, on: :collection
       post :approve, on: :member
     end

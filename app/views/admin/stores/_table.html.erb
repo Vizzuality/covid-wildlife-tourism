@@ -18,7 +18,7 @@
     <tbody>
       <% stores.each do |store| %>
       <tr>
-        <td><%= link_to store.name, admin_store_path(store) %></td>
+        <td><%= link_to store.name, admin_pin_path(store) %></td>
         <td><%= enum_i18n(Store, :state, store.state) %></td>
         <td>
           <%= link_to(store.created_by.display_name, admin_user_path(store.created_by)) if store.created_by %>
@@ -30,15 +30,15 @@
         <td><%= store.longitude&.round(3) %></td>
         <td>
           <% if store.state.eql? 'waiting_approval' %>
-          <%= link_to t('views.shared.approve'), approve_admin_store_path(store), method: :put, class: 'btn btn-block btn-sm btn-black' %>
+          <%= link_to t('views.shared.approve'), approve_admin_pin_path(store), method: :put, class: 'btn btn-block btn-sm btn-black' %>
           <% elsif store.state.eql? 'to_replace' %>
-          <%= link_to t('views.shared.approve'), approve_admin_store_path(store), method: :post, class: 'btn btn-block btn-sm btn-black' %>
+          <%= link_to t('views.shared.approve'), approve_admin_pin_path(store), method: :post, class: 'btn btn-block btn-sm btn-black' %>
           <% else %>
-          <%= link_to t('views.shared.edit'), edit_admin_store_path(store), class: 'btn btn-block btn-sm btn-black' %>
+          <%= link_to t('views.shared.edit'), edit_admin_pin_path(store), class: 'btn btn-block btn-sm btn-black' %>
           <% end %>
 
           <% if can? :destroy, store %>
-          <%= link_to t('views.shared.delete'), admin_store_path(store, state: params[:state], search: params[:search], type: params[:type]), method: :delete, data: { confirm: t('views.shared.delete_confirmation') }, class: 'btn btn-block btn-sm btn-danger mt-2' %>
+          <%= link_to t('views.shared.delete'), admin_pin_path(store, state: params[:state], search: params[:search], type: params[:type]), method: :delete, data: { confirm: t('views.shared.delete_confirmation') }, class: 'btn btn-block btn-sm btn-danger mt-2' %>
           <% end %>
         </td>
       </tr>
