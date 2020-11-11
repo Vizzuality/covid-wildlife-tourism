@@ -8,4 +8,5 @@ export type Pin = {
   is_owner: boolean;
   public: boolean;
   can_edit: boolean;
+  status?: string;
 };

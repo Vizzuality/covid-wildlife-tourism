@@ -27,6 +27,7 @@ class PinsController < ApplicationController
       pin[:is_owner] = user_signed_in? && id == current_user.id
       pin[:can_edit] = user_signed_in?  && (id == current_user.id || current_user.admin?)
       pin[:public] = state == 'live'
+      pin[:status] = pin_status(state) if user_signed_in?
       pin
     end
 

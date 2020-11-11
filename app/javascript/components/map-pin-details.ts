@@ -5,6 +5,7 @@ import { Pin } from 'utils/types';
 const MAIN_EL: HTMLElement = document.getElementById('main');
 const DIALOG_EL: HTMLElement = document.getElementById('pin-details');
 const NAME_EL: HTMLElement = DIALOG_EL.querySelector('.js-name');
+const STATUS_EL: HTMLElement = DIALOG_EL.querySelector('.js-status');
 const WEBSITE_EL: HTMLElement = DIALOG_EL.querySelector('.js-website');
 const EDIT_GROUP_EL: HTMLElement = DIALOG_EL.querySelector('.js-edit-group');
 const EDIT_BTN_EL: HTMLElement = DIALOG_EL.querySelector('.js-edit');
@@ -25,6 +26,13 @@ export default class MapPinDetails {
 
   show(pin: Pin) {
     NAME_EL.textContent = pin.name;
+
+    if (pin.status) {
+      STATUS_EL.textContent = pin.status;
+      WEBSITE_EL.removeAttribute('hidden');
+    } else {
+      WEBSITE_EL.setAttribute('hidden', 'true');
+    }
 
     if (pin.website) {
       WEBSITE_EL.textContent = pin.website;

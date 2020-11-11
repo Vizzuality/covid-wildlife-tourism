@@ -12,4 +12,17 @@ module PinsHelper
       false
     end
   end
+
+  def pin_status(state)
+    case state
+    when 'live'
+      t('views.map.pin_approved')
+    when 'waiting_approval'
+      t('views.map.pin_pending')
+    when 'to_replace'
+      t('views.map.pin_pending_changes')
+    else
+      t('views.map.pin_approved')
+    end
+  end
 end
