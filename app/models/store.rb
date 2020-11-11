@@ -137,6 +137,18 @@ class Store < ApplicationRecord
     {'Community' => 'Community', 'Enterprise' => 'Enterprise'}
   end
 
+  def approve
+    if state.eql? 'waiting_approval'
+      self.state = 'live'
+      save
+    elsif state.eql? 'to_replace'
+      approve_replacement
+    else
+      errors.add(:state, 'Cannot approve this state')
+      false
+    end
+  end
+
   private
 
   # x: longitude
@@ -163,6 +175,26 @@ class Store < ApplicationRecord
   def update_state
     return if related_store_id.nil?
 
-    self.state = :to_replace
+    self.state = 'to_replace'
+  end
+
+  def approve_replacement
+    if related_store_id.blank?
+      errors.add(:related_store_id, 'There is no related store to replace')
+      return false
+    end
+
+    rs = Store.find(related_store_id)
+    %i[name latitude longitude].each do |attr|
+      rs.write_attribute(attr, self[attr])
+    end
+
+    if rs.save
+      destroy
+      true
+    else
+      self.errors = rs.errors
+      false
+    end
   end
 end

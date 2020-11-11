@@ -28,12 +28,11 @@ Rails.application.routes.draw do
     resources :stats, only: [:index]
     resources :stores do
       post :approve_all, on: :collection
-      resources :status_store_owners, only: [:new, :create]
+      post :approve, on: :member
     end
     resources :manage_stores, only: [:index]
     resources :user_stores, only: [:index, :update]
     resources :users
-
   end
 
   require 'sidekiq/web'

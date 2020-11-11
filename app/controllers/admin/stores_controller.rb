@@ -40,16 +40,6 @@ module Admin
     # GET /stores/1/edit
     def edit; end
 
-    def edit_schedule
-      @week_days = if @store.week_days.any?
-                    @store.week_days.order(:day)
-                  else
-                    Date::DAYNAMES.map do |i|
-                      @store.week_days.build(day: i.downcase.to_sym)
-                    end
-                  end
-    end
-
     # PATCH/PUT /stores/1
     # PATCH/PUT /stores/1.json
     def update
@@ -89,6 +79,16 @@ module Admin
                       notice: t('controllers.stores.approve_all.notice', size: size)
         end
         format.json { head :no_content }
+      end
+    end
+
+    def approve
+      @store = Store.find(params[:id])
+
+      if @store.approve
+        redirect_to admin_stores_path, notice: t('controllers.stores.approve.notice')
+      else
+        redirect_to admin_stores_path, notice: @store.errors
       end
     end
 

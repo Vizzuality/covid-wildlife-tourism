@@ -86,6 +86,7 @@ en:
       edit: Edit
       show: Show
       delete: Delete
+      destroy: 'Destroy'
       other: Other
       report_error: Report an error
       send_suggestions: Send suggestions
@@ -94,6 +95,13 @@ en:
       search: Search
       type: Type
       actions: Actions
+      approve: 'Approve'
+      replace: 'Replace'
+      confirm_destroy: 'Are you sure you want to destroy this?'
+    stores:
+      index:
+        confirm_approval: 'Are you sure you want to approve this store?'
+        confirm_replace: 'Are you sure you want to replace the current store data with this one?'
   activerecord:
     models:
       store:
