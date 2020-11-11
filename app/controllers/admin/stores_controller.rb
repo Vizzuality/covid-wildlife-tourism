@@ -50,29 +50,12 @@ module Admin
                   end
     end
 
-    # POST /stores
-    # POST /stores.json
-    def create
-      @store = Store.new(store_params)
-      @store.source = 'Community' if current_user.contributor?
-
-      respond_to do |format|
-        if @store.save
-          format.html { redirect_to @store, notice: 'Store was successfully created.' }
-          format.json { render :show, status: :created, location: @store }
-        else
-          format.html { render :new }
-          format.json { render json: @store.errors, status: :unprocessable_entity }
-        end
-      end
-    end
-
     # PATCH/PUT /stores/1
     # PATCH/PUT /stores/1.json
     def update
       respond_to do |format|
         if @store.update(store_params)
-          format.html { redirect_to @store, notice: 'Store was successfully updated.' }
+          format.html { redirect_to admin_store_path(@store), notice: 'Store was successfully updated.' }
           format.json { render :show, status: :ok, location: @store }
         else
           format.html { render :edit }
@@ -120,7 +103,13 @@ module Admin
       permitted_params = [:name, :latitude, :longitude, :municipality,
                           :type, :state]
 
-      params.require(:store).permit(permitted_params)
+      if params[:community].present?
+        params.require(:community).permit(permitted_params)
+      elsif params[:enterprise].present?
+        params.require(:enterprise).permit(permitted_params)
+      else
+        params.require(:store).permit(permitted_params)
+      end
     end
 
     def search_params
