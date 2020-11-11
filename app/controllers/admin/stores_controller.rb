@@ -60,23 +60,8 @@ module Admin
       @store.destroy
       respond_to do |format|
         format.html do
-          redirect_to polymorphic_url(controller_name, search_params),
-                      notice: 'Store was successfully destroyed.'
-        end
-        format.json { head :no_content }
-      end
-    end
-
-    def approve_all
-      @stores = @stores.search(params[:search])
-      @stores = @stores.by_type(params[:type]) if params[:type].present?
-      size = @stores.size
-      @stores.update_all(state: :live) # rubocop:disable Rails/SkipsModelValidations
-
-      respond_to do |format|
-        format.html do
-          redirect_to polymorphic_url(controller_name),
-                      notice: t('controllers.stores.approve_all.notice', size: size)
+          redirect_to polymorphic_url([:admin, controller_name], search_params),
+                      notice: t('views.admin.stores.pin_deleted_successfully')
         end
         format.json { head :no_content }
       end
@@ -86,7 +71,7 @@ module Admin
       @store = Store.find(params[:id])
 
       if @store.approve
-        redirect_to admin_stores_path, notice: t('controllers.stores.approve.notice')
+        redirect_to admin_stores_path, notice: t('views.admin.stores.pin_approved_successfully')
       else
         redirect_to admin_stores_path, notice: @store.errors
       end

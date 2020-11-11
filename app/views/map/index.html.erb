@@ -86,7 +86,7 @@
               </svg>
               <%= t('views.shared.edit') %>
             </a>
-            <a data-href="<%= delete_pin_path(':id') %>" class="btn btn-block btn-black mt-0 js-delete">
+            <a data-href="<%= pin_path(':id') %>" data-method="delete" data-confirm="<%= t('views.shared.delete_confirmation') %>" class="btn btn-block btn-black mt-0 js-delete">
               <%= t('views.shared.delete') %>
             </a>
           </div>

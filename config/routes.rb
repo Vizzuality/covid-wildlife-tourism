@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
   resources :map
   resources :pins, except: [:show]
-  get '/pins/:id/delete', to: 'pins#destroy', as: 'delete_pin'
 
   scope '/users' do
     devise_scope :user do
@@ -27,7 +26,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :stats, only: [:index]
     resources :stores do
-      post :approve_all, on: :collection
+      # post :approve_all, on: :collection
       post :approve, on: :member
     end
     resources :manage_stores, only: [:index]

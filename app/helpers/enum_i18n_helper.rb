@@ -7,7 +7,8 @@ module EnumI18nHelper
       [enum_i18n(class_name, enum, key), key]
     end
     values << ['', ''] if blank
-    values.sort_by { |a| a[0] }
+    values
+    # values.sort_by { |a| a[0] }
   end
 
   # Returns the i18n version the models current enum key
