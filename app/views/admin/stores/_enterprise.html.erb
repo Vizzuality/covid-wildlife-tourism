@@ -1,7 +1,12 @@
 <div class="form-group">
   <div class="form-group">
     <%= f.label :name, t('views.pins.enterprise_name'), class: 'required' %>
-    <%= f.text_field :name, required: true, autofocus: true, disabled: action_name == 'show', class: 'form-control' %>
+    <%= f.text_field :name, required: true, autofocus: true, disabled: action_name == 'show', 'aria-describedby': 'name_related_pin', class: 'form-control' %>
+    <% if !@related_store.nil? && !@store.name.eql?(@related_store.name) %>
+    <div id="name_related_pin" class="form-text font-s">
+      <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.name %></strong>
+    </div>
+    <% end%>
   </div>
 
   <%= f.hidden_field :type %>
@@ -10,22 +15,27 @@
 
   <div class="form-group">
     <label for="store_enterprise_type" class="required"><%= t('views.pins.enterprise_type') %></label>
-    <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required <%= action_name == 'show' ? 'disabled' : '' %> multiple>
+    <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required <%= action_name == 'show' ? 'disabled' : '' %> aria-describedby="enterprise_type_related_pin" multiple>
       <optgroup label="<%= t('views.pins.tourism') %>">
-        <option value="photo_tourism"><%= t('views.pins.photo_tourism') %></option>
-        <option value="hunting_tourism"><%= t('views.pins.hunting_tourism') %></option>
+        <option value="photo_tourism"><%= t('activerecord.enums.store.enterprise_types.photo_tourism') %></option>
+        <option value="hunting_tourism"><%= t('activerecord.enums.store.enterprise_types.hunting_tourism') %></option>
       </optgroup>
       <optgroup label="<%= t('views.pins.accomodation') %>">
-        <option value="accommodation_hotel"><%= t('views.pins.accommodation_hotel') %></option>
-        <option value="accommodation_lodge"><%= t('views.pins.accommodation_lodge') %></option>
-        <option value="accommodation_camping_site"><%= t('views.pins.accommodation_camping_site') %></option>
-        <option value="accommodation_guesthouse"><%= t('views.pins.accommodation_guesthouse') %></option>
-        <option value="accommodation_other"><%= t('views.pins.accommodation_other') %></option>
+        <option value="accommodation_hotel"><%= t('activerecord.enums.store.enterprise_types.accommodation_hotel') %></option>
+        <option value="accommodation_lodge"><%= t('activerecord.enums.store.enterprise_types.accommodation_lodge') %></option>
+        <option value="accommodation_camping_site"><%= t('activerecord.enums.store.enterprise_types.accommodation_camping_site') %></option>
+        <option value="accommodation_guesthouse"><%= t('activerecord.enums.store.enterprise_types.accommodation_guesthouse') %></option>
+        <option value="accommodation_other"><%= t('activerecord.enums.store.enterprise_types.accommodation_other') %></option>
       </optgroup>
       <optgroup label="<%= t('views.shared.other') %>">
-        <option value="other"><%= t('views.shared.other') %></option>
+        <option value="other"><%= t('activerecord.enums.store.enterprise_types.other') %></option>
       </optgroup>
     </select>
+    <% if !@related_store.nil? && !@store.enterprise_types.eql?(@related_store.enterprise_types) %>
+    <div id="enterprise_type_related_pin" class="form-text font-s">
+      <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.enterprise_types.split(',').map { |value| enum_i18n(Store, :enterprise_type, value, value) }.join(', ') %></strong>
+    </div>
+    <% end%>
   </div>
 
   <div class="form-group js-enterprise-type-free-input-group" hidden>
@@ -37,12 +47,17 @@
 
   <div class="form-group">
     <label for="store_ownership"><%= t('views.pins.ownership') %></label>
-    <select id="store_ownership" class="custom-select js-ownership-list" <%= action_name == 'show' ? 'disabled' : '' %>>
-      <option value="private"><%= t('views.pins.private') %></option>
-      <option value="protected_area"><%= t('views.pins.protected_area') %></option>
-      <option value="community_group"><%= t('views.pins.community_group') %></option>
-      <option value="other"><%= t('views.shared.other') %></option>
+    <select id="store_ownership" class="custom-select js-ownership-list" <%= action_name == 'show' ? 'disabled' : '' %> aria-describedby="ownership_related_pin">
+      <option value="private"><%= t('activerecord.enums.store.ownerships.private') %></option>
+      <option value="protected_area"><%= t('activerecord.enums.store.ownerships.protected_area') %></option>
+      <option value="community_group"><%= t('activerecord.enums.store.ownerships.community_group') %></option>
+      <option value="other"><%= t('activerecord.enums.store.ownerships.other') %></option>
     </select>
+    <% if !@related_store.nil? && !@store.ownership.eql?(@related_store.ownership) %>
+    <div id="ownership_related_pin" class="form-text font-s">
+      <%= t('views.admin.stores.previously') %>: <strong><%= enum_i18n(Store, :ownership, @related_store.ownership, @related_store.ownership) %></strong>
+    </div>
+    <% end%>
   </div>
 
   <div class="form-group js-ownership-free-input-group" hidden <%= action_name == 'show' ? 'disabled' : '' %>>
@@ -52,12 +67,22 @@
 
   <div class="form-group">
     <%= f.label :latitude, class: 'required' %>
-    <%= f.number_field :latitude, required: true, disabled: action_name == 'show', min: -90, max: 90, step: 0.0001, class: 'form-control' %>
+    <%= f.number_field :latitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'latitude_related_pin', min: -90, max: 90, step: 0.0001, class: 'form-control' %>
+    <% if !@related_store.nil? && !@store.latitude.eql?(@related_store.latitude) %>
+    <div id="latitude_related_pin" class="form-text font-s">
+      <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.latitude %></strong>
+    </div>
+    <% end%>
   </div>
 
   <div class="form-group">
     <%= f.label :longitude, class: 'required' %>
-    <%= f.number_field :longitude, required: true, disabled: action_name == 'show', min: -180, max: 180, step: 0.0001, class: 'form-control' %>
+    <%= f.number_field :longitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'longitude_related_pin', min: -180, max: 180, step: 0.0001, class: 'form-control' %>
+    <% if !@related_store.nil? && !@store.longitude.eql?(@related_store.longitude) %>
+    <div id="longitude_related_pin" class="form-text font-s">
+      <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.longitude %></strong>
+    </div>
+    <% end%>
   </div>
 
   <% if (@store.related_store_id.nil?) %>

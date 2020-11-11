@@ -12,18 +12,18 @@
     <label for="store_enterprise_type" class="required"><%= t('views.pins.enterprise_type') %></label>
     <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required multiple>
       <optgroup label="<%= t('views.pins.tourism') %>">
-        <option value="photo_tourism"><%= t('views.pins.photo_tourism') %></option>
-        <option value="hunting_tourism"><%= t('views.pins.hunting_tourism') %></option>
+        <option value="photo_tourism"><%= t('activerecord.enums.store.enterprise_types.photo_tourism') %></option>
+        <option value="hunting_tourism"><%= t('activerecord.enums.store.enterprise_types.hunting_tourism') %></option>
       </optgroup>
       <optgroup label="<%= t('views.pins.accomodation') %>">
-        <option value="accommodation_hotel"><%= t('views.pins.accommodation_hotel') %></option>
-        <option value="accommodation_lodge"><%= t('views.pins.accommodation_lodge') %></option>
-        <option value="accommodation_camping_site"><%= t('views.pins.accommodation_camping_site') %></option>
-        <option value="accommodation_guesthouse"><%= t('views.pins.accommodation_guesthouse') %></option>
-        <option value="accommodation_other"><%= t('views.pins.accommodation_other') %></option>
+        <option value="accommodation_hotel"><%= t('activerecord.enums.store.enterprise_types.accommodation_hotel') %></option>
+        <option value="accommodation_lodge"><%= t('activerecord.enums.store.enterprise_types.accommodation_lodge') %></option>
+        <option value="accommodation_camping_site"><%= t('activerecord.enums.store.enterprise_types.accommodation_camping_site') %></option>
+        <option value="accommodation_guesthouse"><%= t('activerecord.enums.store.enterprise_types.accommodation_guesthouse') %></option>
+        <option value="accommodation_other"><%= t('activerecord.enums.store.enterprise_types.accommodation_other') %></option>
       </optgroup>
       <optgroup label="<%= t('views.shared.other') %>">
-        <option value="other"><%= t('views.shared.other') %></option>
+        <option value="other"><%= t('activerecord.enums.store.enterprise_types.other') %></option>
       </optgroup>
     </select>
   </div>
@@ -38,10 +38,10 @@
   <div class="form-group">
     <label for="store_ownership"><%= t('views.pins.ownership') %></label>
     <select id="store_ownership" class="custom-select js-ownership-list">
-      <option value="private"><%= t('views.pins.private') %></option>
-      <option value="protected_area"><%= t('views.pins.protected_area') %></option>
-      <option value="community_group"><%= t('views.pins.community_group') %></option>
-      <option value="other"><%= t('views.shared.other') %></option>
+      <option value="private"><%= t('activerecord.enums.store.ownerships.private') %></option>
+      <option value="protected_area"><%= t('activerecord.enums.store.ownerships.protected_area') %></option>
+      <option value="community_group"><%= t('activerecord.enums.store.ownerships.community_group') %></option>
+      <option value="other"><%= t('activerecord.enums.store.ownerships.other') %></option>
     </select>
   </div>
 

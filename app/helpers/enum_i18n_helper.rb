@@ -21,7 +21,11 @@ module EnumI18nHelper
   # Returns the i18n string for the enum key
   # Example usage:
   # enum_i18n(User, :approval_state, :unprocessed)
-  def enum_i18n(class_name, enum, key)
-    I18n.t("activerecord.enums.#{class_name.model_name.i18n_key}.#{enum.to_s.pluralize}.#{key}")
+  def enum_i18n(class_name, enum, key, default = nil)
+    if default.nil?
+      I18n.t("activerecord.enums.#{class_name.model_name.i18n_key}.#{enum.to_s.pluralize}.#{key}")
+    else
+      I18n.t("activerecord.enums.#{class_name.model_name.i18n_key}.#{enum.to_s.pluralize}.#{key}", default: default)
+    end
   end
 end

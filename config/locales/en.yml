@@ -59,22 +59,11 @@ en:
       owner_recommendation: If not, could you recommend a contact and give their details?
       reliance_on_farming: Estimated reliance of local livelihoods on farming
       reliance_on_wildlife: Estimated reliance of local livelihood on activities related to wildlife management
-      ownership: Ownership
-      private: Private
-      protected_area: Protected area authority
-      community_group: Community group
       ownership_other: If other, indicate the type of ownership
       enterprise_type_other: If you selected other, indicate an enterprise type
       enterprise_type: Enterprise type
       tourism: Tourism
-      photo_tourism: Photo tourism
-      hunting_tourism: Hunting tourism
       accomodation: Accomodation
-      accommodation_hotel: Hotel
-      accommodation_lodge: Lodge
-      accommodation_camping_site: Camping site
-      accommodation_guesthouse: Guesthouse
-      accommodation_other: Other
     admin:
       stores:
         state: State
@@ -85,6 +74,7 @@ en:
         pin_deleted_successfully: Pin deleted successfully
         pin_approved_successfully: Pin approved successfully
         pin_approved_unsuccessfully: Unable to approve the pin
+        previously: Previously
     shared:
       log_in: Log in
       log_out: Log out
@@ -106,7 +96,8 @@ en:
       search: Search
       type: Type
       actions: Actions
-      approve: 'Approve'
+      approve: Approve
+      review: Review
       delete_confirmation: Are you sure? The pin will be permanently deleted.
       users: Users
       pin_details: Pin details
@@ -147,3 +138,18 @@ en:
         types:
           Community: 'Community'
           Enterprise: 'Enterprise'
+        enterprise_types:
+          photo_tourism: Photo tourism
+          hunting_tourism: Hunting tourism
+          accommodation_hotel: Hotel
+          accommodation_lodge: Lodge
+          accommodation_camping_site: Camping site
+          accommodation_guesthouse: Guesthouse
+          accommodation_other: Other
+          other: Other
+        ownerships:
+          ownership: Ownership
+          private: Private
+          protected_area: Protected area authority
+          community_group: Community group
+          other: Other

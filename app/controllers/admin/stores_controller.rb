@@ -30,7 +30,11 @@ module Admin
 
     # GET /stores/1
     # GET /stores/1.json
-    def show; end
+    def show
+      if (@store.related_store_id)
+        @related_store = Store.find(@store.related_store_id)
+      end
+    end
 
     # GET /stores/new
     def new
