@@ -31,13 +31,12 @@
 #  reason_to_change  :text
 #  related_store_id  :bigint
 #
+require 'csv'
 class Store < ApplicationRecord
   include UserTrackable
   include PgSearch::Model
 
   PROJECTION = 4326
-
-  #self.abstract_class = true
 
   has_many :user_stores, inverse_of: :store, dependent: :destroy
   has_many :managers, through: :user_stores
@@ -116,11 +115,10 @@ class Store < ApplicationRecord
 
   def self.to_csv
     CSV.generate(headers: true, force_quotes: true) do |csv|
-      csv << %w(id name latitude longitude street city district
-                country created_at created_by updated_at updated_by)
+      csv << %w(id name latitude longitude
+                created_at created_by updated_at updated_by)
       all.find_each do |store|
         csv << [store.id, store.name, store.latitude, store.longitude,
-                store.street, store.city, store.district, store.country,
                 store.created_at.strftime('%d/%m/%Y %H:%M'), store.created_by&.display_name,
                 store.updated_at.strftime('%d/%m/%Y %H:%M'), store.updated_by&.display_name]
       end
