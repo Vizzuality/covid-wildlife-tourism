@@ -37,8 +37,8 @@ describe Store do
   describe '#in_bounding_box' do
     it 'gets intersected store as geojson' do
       bbox = [[0, 0], [2, 2]]
-      tesco = Store.create(name: 'Tesco', lonlat: 'POINT(1 1)')
-      Store.create(name: 'Asda', lonlat: 'POINT(1,3)')
+      tesco = Store.create(name: 'Tesco', lonlat: 'POINT(1 1)', type: 'Community')
+      Store.create(name: 'Asda', lonlat: 'POINT(1,3)', type: 'Community')
 
       query = Store.in_bounding_box(bbox)
 
