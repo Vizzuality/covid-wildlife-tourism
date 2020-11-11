@@ -60,8 +60,7 @@ module Admin
       @store.destroy
       respond_to do |format|
         format.html do
-          redirect_to polymorphic_url([:admin, controller_name], search_params),
-                      notice: t('views.admin.stores.pin_deleted_successfully')
+          redirect_to admin_pins_path, notice: t('views.admin.stores.pin_deleted_successfully')
         end
         format.json { head :no_content }
       end
