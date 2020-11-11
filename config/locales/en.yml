@@ -26,6 +26,7 @@ en:
         new_password_confirmation: New password confirmation
         update: Update
         close_account: Close account
+        close_account_confirmation: Are you sure? Your account will be permanently deleted.
     map:
       open_drawer: Open drawer menu
       locate_me: Locate me
