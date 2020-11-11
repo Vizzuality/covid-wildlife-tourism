@@ -1,14 +1,13 @@
 module Admin
   class UsersController < ApplicationController
-    load_and_authorize_resource except: [:statuses]
+    load_and_authorize_resource :user
 
     # GET /users
     # GET /users.json
     def index
-      @users = User.order(:created_at).includes(:created_stores)
+      @users = User.order(:created_at)
         .search(params[:search])
       @users = @users.where(role: params[:role]) if params[:role].present?
-      @users = @users.joins(:created_stores).distinct if params[:created_stores].present?
 
       respond_to do |format|
         format.html do
@@ -24,9 +23,8 @@ module Admin
     # GET /users/1.json
     def show
       @created_stores = @user.created_stores.search(params[:search])
-      @created_stores = @created_stores.by_group(params[:group]) if params[:group].present?
       @created_stores = @created_stores.by_state(params[:state]) if params[:state].present?
-      @created_stores = @created_stores.by_store_type(params[:store_type]) if params[:store_type].present?
+      @created_stores = @created_stores.by_type(params[:type]) if params[:type].present?
       @created_stores = @created_stores.order(:name).page(params[:page])
     end
 
@@ -60,7 +58,7 @@ module Admin
     def update
       respond_to do |format|
         if @user.update(user_params)
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+          format.html { redirect_to admin_user_path(@user), notice: 'User was successfully updated.' }
           format.json { render :show, status: :ok, location: @user }
         else
           format.html { render :edit }
@@ -79,22 +77,6 @@ module Admin
       end
     end
 
-    def statuses
-      authorize! :read, :statuses_user
-      @user = User.find(params[:id])
-      @status_crowdsource_users = @user.status_crowdsource_users.order(posted_at: :desc)
-        .page(params[:page])
-    end
-
-    def regenerate_key
-      if (current_user.admin? || current_user == @user) && %w[store_owner_code api_key].include?(params[:key])
-        @user.send("regenerate_#{params[:key]}")
-        redirect_to @user, notice: 'Success!'
-      else
-        redirect_to @user, error: 'You are not authorized to do this'
-      end
-    end
-
     private
 
     # Only allow a list of trusted parameters through.
@@ -102,7 +84,7 @@ module Admin
       permitted_params = [:name, :email, :password, :password_confirmation]
 
       permitted_params << :role if current_user.admin?
-      permitted_params << {store_ids: []} if current_user.admin? || current_user.general_manager?
+      permitted_params << {store_ids: []} if current_user.admin?
 
       params.require(:user).permit(permitted_params)
     end

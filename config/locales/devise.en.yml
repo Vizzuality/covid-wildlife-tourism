@@ -67,3 +67,22 @@ en:
     stores:
       approve:
         notice: "Correctly approved"
+  views:
+    users:
+      search:
+        placeholder: "Search user..."
+        filter_role: "Filter"
+        button: "Search"
+      show:
+        stores_owned: "Stores Owned"
+        stores_created: "Stores Created"
+    stores:
+      search:
+        filter_type: "Type"
+        placeholder: "Search stores..."
+        button: "Search"
+    form:
+      submit: "Submit"
+    actions:
+      edit: "Edit"
+      show: "Show"

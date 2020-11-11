@@ -17,8 +17,6 @@ class UserStore < ApplicationRecord
     return all unless search
 
     joins(:store)
-      .where('stores.name ilike ? OR stores.street ilike ? OR stores.district ilike ? OR stores.city ilike ?',
-             "%#{search}%", "%#{search}%",
-             "%#{search}%", "%#{search}%")
+      .where('stores.name ilike ?', "%#{search}%")
   end
 end

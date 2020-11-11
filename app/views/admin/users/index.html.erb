@@ -6,14 +6,14 @@
   </div>
   <% if can? :new, User %>
     <div class="col-md-1">
-      <%= link_to t('views.actions.new'), new_user_path, class: 'btn btn-sm btn-outline-primary' %>
+      <%= link_to t('views.actions.new'), new_admin_user_path, class: 'btn btn-sm btn-outline-primary' %>
     </div>
   <% end %>
 </div>
 
 <div class="row mt-2">
   <div class="col-md-12">
-    <%= form_tag users_path, method: :get, class: 'form-inline' do %>
+    <%= form_tag admin_users_path, method: :get, class: 'form-inline' do %>
       <%= label_tag :search, 'Search', class: 'sr-only' %>
       <%= text_field_tag :search, params[:search], class: 'form-control col-md-5 mb-2 mr-sm-2',
         placeholder: t('views.users.search.placeholder') %>
@@ -22,8 +22,6 @@
         {include_blank: t('views.users.search.filter_role'), class: 'form-control col-md-3 mb-2 mr-sm-2'} %>
       <%= label_tag :created_stores, 'Created stores', class: 'sr-only' %>
       <% arr = [[t('views.users.search.word_yes')]] %>
-      <%= select_tag :created_stores, options_for_select(arr, params[:created_stores]),
-        {include_blank: t('views.users.search.filter_created'), class: 'form-control col-md-2 mb-2 mr-sm-2'} %>
       <%= submit_tag t('views.users.search.button'),
         class: 'btn btn-primary mb-2' %>
     <% end %>
@@ -55,14 +53,14 @@
                   <td><%= enum_l(user, :role) %></td>
                   <td><%= user.created_stores.count %></td>
                   <td>
-                    <%= link_to t('views.actions.show'), user %>
+                    <%= link_to t('views.actions.show'), admin_user_path(user) %>
                     <% if can? :edit, user %>
                       |
-                      <%= link_to t('views.actions.edit'), edit_user_path(user) %>
+                      <%= link_to t('views.actions.edit'), edit_admin_user_path(user) %>
                     <% end %>
                     <% if can? :destroy, user %>
                       |
-                      <%= link_to t('views.actions.destroy'), user, method: :delete, data: { confirm: t('views.actions.confirm_destroy') } %>
+                      <%= link_to t('views.actions.destroy'), admin_user_path(user), method: :delete, data: { confirm: t('views.actions.confirm_destroy') } %>
                     <% end %>
                 </tr>
               <% end %>
