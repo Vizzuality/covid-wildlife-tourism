@@ -72,6 +72,5 @@ namespace :nvm do
 
     after 'nvm:validate', 'nvm:webpacker:validate'
     before 'deploy:assets:precompile', 'nvm:webpacker:wrap'
-    after 'deploy:assets:precompile', 'nvm:webpacker:unwrap'
   end
 end
