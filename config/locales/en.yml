@@ -3,10 +3,11 @@ en:
   views:
     layout:
       application:
-        title: 'Covid Wildlife Tourism'
+        title: Resource Africa pinmap
+        subtitle: Respecting <span class="text-primary">rights, resources, and livelihoods</span>
     home:
       index:
-        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt tincidunt lectus, a laoreet mauris. Vivamus vestibulum consequat neque at consequat. Aliquam ex augue, semper in eleifend ut, maximus id. '
+        intro: 'Resource Africa respects rural African communities efforts to secure their rights to access, manage and use the natural resources in order to sustain their livelihoods. We help to build platforms, such as this one, for collaboration, knowledge, skills sharing and joint advocacy.'
         explore: 'Explore the map'
     devise:
       confirmations:
