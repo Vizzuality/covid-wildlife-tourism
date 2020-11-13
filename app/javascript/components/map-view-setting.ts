@@ -10,7 +10,9 @@ export default class MapViewSetting {
   constructor(options?: { onChange: (mapView: string) => void }) {
     this.callback = options?.onChange;
 
-    this.init();
+    if (this.el) {
+      this.init();
+    }
   }
 
   get mapView() {

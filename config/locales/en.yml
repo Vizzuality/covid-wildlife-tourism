@@ -101,6 +101,7 @@ en:
       delete_confirmation: Are you sure? The pin will be permanently deleted.
       users: Users
       pin_details: Pin details
+      click_map_to_update: Click the map to update the coordinates
   activerecord:
     models:
       store:
