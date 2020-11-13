@@ -9,7 +9,7 @@
     <% end%>
   </div>
 
-  <%= f.hidden_field :type %>
+  <%= f.hidden_field :type, class: 'js-type-input' %>
 
   <%= f.hidden_field :enterprise_types, class: 'js-enterprise-type-input' %>
 
@@ -67,7 +67,7 @@
 
   <div class="form-group">
     <%= f.label :latitude, class: 'required' %>
-    <%= f.number_field :latitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'latitude_related_pin', min: -90, max: 90, step: 0.0001, class: 'form-control' %>
+    <%= f.number_field :latitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'latitude_related_pin', min: -90, max: 90, step: 0.0001, class: 'form-control js-latitude-input' %>
     <% if !@related_store.nil? && !@store.latitude.eql?(@related_store.latitude) %>
     <div id="latitude_related_pin" class="form-text font-s">
       <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.latitude %></strong>
@@ -77,12 +77,29 @@
 
   <div class="form-group">
     <%= f.label :longitude, class: 'required' %>
-    <%= f.number_field :longitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'longitude_related_pin', min: -180, max: 180, step: 0.0001, class: 'form-control' %>
+    <%= f.number_field :longitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'longitude_related_pin', min: -180, max: 180, step: 0.0001, class: 'form-control js-longitude-input' %>
     <% if !@related_store.nil? && !@store.longitude.eql?(@related_store.longitude) %>
     <div id="longitude_related_pin" class="form-text font-s">
       <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.longitude %></strong>
     </div>
     <% end%>
+  </div>
+
+  <div class="form-group">
+    <% if !@related_store.nil? %>
+    <input type="hidden" value="<%= @related_store.latitude %>" class="js-previous-latitude-input" />
+    <input type="hidden" value="<%= @related_store.longitude %>" class="js-previous-longitude-input" />
+    <% end %>
+    <div id="map" class="c-map-field js-map-field"></div>
+    <p class="mb-0 form-text font-s">
+      <% if action_name != 'show' %>
+      <%= t('views.shared.click_map_to_update') %>
+      <% else %>
+      <% if !@related_store.nil? %>
+      <%= t('views.admin.stores.previous_location_pin_color') %>
+      <% end %>
+      <% end %>
+    </p>
   </div>
 
   <% if (@store.related_store_id.nil?) %>

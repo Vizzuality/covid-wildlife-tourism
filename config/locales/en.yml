@@ -75,6 +75,7 @@ en:
         pin_approved_successfully: Pin approved successfully
         pin_approved_unsuccessfully: Unable to approve the pin
         previously: Previously
+        previous_location_pin_color: The previous location is represented by the yellow pin
     shared:
       log_in: Log in
       log_out: Log out

@@ -5,6 +5,8 @@ const MAP_EL: HTMLElement = document.querySelector('.js-map-field');
 const TYPE_INPUT_EL: HTMLInputElement = document.querySelector('.js-type-input');
 const LATITUDE_INPUT_EL: HTMLInputElement = document.querySelector('.js-latitude-input');
 const LONGITUDE_INPUT_EL: HTMLInputElement = document.querySelector('.js-longitude-input');
+const PREVIOUS_LATITUDE_INPUT_EL: HTMLInputElement = document.querySelector('.js-previous-latitude-input');
+const PREVIOUS_LONGITUDE_INPUT_EL: HTMLInputElement = document.querySelector('.js-previous-longitude-input');
 
 export default class PinsEnterpriseTypeField {
   private latitude: number;
@@ -15,6 +17,17 @@ export default class PinsEnterpriseTypeField {
     if (MAP_EL) {
       this.init();
     }
+  }
+
+  private get previousLocation(): [number, number] | null {
+    if (PREVIOUS_LATITUDE_INPUT_EL && PREVIOUS_LONGITUDE_INPUT_EL) {
+      return [
+        +PREVIOUS_LONGITUDE_INPUT_EL.value,
+        +PREVIOUS_LATITUDE_INPUT_EL.value,
+      ];
+    }
+
+    return null;
   }
 
   private restore() {
@@ -62,13 +75,28 @@ export default class PinsEnterpriseTypeField {
       return;
     }
 
-    this.map.setMarkers([{
-      id: '0',
-      coordinates: [this.longitude, this.latitude],
-      data: {},
-      onClick: () => { },
-      classes: ['marker-yellow', `marker-${TYPE_INPUT_EL.value.toLowerCase()}`],
-    }]);
+    this.map.setMarkers([
+      ...(this.previousLocation
+        ? [{
+          id: '-1',
+          coordinates: this.previousLocation,
+          data: {},
+          onClick: () => { },
+          classes: ['marker-yellow', `marker-${TYPE_INPUT_EL.value.toLowerCase()}`],
+        }]
+        : []
+      ),
+      {
+        id: '0',
+        coordinates: [this.longitude, this.latitude],
+        data: {},
+        onClick: () => { },
+        classes: [
+          `marker-${this.previousLocation ? 'green' : 'yellow'}`,
+          `marker-${TYPE_INPUT_EL.value.toLowerCase()}`,
+        ],
+      },
+    ]);
 
     this.map.setMarkerActive('0');
   }
@@ -77,7 +105,9 @@ export default class PinsEnterpriseTypeField {
     this.map = new Map({
       mapView: new MapViewSetting().mapView,
       protectedAreas: false,
-      onClick: this.onClickMap.bind(this),
+      onClick: LATITUDE_INPUT_EL.disabled || LONGITUDE_INPUT_EL.disabled
+        ? () => { }
+        : this.onClickMap.bind(this),
     });
 
     this.restore();
