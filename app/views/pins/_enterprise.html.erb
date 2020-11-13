@@ -1,85 +1,83 @@
 <div class="form-group">
-  <div class="form-group">
-    <%= f.label :name, t('views.pins.enterprise_name'), class: 'required' %>
-    <%= f.text_field :name, required: true, autofocus: true, class: 'form-control' %>
-  </div>
-
-  <%= f.hidden_field :type, class: 'js-type-input' %>
-
-  <%= f.hidden_field :enterprise_types, class: 'js-enterprise-type-input' %>
-
-  <div class="form-group">
-    <label for="store_enterprise_type" class="required"><%= t('views.pins.enterprise_type') %></label>
-    <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required multiple>
-      <optgroup label="<%= t('views.pins.tourism') %>">
-        <option value="photo_tourism"><%= t('activerecord.enums.store.enterprise_types.photo_tourism') %></option>
-        <option value="hunting_tourism"><%= t('activerecord.enums.store.enterprise_types.hunting_tourism') %></option>
-      </optgroup>
-      <optgroup label="<%= t('views.pins.accomodation') %>">
-        <option value="accommodation_hotel"><%= t('activerecord.enums.store.enterprise_types.accommodation_hotel') %></option>
-        <option value="accommodation_lodge"><%= t('activerecord.enums.store.enterprise_types.accommodation_lodge') %></option>
-        <option value="accommodation_camping_site"><%= t('activerecord.enums.store.enterprise_types.accommodation_camping_site') %></option>
-        <option value="accommodation_guesthouse"><%= t('activerecord.enums.store.enterprise_types.accommodation_guesthouse') %></option>
-        <option value="accommodation_other"><%= t('activerecord.enums.store.enterprise_types.accommodation_other') %></option>
-      </optgroup>
-      <optgroup label="<%= t('views.shared.other') %>">
-        <option value="other"><%= t('activerecord.enums.store.enterprise_types.other') %></option>
-      </optgroup>
-    </select>
-  </div>
-
-  <div class="form-group js-enterprise-type-free-input-group" hidden>
-    <label for="store_enterprise_type_other" class="required"><%= t('views.pins.enterprise_type_other') %></label>
-    <input type="text" id="store_enterprise_type_other" class="form-control js-enterprise-type-free-input" required />
-  </div>
-
-  <%= f.hidden_field :ownership, class: 'js-ownership-input' %>
-
-  <div class="form-group">
-    <label for="store_ownership"><%= t('views.pins.ownership') %></label>
-    <select id="store_ownership" class="custom-select js-ownership-list">
-      <option value="private"><%= t('activerecord.enums.store.ownerships.private') %></option>
-      <option value="protected_area"><%= t('activerecord.enums.store.ownerships.protected_area') %></option>
-      <option value="community_group"><%= t('activerecord.enums.store.ownerships.community_group') %></option>
-      <option value="other"><%= t('activerecord.enums.store.ownerships.other') %></option>
-    </select>
-  </div>
-
-  <div class="form-group js-ownership-free-input-group" hidden>
-    <label for="store_ownership_other"><%= t('views.pins.ownership_other') %></label>
-    <input type="text" id="store_ownership_other" class="form-control js-ownership-free-input" />
-  </div>
-
-  <div class="form-group">
-    <%= f.label :latitude, class: 'required' %>
-    <%= f.number_field :latitude, required: true, min: -90, max: 90, step: 0.0001, class: 'form-control js-latitude-input' %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :longitude, class: 'required' %>
-    <%= f.number_field :longitude, required: true, min: -180, max: 180, step: 0.0001, class: 'form-control js-longitude-input' %>
-  </div>
-
-  <% if action?('editing') || action?('fixing') %>
-  <div class="form-group">
-    <div id="map" class="c-map-field js-map-field"></div>
-    <p class="mb-0 form-text font-s">
-      <%= t('views.shared.click_map_to_update') %>
-    </p>
-  </div>
-  <% end %>
-
-  <% if (action?('editing') && @pin.related_store_id.nil?) || action?('creating') %>
-  <div class="form-group mt-4">
-    <div class="custom-control custom-checkbox">
-      <%= f.check_box :user_is_owner, class: 'custom-control-input' %>
-      <%= f.label :user_is_owner, t('views.pins.i_am_enterprise_owner'), class: 'custom-control-label' %>
-    </div>
-  </div>
-
-  <div class="form-group mt-4">
-    <%= f.label :owner_details, t('views.pins.owner_recommendation') %>
-    <%= f.text_area :owner_details, class: 'form-control' %>
-  </div>
-  <% end %>
+  <%= f.label :name, t('views.pins.enterprise_name'), class: 'required' %>
+  <%= f.text_field :name, required: true, autofocus: true, class: 'form-control' %>
 </div>
+
+<%= f.hidden_field :type, class: 'js-type-input' %>
+
+<%= f.hidden_field :enterprise_types, class: 'js-enterprise-type-input' %>
+
+<div class="form-group">
+  <label for="store_enterprise_type" class="required"><%= t('views.pins.enterprise_type') %></label>
+  <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required multiple>
+    <optgroup label="<%= t('views.pins.tourism') %>">
+      <option value="photo_tourism"><%= t('activerecord.enums.store.enterprise_types.photo_tourism') %></option>
+      <option value="hunting_tourism"><%= t('activerecord.enums.store.enterprise_types.hunting_tourism') %></option>
+    </optgroup>
+    <optgroup label="<%= t('views.pins.accomodation') %>">
+      <option value="accommodation_hotel"><%= t('activerecord.enums.store.enterprise_types.accommodation_hotel') %></option>
+      <option value="accommodation_lodge"><%= t('activerecord.enums.store.enterprise_types.accommodation_lodge') %></option>
+      <option value="accommodation_camping_site"><%= t('activerecord.enums.store.enterprise_types.accommodation_camping_site') %></option>
+      <option value="accommodation_guesthouse"><%= t('activerecord.enums.store.enterprise_types.accommodation_guesthouse') %></option>
+      <option value="accommodation_other"><%= t('activerecord.enums.store.enterprise_types.accommodation_other') %></option>
+    </optgroup>
+    <optgroup label="<%= t('views.shared.other') %>">
+      <option value="other"><%= t('activerecord.enums.store.enterprise_types.other') %></option>
+    </optgroup>
+  </select>
+</div>
+
+<div class="form-group js-enterprise-type-free-input-group" hidden>
+  <label for="store_enterprise_type_other" class="required"><%= t('views.pins.enterprise_type_other') %></label>
+  <input type="text" id="store_enterprise_type_other" class="form-control js-enterprise-type-free-input" required />
+</div>
+
+<%= f.hidden_field :ownership, class: 'js-ownership-input' %>
+
+<div class="form-group">
+  <label for="store_ownership"><%= t('views.pins.ownership') %></label>
+  <select id="store_ownership" class="custom-select js-ownership-list">
+    <option value="private"><%= t('activerecord.enums.store.ownerships.private') %></option>
+    <option value="protected_area"><%= t('activerecord.enums.store.ownerships.protected_area') %></option>
+    <option value="community_group"><%= t('activerecord.enums.store.ownerships.community_group') %></option>
+    <option value="other"><%= t('activerecord.enums.store.ownerships.other') %></option>
+  </select>
+</div>
+
+<div class="form-group js-ownership-free-input-group" hidden>
+  <label for="store_ownership_other"><%= t('views.pins.ownership_other') %></label>
+  <input type="text" id="store_ownership_other" class="form-control js-ownership-free-input" />
+</div>
+
+<div class="form-group">
+  <%= f.label :latitude, class: 'required' %>
+  <%= f.number_field :latitude, required: true, min: -90, max: 90, step: 0.0001, class: 'form-control js-latitude-input' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :longitude, class: 'required' %>
+  <%= f.number_field :longitude, required: true, min: -180, max: 180, step: 0.0001, class: 'form-control js-longitude-input' %>
+</div>
+
+<% if action?('editing') || action?('fixing') %>
+<div class="form-group">
+  <div id="map" class="c-map-field js-map-field"></div>
+  <p class="mb-0 form-text font-s">
+    <%= t('views.shared.click_map_to_update') %>
+  </p>
+</div>
+<% end %>
+
+<% if (action?('editing') && @pin.related_store_id.nil?) || action?('creating') %>
+<div class="form-group mt-4">
+  <div class="custom-control custom-checkbox">
+    <%= f.check_box :user_is_owner, class: 'custom-control-input' %>
+    <%= f.label :user_is_owner, t('views.pins.i_am_enterprise_owner'), class: 'custom-control-label' %>
+  </div>
+</div>
+
+<div class="form-group mt-4">
+  <%= f.label :owner_details, t('views.pins.owner_recommendation') %>
+  <%= f.text_area :owner_details, class: 'form-control' %>
+</div>
+<% end %>

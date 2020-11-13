@@ -38,7 +38,7 @@
           <% end %>
 
           <% if can? :destroy, store %>
-          <%= link_to t('views.shared.delete'), admin_pin_path(store, state: params[:state], search: params[:search], type: params[:type]), method: :delete, data: { confirm: t('views.shared.delete_confirmation') }, class: 'btn btn-block btn-sm btn-danger mt-2' %>
+          <%= link_to t('views.shared.delete'), admin_pin_path(store, state: params[:state], search: params[:search], type: params[:type]), method: :delete, data: { confirm: t('views.shared.delete_pin_confirmation') }, class: 'btn btn-block btn-sm btn-danger mt-2' %>
           <% end %>
         </td>
       </tr>
