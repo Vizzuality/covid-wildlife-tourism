@@ -114,6 +114,7 @@ en:
       click_map_to_update: Click the map to update the coordinates
       new_user: New user
       deleted_account: Deleted account
+      map: Map
   activerecord:
     models:
       store:

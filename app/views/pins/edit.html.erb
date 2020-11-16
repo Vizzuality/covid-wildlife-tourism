@@ -1,3 +1,5 @@
+<% content_for :page_title, action?('editing') ? t('views.shared.edit_pin') : t('views.shared.report_error') %>
+
 <% content_for :title do %>
 <%=  action?('editing') ? t('views.shared.edit_pin') : t('views.shared.report_error') %>
 <% end %>
