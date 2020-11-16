@@ -2,7 +2,7 @@
 <%= t('views.shared.new_user') %>
 <% end %>
 
-<%= form_for(@user, url: new_admin_user_path(@user), class: 'mt-5') do |f| %>
+<%= form_for(@user, url: admin_users_path(@user), class: 'mt-5') do |f| %>
 <%= render partial: 'form', locals: { f: f } %>
 
 <div class="form-group mt-5">
