@@ -60,22 +60,24 @@ module Admin
     # DELETE /stores/1
     # DELETE /stores/1.json
     def destroy
+      query_params = save_query_params
       @store.destroy
       respond_to do |format|
         format.html do
-          redirect_to admin_pins_path, notice: t('views.admin.stores.pin_deleted_successfully')
+          redirect_to admin_pins_path + query_params, notice: t('views.admin.stores.pin_deleted_successfully')
         end
         format.json { head :no_content }
       end
     end
 
     def approve
+      query_params = save_query_params
       @store = Store.find(params[:id])
 
       if @store.approve
-        redirect_to admin_pins_path, notice: t('views.admin.stores.pin_approved_successfully')
+        redirect_to admin_pins_path + query_params, notice: t('views.admin.stores.pin_approved_successfully')
       else
-        redirect_to admin_pins_path, notice:t('views.admin.stores.pin_approved_unsuccessfully')
+        redirect_to admin_pins_path + query_params, notice:t('views.admin.stores.pin_approved_unsuccessfully')
       end
     end
 
@@ -105,6 +107,15 @@ module Admin
         search: params[:search],
         type: params[:type]
       }
+    end
+
+    def save_query_params
+      uri = URI.parse(request.referer)
+      uri.query.present? ? '?' + uri.query : ''
+
+
+    rescue URI::InvalidURIError
+      ''
     end
   end
 end
