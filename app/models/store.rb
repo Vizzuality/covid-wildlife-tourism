@@ -187,8 +187,8 @@ class Store < ApplicationRecord
     rs = Store.find(related_store_id)
     %i[name latitude longitude website population_size enterprise_type ownership].each do |attr|
       rs.write_attribute(attr, self[attr])
-      rs.updated_by = self.created_by
     end
+    rs.updated_by_id = created_by_id
 
     if rs.save
       destroy
