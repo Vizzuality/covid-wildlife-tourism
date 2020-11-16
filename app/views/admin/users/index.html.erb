@@ -4,21 +4,27 @@
 
 <% if can? :new, User %>
 <% content_for :title_options do %>
-<%= link_to t('views.shared.new_user'), new_admin_user_path, class: 'btn btn-primary' %>
+<%= link_to t('views.shared.new_user'), new_admin_user_path, class: 'btn btn-primary px-md-5' %>
 <% end %>
 <% end %>
 
 <%= form_tag admin_users_path, method: :get do %>
-<div class="form-group">
-  <%= label_tag :role, t('views.admin.users.role'), class: 'sr-only' %>
-  <%= select_tag :role, options_for_select(enum_options_for_select(User, :role), params[:role]), { include_blank: t('views.admin.users.all_roles'), class: 'custom-select' }%>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag :role, t('views.admin.users.role'), class: 'sr-only' %>
+      <%= select_tag :role, options_for_select(enum_options_for_select(User, :role), params[:role]), { include_blank: t('views.admin.users.all_roles'), class: 'custom-select' }%>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group">
+      <%= label_tag :search, t('views.shared.search'), class: 'sr-only' %>
+      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: t('views.admin.users.search_by_name') %>
+    </div>
+  </div>
 </div>
 <div class="form-group">
-  <%= label_tag :search, t('views.shared.search'), class: 'sr-only' %>
-  <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: t('views.admin.users.search_by_name') %>
-</div>
-<div class="form-group">
-  <%= submit_tag t('views.shared.search'), class: 'btn btn-black' %>
+  <%= submit_tag t('views.shared.search'), class: 'btn btn-black px-md-5' %>
 </div>
 <% end %>
 

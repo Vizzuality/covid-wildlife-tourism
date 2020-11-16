@@ -3,14 +3,29 @@
 <% end %>
 
 <%= form_for(@user, url: admin_user_path(@user), class: 'mt-5') do |f| %>
-<%= render partial: 'form', locals: { f: f } %>
-
-<div class="form-group mt-5">
-  <% if can? :edit, @user %>
-  <%= link_to t('views.shared.edit'), edit_admin_user_path(@user), class: 'btn btn-block btn-black' %>
-  <% end %>
-  <% if can? :destroy, @user %>
-  <%= link_to t('views.shared.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('views.shared.delete_user_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
-  <% end %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <%= render partial: 'form', locals: { f: f } %>
+  </div>
 </div>
+
+<% if can? :edit, @user %>
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= link_to t('views.shared.edit'), edit_admin_user_path(@user), class: 'btn btn-block btn-black' %>
+
+    </div>
+  </div>
+</div>
+<% end %>
+<% if can? :destroy, @user %>
+<div class="row mt-3">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= link_to t('views.shared.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('views.shared.delete_user_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
+    </div>
+  </div>
+</div>
+<% end %>
 <% end %>

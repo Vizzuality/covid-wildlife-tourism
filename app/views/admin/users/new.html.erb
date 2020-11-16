@@ -3,9 +3,17 @@
 <% end %>
 
 <%= form_for(@user, url: admin_users_path(@user), class: 'mt-5') do |f| %>
-<%= render partial: 'form', locals: { f: f } %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <%= render partial: 'form', locals: { f: f } %>
+  </div>
+</div>
 
-<div class="form-group mt-5">
-  <%= f.submit t('views.shared.save'), class: "btn btn-block btn-black" %>
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= f.submit t('views.shared.save'), class: "btn btn-block btn-black" %>
+    </div>
+  </div>
 </div>
 <% end %>
