@@ -3,22 +3,34 @@
 <% end %>
 
 <%= form_for(@store, url: admin_pin_path(@store), class: 'mt-5') do |f| %>
-<%= render partial: 'community', locals: { f: f } if @store.type == 'Community' %>
-<%= render partial: 'enterprise', locals: { f: f } if @store.type == 'Enterprise' %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <%= render partial: 'community', locals: { f: f } if @store.type == 'Community' %>
+    <%= render partial: 'enterprise', locals: { f: f } if @store.type == 'Enterprise' %>
+  </div>
+</div>
 
-<div class="form-group mt-5">
-  <% if @store.state.eql? 'waiting_approval' %>
-  <%= link_to t('views.shared.approve'), approve_admin_pin_path(@store), method: :post, class: 'btn btn-block btn-black' %>
-  <% elsif @store.state.eql? 'to_replace' %>
-  <%= link_to t('views.shared.approve'), approve_admin_pin_path(@store), method: :post, class: 'btn btn-block btn-black' %>
-  <% else %>
-  <%= link_to t('views.shared.edit'), edit_admin_pin_path(@store), class: 'btn btn-block btn-black' %>
-  <% end %>
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <% if @store.state.eql? 'waiting_approval' %>
+      <%= link_to t('views.shared.approve'), approve_admin_pin_path(@store), method: :post, class: 'btn btn-block btn-black' %>
+      <% elsif @store.state.eql? 'to_replace' %>
+      <%= link_to t('views.shared.approve'), approve_admin_pin_path(@store), method: :post, class: 'btn btn-block btn-black' %>
+      <% else %>
+      <%= link_to t('views.shared.edit'), edit_admin_pin_path(@store), class: 'btn btn-block btn-black' %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <% if can? :destroy, @store %>
-<div class="form-group mt-3">
-  <%= link_to t('views.shared.delete'), admin_pin_path(@store), method: :delete, data: { confirm: t('views.shared.delete_pin_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
+<div class="row mt-3">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= link_to t('views.shared.delete'), admin_pin_path(@store), method: :delete, data: { confirm: t('views.shared.delete_pin_confirmation') }, class: 'btn btn-block btn-danger' %>
+    </div>
+  </div>
 </div>
 <% end %>
 <% end %>
