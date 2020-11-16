@@ -1,75 +1,16 @@
-<% content_for :page_title, @user.name&.titleize %>
+<% content_for :title do %>
+<%= t('views.shared.user_details') %>
+<% end %>
 
-<div class="row mt-3">
-  <div class="col-md-10">
-    <h1><%= @user.display_name %></h1>
-  </div>
-  <div class="col-md-2">
-    <% if can? :edit, @user %>
-      <%= link_to t('views.actions.edit'), edit_admin_user_path(@user),
-        class: 'btn btn-sm btn-outline-primary' %>
-    <% end %>
-  </div>
+<%= form_for(@user, url: admin_user_path(@user), class: 'mt-5') do |f| %>
+<%= render partial: 'form', locals: { f: f } %>
+
+<div class="form-group mt-5">
+  <% if can? :edit, @user %>
+  <%= link_to t('views.shared.edit'), edit_admin_user_path(@user), class: 'btn btn-block btn-black' %>
+  <% end %>
+  <% if can? :destroy, @user %>
+  <%= link_to t('views.shared.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('views.shared.delete_user_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
+  <% end %>
 </div>
-
-<div class="row mt-4">
-  <div class="col-md-12">
-    <div class="card">
-      <div class="card-body">
-        <p>
-          <strong><%= User.human_attribute_name(:name) %>:</strong>
-          <%= @user.name %>
-        </p>
-
-        <p>
-          <strong><%= User.human_attribute_name(:email) %>:</strong>
-          <%= @user.email %>
-        </p>
-
-        <p>
-          <strong><%= User.human_attribute_name(:role) %>:</strong>
-          <%= enum_l(@user, :role) %>
-        </p>
-
-        <% if @user.stores.any? %>
-          <p><strong><%= t('views.users.show.stores_owned') %></strong>
-          <ul>
-            <% @user.stores.order(:name).each do |store| %>
-              <li><%= link_to store.name, store %></li>
-            <% end %>
-          </ul>
-          </p>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<% if @user.created_stores.any? %>
-  <div class="row mt-2">
-    <div class="col-md-12">
-      <p class="h2"><%= t('views.users.show.stores_created') %></p>
-      <%= form_tag admin_user_path(@user), method: :get, class: 'form-inline' do %>
-        <%= label_tag :search, 'Search', class: 'sr-only' %>
-        <%= text_field_tag :search, params[:search], class: 'form-control col-md-3 mb-2 mr-sm-2',
-          placeholder: t('views.stores.search.placeholder') %>
-        <%= label_tag :type, 'Store type', class: 'sr-only' %>
-        <%= select_tag :type, options_for_select(enum_options_for_select(Store, :type), params[:type]), {include_blank: t('views.stores.search.filter_type'), class: 'form-control col-md-3 mb-2 mr-sm-2'} %>
-        <%= label_tag :state, 'State', class: 'sr-only' %>
-        <%= select_tag :state, options_for_select(enum_options_for_select(Store, :state), params[:state]), {include_blank: t('views.stores.search.filter_state'), class: 'form-control col-md-2 mb-2 mr-sm-2'} %>
-        <%= submit_tag t('views.stores.search.button'),
-          class: 'btn btn-primary mb-2' %>
-      <% end %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-12">
-      <div class="main-card mb-3 card">
-        <div class="card-body">
-          <%= render 'admin/stores/table', stores: @created_stores %>
-        </div>
-      </div>
-    </div>
-  </div>
 <% end %>

@@ -1,13 +1,17 @@
-<% content_for :page_title, t('views.edit.title', resource: User.model_name.human) %>
+<% content_for :title do %>
+<%= t('views.shared.user_details') %>
+<% end %>
 
-<div class="row mt-3">
-  <div class="col-md-11">
-    <h1><%= "#{t('views.actions.edit')} #{User.model_name.human(count: 1)}" %></h1>
-  </div>
-  <div class="col-md-1">
-    <%= link_to t('views.actions.show'), admin_user_path(@user),
-      class: 'btn btn-sm btn-outline-primary' %>
-  </div>
+<%= form_for(@user, url: admin_user_path(@user), class: 'mt-5') do |f| %>
+<%= render partial: 'form', locals: { f: f } %>
+
+<div class="form-group mt-5">
+  <%= f.submit t('views.shared.save'), class: "btn btn-block btn-black" %>
 </div>
 
-<%= render 'form', user: @user %>
+<% if can? :destroy, @user %>
+<div class="form-group mt-3">
+  <%= link_to t('views.shared.delete'), admin_user_path(@user), method: :delete, data: { confirm: t('views.shared.delete_user_confirmation') }, class: 'btn btn-block btn-danger mt-2' %>
+</div>
+<% end %>
+<% end %>

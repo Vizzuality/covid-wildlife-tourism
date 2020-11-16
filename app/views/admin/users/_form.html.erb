@@ -1,55 +1,14 @@
-<div class="row mt-4">
-  <div class="col-md-12">
-    <%= form_with(model: user, url: admin_user_path(user), local: true) do |form| %>
-      <% if user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(user.errors.count, "error") %> errors:</h2>
+<div class="form-group">
+  <%= f.label :name, class: 'required' %>
+  <%= f.text_field :name, required: true, disabled: action_name == 'show', autofocus: true, class: 'form-control' %>
+</div>
 
-          <ul>
-            <% user.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+<div class="form-group">
+  <%= f.label :email, class: 'required' %>
+  <%= f.email_field :email, required: true, disabled: action_name == 'show', class: 'form-control' %>
+</div>
 
-      <div class="form-group">
-        <%= form.label :name, class: "col-sm-2 col-form-label" %>
-        <%= form.text_field :name, autocomplete: "name", class: "form-control" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :email, class: "col-sm-2 col-form-label" %>
-        <%= form.email_field :email, autocomplete: "email", class: "form-control" %>
-      </div>
-
-      <% if current_user.admin? %>
-        <div class="form-group">
-          <%= form.label :role, class: "col-sm-2 col-form-label" %>
-          <%= form.select :role, enum_options_for_select(User, :role), {}, class: "form-control" %>
-        </div>
-      <% else %>
-        <div class="form-group">
-          <%= form.label :role, class: "col-sm-2 col-form-label" %><br />
-          <%= enum_l(form.object, :role) %>
-        </div>
-      <% end %>
-
-      <% if can?(:new, User) && @user.new_record? %>
-        <div class="form-group">
-          <%= form.label :password, class: "col-sm-2 col-form-label" %>
-          <%= form.password_field :password, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :password_confirmation, class: "col-sm-2 col-form-label" %>
-          <%= form.password_field :password_confirmation, class: "form-control" %>
-        </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= form.submit t('views.form.submit'), class: "btn btn-primary" %>
-      </div>
-    <% end %>
-  </div>
+<div class="form-group">
+  <%= f.label :role, class: 'required' %>
+  <%= f.select :role, enum_options_for_select(User, :role), { include_blank: t('views.admin.users.select_role') }, required: true, disabled: action_name == 'show', class: 'custom-select' %>
 </div>

@@ -3,10 +3,11 @@ en:
   views:
     layout:
       application:
-        title: 'Covid Wildlife Tourism'
+        title: Resource Africa pinmap
+        subtitle: Respecting <span class="text-primary">rights, resources, and livelihoods</span>
     home:
       index:
-        intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tincidunt tincidunt lectus, a laoreet mauris. Vivamus vestibulum consequat neque at consequat. Aliquam ex augue, semper in eleifend ut, maximus id. '
+        intro: 'Resource Africa respects rural African communities efforts to secure their rights to access, manage and use the natural resources in order to sustain their livelihoods. We help to build platforms, such as this one, for collaboration, knowledge, skills sharing and joint advocacy.'
         explore: 'Explore the map'
     devise:
       confirmations:
@@ -75,6 +76,13 @@ en:
         pin_approved_successfully: Pin approved successfully
         pin_approved_unsuccessfully: Unable to approve the pin
         previously: Previously
+        previous_location_pin_color: The previous location is represented by the yellow pin
+      users:
+        role: Role
+        all_roles: All roles
+        select_role: Select role
+        search_by_name: Search by name
+        pins_created: Pins created
     shared:
       log_in: Log in
       log_out: Log out
@@ -98,9 +106,13 @@ en:
       actions: Actions
       approve: Approve
       review: Review
-      delete_confirmation: Are you sure? The pin will be permanently deleted.
+      delete_pin_confirmation: Are you sure? The pin will be permanently deleted.
+      delete_user_confirmation: Are you sure? The user will be permanently deleted.
       users: Users
       pin_details: Pin details
+      user_details: User details
+      click_map_to_update: Click the map to update the coordinates
+      new_user: New user
   activerecord:
     models:
       store:

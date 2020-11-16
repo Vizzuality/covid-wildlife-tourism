@@ -1,0 +1,38 @@
+<div class="font-s mb-3">
+  <%= page_entries_info users %>
+</div>
+<div class="table-responsive">
+  <table class="table table-sm table-striped">
+    <thead>
+      <tr>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:email) %></th>
+        <th><%= User.human_attribute_name(:role) %></th>
+        <th><%= t('views.admin.users.pins_created') %></th>
+        <th><%= t('views.shared.actions') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% users.each do |user| %>
+      <tr>
+        <td><%= link_to user.name, admin_user_path(user) %></td>
+        <td><%= user.email %></td>
+        <td><%= enum_l(user, :role) %></td>
+        <td><%= user.created_stores.count %></td>
+        <td>
+          <% if can? :edit, user %>
+          <%= link_to t('views.shared.edit'), edit_admin_user_path(user), class: 'btn btn-block btn-sm btn-black' %>
+          <% end %>
+          <% if can? :destroy, user %>
+          <%= link_to t('views.shared.delete'), admin_user_path(user, state: params[:state], search: params[:search], type: params[:type]), method: :delete, data: { confirm: t('views.shared.delete_user_confirmation') }, class: 'btn btn-block btn-sm btn-danger mt-2' %>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="c-table-pagination mt-3">
+  <%= paginate users %>
+</div>

@@ -75,7 +75,7 @@ export default class Map {
         'protected-areas': {
           type: 'vector',
           tiles: [
-            'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_africa_labels_arial_spacing/VectorTileServer/tile/{z}/{y}/{x}.pbf',
+            'https://tiles.arcgis.com/tiles/zOnyumh63cMmLBBH/arcgis/rest/services/WDPA_afica_labelsbuffer/VectorTileServer/tile/{z}/{y}/{x}.pbf',
           ],
         },
       },
