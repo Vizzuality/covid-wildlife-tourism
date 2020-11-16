@@ -41,7 +41,7 @@ class User < ApplicationRecord
 
   has_many :user_stores, inverse_of: :manager
   has_many :stores, through: :user_stores
-  has_many :created_stores, class_name: 'Store', foreign_key: :created_by_id, inverse_of: :created_by
+  has_many :created_stores, class_name: 'Store', foreign_key: :created_by_id, inverse_of: :created_by, dependent: :destroy
 
   enum role: {user: 0, admin: 1}
 
