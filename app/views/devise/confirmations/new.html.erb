@@ -2,17 +2,29 @@
 <%= t('views.devise.confirmations.confirmation_instructions') %>
 <% end %>
 
-<p>
-  <%= t('views.devise.confirmations.intro') %>
-</p>
-
-<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
-<div class="form-group">
-  <%= f.label :email, class: 'required' %>
-  <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control' %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <p>
+      <%= t('views.devise.confirmations.intro') %>
+    </p>
+  </div>
 </div>
 
-<div class="form-group mt-5">
-  <%= f.submit t('views.devise.confirmations.send_confirmation_instructions'), class: 'btn btn-block btn-secondary' %>
+<%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div class="form-group">
+      <%= f.label :email, class: 'required' %>
+      <%= f.email_field :email, required: true, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: 'form-control' %>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= f.submit t('views.devise.confirmations.send_confirmation_instructions'), class: 'btn btn-block btn-secondary' %>
+    </div>
+  </div>
 </div>
 <% end %>
