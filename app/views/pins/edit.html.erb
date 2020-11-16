@@ -3,10 +3,18 @@
 <% end %>
 
 <%= form_for(@pin, url: pin_path(@pin), class: 'mt-5') do |f| %>
-<%= render partial: 'community', locals: { f: f } if @pin.type == 'Community' %>
-<%= render partial: 'enterprise', locals: { f: f } if @pin.type == 'Enterprise' %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <%= render partial: 'community', locals: { f: f } if @pin.type == 'Community' %>
+    <%= render partial: 'enterprise', locals: { f: f } if @pin.type == 'Enterprise' %>
+  </div>
+</div>
 
-<div class="form-group mt-5">
-  <%= f.submit action?('editing') ? t('views.shared.save') : t('views.shared.send_suggestions'), class: 'btn btn-block btn-black' %>
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= f.submit action?('editing') ? t('views.shared.save') : t('views.shared.send_suggestions'), class: 'btn btn-block btn-black' %>
+    </div>
+  </div>
 </div>
 <% end %>

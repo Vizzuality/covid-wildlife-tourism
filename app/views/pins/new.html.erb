@@ -3,42 +3,62 @@
 <% end %>
 
 <% if @pin.type.nil? %>
-<p class="font-s text-muted">
-  <%= t('views.pins.add_pin_intro') %>
-</p>
+<div class="row mb-lg-4">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <p class="font-s text-muted">
+      <%= t('views.pins.add_pin_intro') %>
+    </p>
+  </div>
+</div>
 <% end %>
 
 <%= form_for(@pin, url: pins_path, class: 'mt-5') do |f| %>
 <% if @pin.type.nil? %>
-<p>
-  <%= t('views.pins.type_intro') %>
-</p>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <p>
+      <%= t('views.pins.type_intro') %>
+    </p>
 
-<div class="form-group">
-  <div class="custom-control custom-radio">
-    <%= f.radio_button :type, 'Community', class: 'custom-control-input', required: true %>
-    <%= f.label :type, class: 'custom-control-label', value: 'Community' do %>
-    <%= t('views.pins.type_community') %> <div class="c-marker marker-sm community-marker"></div>
-    <% end %>
-  </div>
+    <div class="form-group">
+      <div class="custom-control custom-radio">
+        <%= f.radio_button :type, 'Community', class: 'custom-control-input', required: true %>
+        <%= f.label :type, class: 'custom-control-label', value: 'Community' do %>
+        <%= t('views.pins.type_community') %> <div class="c-marker marker-sm community-marker"></div>
+        <% end %>
+      </div>
 
-  <div class="custom-control custom-radio">
-    <%= f.radio_button :type, 'Enterprise', class: 'custom-control-input', required: true %>
-    <%= f.label :type, class: 'custom-control-label', value: 'Enterprise' do %>
-    <%= t('views.pins.type_business') %> <div class="c-marker marker-sm business-marker"></div>
-    <% end %>
+      <div class="custom-control custom-radio">
+        <%= f.radio_button :type, 'Enterprise', class: 'custom-control-input', required: true %>
+        <%= f.label :type, class: 'custom-control-label', value: 'Enterprise' do %>
+        <%= t('views.pins.type_business') %> <div class="c-marker marker-sm business-marker"></div>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
-<div class="form-group mt-5">
-  <%= f.submit t('views.pins.select_location'), class: 'btn btn-block btn-black' %>
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= f.submit t('views.pins.select_location'), class: 'btn btn-block btn-black' %>
+    </div>
+  </div>
 </div>
 <% else %>
-<%= render partial: 'community', locals: { f: f } if @pin.type == 'Community' %>
-<%= render partial: 'enterprise', locals: { f: f } if @pin.type == 'Enterprise' %>
+<div class="row">
+  <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <%= render partial: 'community', locals: { f: f } if @pin.type == 'Community' %>
+    <%= render partial: 'enterprise', locals: { f: f } if @pin.type == 'Enterprise' %>
+  </div>
+</div>
 
-<div class="form-group mt-5">
-  <%= f.submit t('views.shared.save'), class: 'btn btn-block btn-black' %>
+<div class="row mt-5">
+  <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+    <div class="form-group">
+      <%= f.submit t('views.shared.save'), class: 'btn btn-block btn-black' %>
+    </div>
+  </div>
 </div>
 <% end %>
 <% end %>
