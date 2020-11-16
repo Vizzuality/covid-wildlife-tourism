@@ -37,6 +37,7 @@ class User < ApplicationRecord
   validates :password, length: {within: 8..128, allow_blank: true}
   validates :password, presence: true, if: :password_required?
   validates :password, confirmation: true, if: :password_required?
+  validates :role, presence: true
 
   has_many :user_stores, inverse_of: :manager
   has_many :stores, through: :user_stores
