@@ -1,44 +1,55 @@
 <div class="vh-100">
   <div class="h-100 d-flex flex-column">
     <div class="h-100 flex-shrink-1 flex-grow-1 overflow-auto d-flex flex-column">
-      <div class="background-black py-4 flex-shrink-0">
+      <div class="background-black py-4 py-lg-7 flex-shrink-0">
         <div class="container">
-          <h1 class="mt-0 mb-4 font-base text-center">
-            <%= image_tag 'logo.png', alt: t('views.layout.application.title') %>
-          </h1>
-          <p class="font-s text-uppercase">
-            <%== t('views.layout.application.subtitle') %>
-          </p>
-          <p class="font-s">
-            <%= t('views.home.index.intro') %>
-          </p>
-
-          <%= link_to t('views.shared.log_in'), new_user_session_path, class: 'mt-4 btn btn-block btn-secondary' %>
-          <%= link_to t('views.shared.register'), new_user_registration_path, class: 'btn btn-block btn-primary' %>
+          <div class="row">
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+              <h1 class="mt-0 mb-4 font-base text-center">
+                <%= image_tag 'logo.png', alt: t('views.layout.application.title') %>
+              </h1>
+              <p class="font-s text-uppercase">
+                <%== t('views.layout.application.subtitle') %>
+              </p>
+              <p class="mt-lg-4 font-s">
+                <%= t('views.home.index.intro') %>
+              </p>
+            </div>
+          </div>
+          <div class="mt-4 row">
+            <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+              <%= link_to t('views.shared.log_in'), new_user_session_path, class: 'btn btn-block btn-secondary' %>
+              <%= link_to t('views.shared.register'), new_user_registration_path, class: 'btn btn-block btn-primary' %>
+            </div>
+          </div>
         </div>
       </div>
       <div class="flex-shrink-0 flex-grow-1 d-flex justify-content-center align-items-center" style="background: no-repeat url(<%= asset_path 'homepage-map-background.jpg' %>); background-size: cover;">
         <div class="container">
-          <%= link_to t('views.home.index.explore'), map_index_path, class: 'my-5 btn btn-block btn-black' %>
+          <div class="row">
+            <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+              <%= link_to t('views.home.index.explore'), map_index_path, class: 'my-5 my-lg-7 btn btn-block btn-black' %>
+            </div>
+            <div>
+            </div>
+          </div>
         </div>
+        <% flash.reject { |key| key == :timedout }.each do |type, value| %>
+        <% if !value.kind_of?(Array) %>
+        <div class="flex-shrink-0 py-3 text-center c-notification">
+          <div class="container">
+            <%= value %>
+          </div>
+        </div>
+        <% else %>
+        <% value.each do |msg| %>
+        <div class="flex-shrink-0 py-3 text-center c-notification">
+          <div class="container">
+            <%= msg %>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+        <% end %>
       </div>
     </div>
-    <% flash.reject { |key| key == :timedout }.each do |type, value| %>
-    <% if !value.kind_of?(Array) %>
-    <div class="flex-shrink-0 py-3 text-center c-notification">
-      <div class="container">
-        <%= value %>
-      </div>
-    </div>
-    <% else %>
-    <% value.each do |msg| %>
-    <div class="flex-shrink-0 py-3 text-center c-notification">
-      <div class="container">
-        <%= msg %>
-      </div>
-    </div>
-    <% end %>
-    <% end %>
-    <% end %>
-  </div>
-</div>
