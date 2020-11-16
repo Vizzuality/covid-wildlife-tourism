@@ -5,11 +5,11 @@ set :application, "covid-wildlife-tourism"
 set :repo_url, "git@github.com:Vizzuality/covid-wildlife-tourism.git"
 
 set :default_env, {
-    'PATH' => "/home/vizzuality/.rvm/gems/ruby-2.6.3/bin:/home/ubuntu/.rvm/bin:$PATH",
-    'RUBY_VERSION' => 'ruby-2.4.6',
-    'GEM_HOME' => '/home/vizzuality/.rvm/gems/ruby-2.6.3',
-    'GEM_PATH' => '/home/vizzuality/.rvm/gems/ruby-2.6.3',
-    'BUNDLE_PATH' => '/home/ubuntu/.rvm/gems/ruby-2.6.3'
+    'PATH' => "/usr/share/rvm/rubies/ruby-2.6.3/bin/ruby:/usr/share/rvm:/usr/share/rvm/bin/rvm:$PATH",
+    'RUBY_VERSION' => '2.6.3',
+    'GEM_HOME' => '/usr/share/rvm/rubies/ruby-2.6.3',
+    'GEM_PATH' => '/usr/share/rvm/rubies/ruby-2.6.3',
+    'BUNDLE_PATH' => '/usr/share/rvm/rubies/ruby-2.6.3'
 }
 
 set :passenger_restart_with_touch, true

@@ -9,6 +9,6 @@ set :ssh_options, {
 }
 
 set :branch, 'develop'
-set :deploy_to, '~/wildlife-covid'
+set :deploy_to, '/var/www/wildlife-covid'
 
 set :rails_env, :production
