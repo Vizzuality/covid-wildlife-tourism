@@ -1,6 +1,7 @@
 module Admin
   class UsersController < ApplicationController
-    load_and_authorize_resource :user
+    load_and_authorize_resource :admin
+    load_resource :user
 
     layout 'admin'
 

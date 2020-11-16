@@ -113,12 +113,27 @@ class Store < ApplicationRecord
                  coordinates.flatten(1)].flatten(1))
   end
 
+  #  website           :string
+  #  type              :string           not null
+  #  population_size   :integer
+  #  user_is_owner     :boolean          default(FALSE), not null
+  #  owner_details     :text
+  #  farming_reliance  :integer
+  #  wildlife_reliance :integer
+  #  enterprise_type   :string           default([]), is an Array
+  #  ownership         :string
+  #  reason_to_change  :text
+  #  related_store_id  :bigint
   def self.to_csv
     CSV.generate(headers: true, force_quotes: true) do |csv|
-      csv << %w(id name latitude longitude
+      csv << %w(id type state name latitude longitude
+                website population_size owner_details farming_reliance
+                wildlife_reliance enterprise_types ownership
                 created_at created_by updated_at updated_by)
       all.find_each do |store|
-        csv << [store.id, store.name, store.latitude, store.longitude,
+        csv << [store.id, store.class.name, store.state, store.name, store.latitude, store.longitude,
+                store.website, store.population_size, store.owner_details, store.farming_reliance,
+                store.wildlife_reliance, store.enterprise_types, store.ownership,
                 store.created_at.strftime('%d/%m/%Y %H:%M'), store.created_by&.display_name,
                 store.updated_at.strftime('%d/%m/%Y %H:%M'), store.updated_by&.display_name]
       end
@@ -190,7 +205,11 @@ class Store < ApplicationRecord
     end
     rs.updated_by_id = created_by_id
 
-    if rs.save
+    Store.skip_callback(:save, :before, :set_updated_by)
+    result = rs.save
+    Store.set_callback(:save, :before, :set_updated_by)
+
+    if result
       destroy
       true
     else
@@ -199,3 +218,4 @@ class Store < ApplicationRecord
     end
   end
 end
+
