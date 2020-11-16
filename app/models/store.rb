@@ -190,7 +190,11 @@ class Store < ApplicationRecord
     end
     rs.updated_by_id = created_by_id
 
-    if rs.save
+    Store.skip_callback(:save, :before, :set_updated_by)
+    result = rs.save
+    Store.set_callback(:save, :before, :set_updated_by)
+
+    if result
       destroy
       true
     else
@@ -199,3 +203,4 @@ class Store < ApplicationRecord
     end
   end
 end
+
