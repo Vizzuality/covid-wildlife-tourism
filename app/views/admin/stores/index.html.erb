@@ -12,22 +12,19 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="form-group">
-      <%= label_tag :state, t('views.admin.stores.state'), class: 'sr-only' %>
-      <%= select_tag :state, options_for_select(enum_options_for_select(Store, :state), params[:state]), { include_blank: t('views.admin.stores.all_states'), class: 'custom-select' }%>
+      <%= select_tag :state, options_for_select(enum_options_for_select(Store, :state), params[:state]), { include_blank: t('views.admin.stores.all_states'), class: 'custom-select', 'aria-label': t('views.admin.stores.state') }%>
     </div>
   </div>
   <div class="col-lg-6">
     <div class="form-group">
-      <%= label_tag :type, t('views.shared.type'), class: 'sr-only' %>
-      <%= select_tag :type, options_for_select([[t('views.pins.type_community'), 'Community'], [t('views.pins.type_business'), 'Enterprise']], params[:type]), { include_blank: t('views.admin.stores.all_types'), class: 'custom-select'} %>
+      <%= select_tag :type, options_for_select([[t('views.pins.type_community'), 'Community'], [t('views.pins.type_business'), 'Enterprise']], params[:type]), { include_blank: t('views.admin.stores.all_types'), class: 'custom-select', 'aria-label': t('views.shared.type') } %>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col-lg-6">
     <div class="form-group">
-      <%= label_tag :search, t('views.shared.search'), class: 'sr-only' %>
-      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: t('views.admin.stores.search_by_name') %>
+      <%= text_field_tag :search, params[:search], class: 'form-control', placeholder: t('views.admin.stores.search_by_name'), 'aria-label': t('views.shared.search') %>
     </div>
   </div>
 </div>

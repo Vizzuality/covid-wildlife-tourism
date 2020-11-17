@@ -1,7 +1,7 @@
 <div class="form-group">
   <%= f.label :name, t('views.pins.community_name'), class: 'required' %>
-  <%= f.text_field :name, required: true, disabled: action_name == 'show', 'aria-describedby': 'name_related_pin', autofocus: true, class: 'form-control' %>
-  <% if !@related_store.nil? && !@store.name.eql?(@related_store.name) %>
+  <%= f.text_field :name, { required: true, disabled: action_name == 'show', autofocus: true, class: 'form-control' }.merge(conditional_attributes(has_previous_value?(:name), { 'aria-describedby': 'name_related_pin' })) %>
+  <% if has_previous_value?(:name) %>
   <div id="name_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.name %></strong>
   </div>
@@ -12,8 +12,8 @@
 
 <div class="form-group">
   <%= f.label :website %>
-  <%= f.url_field :website, disabled: action_name == 'show', 'aria-describedby': 'website_related_pin', class: 'form-control' %>
-  <% if !@related_store.nil? && !@store.website.eql?(@related_store.website) %>
+  <%= f.url_field :website, { disabled: action_name == 'show', class: 'form-control' }.merge(conditional_attributes(has_previous_value?(:website), { 'aria-describedby': 'website_related_pin' })) %>
+  <% if has_previous_value?(:website) %>
   <div id="website_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.website %></strong>
   </div>
@@ -22,8 +22,8 @@
 
 <div class="form-group">
   <%= f.label :latitude, class: 'required' %>
-  <%= f.number_field :latitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'latitude_related_pin', min: -90, max: 90, step: 0.0001, class: 'form-control js-latitude-input' %>
-  <% if !@related_store.nil? && !@store.latitude.eql?(@related_store.latitude) %>
+  <%= f.number_field :latitude, { required: true, disabled: action_name == 'show', min: -90, max: 90, step: 0.0001, class: 'form-control js-latitude-input' }.merge(conditional_attributes(has_previous_value?(:latitude), { 'aria-describedby': 'latitude_related_pin' })) %>
+  <% if has_previous_value?(:latitude) %>
   <div id="latitude_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.latitude %></strong>
   </div>
@@ -32,8 +32,8 @@
 
 <div class="form-group">
   <%= f.label :longitude, class: 'required' %>
-  <%= f.number_field :longitude, required: true, disabled: action_name == 'show', 'aria-describedby': 'longitude_related_pin', min: -180, max: 180, step: 0.0001, class: 'form-control js-longitude-input' %>
-  <% if !@related_store.nil? && !@store.longitude.eql?(@related_store.longitude) %>
+  <%= f.number_field :longitude, { required: true, disabled: action_name == 'show', min: -180, max: 180, step: 0.0001, class: 'form-control js-longitude-input' }.merge(conditional_attributes(has_previous_value?(:longitude), { 'aria-describedby': 'longitude_related_pin' })) %>
+  <% if has_previous_value?(:longitude) %>
   <div id="longitude_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.longitude %></strong>
   </div>
@@ -59,8 +59,8 @@
 
 <div class="form-group">
   <%= f.label :population_size, t('views.pins.population_size') %>
-  <%= f.select :population_size, Community.population_sizes.map { |key, value| [key.humanize, key] }, {}, disabled: action_name == 'show', 'aria-describedby': 'population_size_related_pin', class: 'custom-select' %>
-  <% if !@related_store.nil? && !@store.population_size.eql?(@related_store.population_size) %>
+  <%= f.select :population_size, Community.population_sizes.map { |key, value| [key.humanize, key] }, {}, { disabled: action_name == 'show', class: 'custom-select' }.merge(conditional_attributes(has_previous_value?(:population_size), { 'aria-describedby': 'population_size_related_pin' })) %>
+  <% if has_previous_value?(:population_size) %>
   <div id="population_size_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.population_size %></strong>
   </div>

@@ -21,7 +21,7 @@ label {
   }
 }
 
-a:not(.btn-primary):not(.btn-secondary):not(.btn-black) {
+a:not(.btn-primary):not(.btn-secondary):not(.btn-black):not(.btn-danger) {
   color: $body-color;
 }
 

@@ -15,7 +15,7 @@
     <div class="flex-grow-1 pt-4 pb-5 pt-md-5 pb-md-6 d-flex flex-column justify-content-between background-white">
       <div class="container px-md-5">
         <label for="map-view"><%= t('views.map.map_view') %></label>
-        <select class="custom-select js-map-view">
+        <select id="map-view" class="custom-select js-map-view">
           <option value="standard"><%= t('views.map.standard') %></option>
           <option value="satellite"><%= t('views.map.satellite') %></option>
         </select>
@@ -53,8 +53,8 @@
     <div class="background-black">
       <div class="container">
         <div class="position-relative">
-          <button type="button" class="position-absolute mt-2 mt-md-4 btn btn-black" data-a11y-dialog-hide style="top: 0; right: 0;">
-            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="d-block" aria-label="<%= t("views.shared.close_dialog") %>">
+          <button type="button" class="position-absolute mt-2 mt-md-4 btn btn-black" data-a11y-dialog-hide style="top: 0; right: 0;" aria-label="<%= t("views.shared.close_dialog") %>">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" class="d-block">
               <path d="M21.677 0l2.19 2.121-9.532 9.517.375.362-.375.362 9.532 9.517L21.677 24 12 14.625 2.323 24l-2.19-2.121 9.531-9.517L9.29 12l.374-.362-9.53-9.517L2.322 0 12 9.375 21.677 0z" fill="#FFF" fill-rule="evenodd" />
             </svg>
           </button>
@@ -130,8 +130,8 @@
     <div class="container-fluid pt-sm-3 px-sm-4">
       <div class="position-relative">
         <div class="mt-2 d-flex justify-content-between justify-content-sm-start">
-          <button type="button" class="btn btn-black drawer-button" data-a11y-dialog-show="drawer">
-            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.open_drawer') %>">
+          <button type="button" class="btn btn-black drawer-button" data-a11y-dialog-show="drawer" aria-label="<%= t('views.map.open_drawer') %>">
+            <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg">
               <path d="M22 16.111v2.222H2v-2.222h20zm0-5.555v2.222H2v-2.222h20zM22 5v2.222H2V5h20z" fill-rule="evenodd" /></svg>
           </button>
           <% if user_signed_in? %>
@@ -166,8 +166,8 @@
             <%= t("views.shared.add_pin") %>
           </button>
           <% end %>
-          <button type="button" class="btn btn-secondary locate-button js-map-geolocation">
-            <svg width="26" height="26" xmlns="http://www.w3.org/2000/svg" aria-label="<%= t('views.map.locate_me') %>">
+          <button type="button" class="btn btn-secondary locate-button js-map-geolocation" aria-label="<%= t('views.map.locate_me') %>">
+            <svg width="26" height="26" xmlns="http://www.w3.org/2000/svg">
               <g fill-rule="nonzero" transform="translate(-303 -99)">
                 <path d="M316 119.607a7.561 7.561 0 0 0 7.608-7.607 7.562 7.562 0 0 0-7.607-7.607 7.562 7.562 0 0 0-7.607 7.607 7.562 7.562 0 0 0 7.607 7.607zm9.753-8.68h1.174a1.072 1.072 0 1 1 0 2.145h-1.174c-.51 4.545-4.136 8.17-8.68 8.681v1.174a1.072 1.072 0 1 1-2.145 0v-1.174c-4.545-.51-8.17-4.136-8.681-8.68h-1.174a1.072 1.072 0 1 1 0-2.145h1.174c.51-4.545 4.136-8.17 8.68-8.681v-1.174a1.072 1.072 0 1 1 2.145 0v1.174c4.545.51 8.17 4.136 8.681 8.68z" stroke="#FFF" stroke-width=".3" />
                 <path d="M318.179 112a2.179 2.179 0 1 1-4.358 0 2.179 2.179 0 0 1 4.358 0z" />
