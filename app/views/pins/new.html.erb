@@ -18,25 +18,27 @@
 <% if @pin.type.nil? %>
 <div class="row">
   <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-    <p>
-      <%= t('views.pins.type_intro') %>
-    </p>
+    <fieldset>
+      <legend class="mb-3 font-base">
+        <%= t('views.pins.type_intro') %>
+      </legend>
 
-    <div class="form-group">
-      <div class="custom-control custom-radio">
-        <%= f.radio_button :type, 'Community', class: 'custom-control-input', required: true %>
-        <%= f.label :type, class: 'custom-control-label', value: 'Community' do %>
-        <%= t('views.pins.type_community') %> <div class="position-relative c-marker marker-sm marker-community"></div>
-        <% end %>
-      </div>
+      <div class="form-group">
+        <div class="custom-control custom-radio">
+          <%= f.radio_button :type, 'Community', class: 'custom-control-input', required: true %>
+          <%= f.label :type, class: 'custom-control-label', value: 'Community' do %>
+          <%= t('views.pins.type_community') %> <div class="position-relative c-marker marker-sm marker-community"></div>
+          <% end %>
+        </div>
 
-      <div class="custom-control custom-radio">
-        <%= f.radio_button :type, 'Enterprise', class: 'custom-control-input', required: true %>
-        <%= f.label :type, class: 'custom-control-label', value: 'Enterprise' do %>
-        <%= t('views.pins.type_business') %> <div class="position-relative c-marker marker-sm marker-business"></div>
-        <% end %>
+        <div class="custom-control custom-radio">
+          <%= f.radio_button :type, 'Enterprise', class: 'custom-control-input', required: true %>
+          <%= f.label :type, class: 'custom-control-label', value: 'Enterprise' do %>
+          <%= t('views.pins.type_business') %> <div class="position-relative c-marker marker-sm marker-business"></div>
+          <% end %>
+        </div>
       </div>
-    </div>
+    </fieldset>
   </div>
 </div>
 
