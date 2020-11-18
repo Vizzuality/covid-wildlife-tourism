@@ -44,6 +44,8 @@ en:
       all_pins: All pins
       approve_pins: Approve pins
       approve_changes: Approve changes
+      all_users: All users
+      approve_users: Approve users
     pins:
       add_pin_intro: Add a pin on the map by selecting a location on the map and filling some information.
       type_intro: What type of place do you want to add?

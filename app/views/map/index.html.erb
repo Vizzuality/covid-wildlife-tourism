@@ -12,7 +12,7 @@
         <% end %>
       </div>
     </div>
-    <div class="flex-grow-1 pt-4 pb-5 pt-md-5 pb-md-6 d-flex flex-column justify-content-between background-white">
+    <div class="flex-grow-1 flex-shrink-1 overflow-auto pt-4 pt-md-5 d-flex flex-column justify-content-between background-white">
       <div class="container px-md-5">
         <label for="map-view"><%= t('views.map.map_view') %></label>
         <select id="map-view" class="custom-select js-map-view">
@@ -32,11 +32,12 @@
           <%= link_to t("views.map.all_pins"), admin_pins_path, class: 'd-block' %>
           <%= link_to t("views.map.approve_pins"), admin_pins_path(state: :waiting_approval), class: 'd-block mt-2 mt-md-3' %>
           <%= link_to t("views.map.approve_changes"), admin_pins_path(state: :to_replace), class: 'd-block mt-2 mt-md-3' %>
-          <%= link_to t("views.map.users"), admin_users_path, class: 'd-block mt-2 mt-md-3' %>
+          <%= link_to t("views.map.all_users"), admin_users_path, class: 'd-block mt-2 mt-md-5' %>
+          <%= link_to t("views.map.approve_users"), admin_users_path(validated: :false), class: 'd-block mt-2 mt-md-3' %>
         </div>
         <% end %>
       </div>
-      <div class="container px-md-5">
+      <div class="container px-md-5 mt-md-5 pb-3 pb-md-6">
         <% if user_signed_in? %>
         <%= link_to t("views.shared.edit_profile"), edit_user_registration_path, class: 'd-block' %>
         <%= link_to t("views.shared.log_out"), destroy_user_session_path, class: 'd-block mt-2 mt-md-3' %>
