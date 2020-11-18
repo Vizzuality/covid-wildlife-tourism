@@ -6,6 +6,7 @@
     <thead>
       <tr>
         <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:state) %></th>
         <th><%= User.human_attribute_name(:email) %></th>
         <th><%= User.human_attribute_name(:role) %></th>
         <th><%= t('views.admin.users.pins_created') %></th>
@@ -17,6 +18,7 @@
       <% users.each do |user| %>
       <tr>
         <td><%= link_to user.name, admin_user_path(user) %></td>
+        <td><%= user.validated? ? t('views.admin.users.validated') : t('views.admin.users.not_validated') %></td>
         <td><%= user.email %></td>
         <td><%= enum_l(user, :role) %></td>
         <td><%= user.created_stores.count %></td>
