@@ -49,7 +49,7 @@ class PinsController < ApplicationController
         render :new
       end
     else
-      redirect_to map_index_path(operation: 'location', next: new_pin_path(pin_params))
+      redirect_to map_index_path(operation: 'location', next: new_pin_path(pin_params), marker: pin_params[:type].downcase)
     end
   end
 

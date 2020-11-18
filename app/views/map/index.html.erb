@@ -126,7 +126,7 @@
 </div>
 
 <div id="main" class="l-map">
-  <div id="map" class="vw-100 vh-100"></div>
+  <div id="map" class="vw-100 vh-100 <% if params[:operation] == 'location' && !params[:marker].nil? %>cursor-<%= params[:marker] %><% end %>"></div>
   <div class="position-absolute w-100" style="top: 0;">
     <div class="container-fluid pt-sm-3 px-sm-4">
       <div class="position-relative">
