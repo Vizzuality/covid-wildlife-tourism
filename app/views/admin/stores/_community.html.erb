@@ -12,7 +12,10 @@
 
 <div class="form-group">
   <%= f.label :website %>
-  <%= f.url_field :website, { disabled: action_name == 'show', class: 'form-control' }.merge(conditional_attributes(has_previous_value?(:website), { 'aria-describedby': 'website_related_pin' })) %>
+  <%= f.url_field :website, { disabled: action_name == 'show', class: 'form-control', 'aria-describedby': 'website_note' }.merge(conditional_attributes(has_previous_value?(:website), { 'aria-describedby': 'website_note website_related_pin' })) %>
+  <div id="website_note" class="form-text font-s">
+    <%== t('views.shared.url_must_start_with_http') %>
+  </div>
   <% if has_previous_value?(:website) %>
   <div id="website_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.website %></strong>

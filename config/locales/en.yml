@@ -125,6 +125,7 @@ en:
       new_user: New user
       deleted_account: Deleted account
       map: Map
+      url_must_start_with_http: The URL must start with <code>http://</code> or <code>https://</code>.
   activerecord:
     models:
       store:

@@ -7,7 +7,10 @@
 
 <div class="form-group">
   <%= f.label :website %>
-  <%= f.url_field :website, class: 'form-control' %>
+  <%= f.url_field :website, class: 'form-control', 'aria-describedby': 'website_note' %>
+  <div id="website_note" class="form-text font-s">
+    <%== t('views.shared.url_must_start_with_http') %>
+  </div>
 </div>
 
 <div class="form-group">
