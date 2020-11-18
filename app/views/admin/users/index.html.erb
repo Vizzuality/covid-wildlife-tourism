@@ -14,14 +14,12 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="form-group">
-      <%= label_tag :validated, t('views.admin.users.state'), class: 'sr-only' %>
-      <%= select_tag :validated, options_for_select([[t('views.admin.users.validated'), true], [t('views.admin.users.not_validated'), false]], params[:validated]), { include_blank: t('views.admin.users.all_states'), class: 'custom-select' }%>
+      <%= select_tag :validated, options_for_select([[t('views.admin.users.validated'), true], [t('views.admin.users.not_validated'), false]], params[:validated]), { include_blank: t('views.admin.users.all_states'), class: 'custom-select', 'aria-label': t('views.admin.users.state') }%>
     </div>
   </div>
   <div class="col-lg-6">
     <div class="form-group">
-      <%= label_tag :role, t('views.admin.users.role'), class: 'sr-only' %>
-      <%= select_tag :role, options_for_select(enum_options_for_select(User, :role), params[:role]), { include_blank: t('views.admin.users.all_roles'), class: 'custom-select' }%>
+      <%= select_tag :role, options_for_select(enum_options_for_select(User, :role), params[:role]), { include_blank: t('views.admin.users.all_roles'), class: 'custom-select', 'aria-label': t('views.admin.users.role') }%>
     </div>
   </div>
 </div>
