@@ -48,7 +48,7 @@ module Admin
 
       respond_to do |format|
         if @user.save
-          format.html { redirect_to admin_user_path(@user), notice: 'User was successfully created.' }
+          format.html { redirect_to admin_user_path(@user), notice: t('views.admin.users.user_created_successfully') }
         else
           flash.now[:alert] = @user.errors.full_messages
           format.html { render :new }
@@ -61,7 +61,7 @@ module Admin
     def update
       respond_to do |format|
         if @user.update(user_params)
-          format.html { redirect_to admin_user_path(@user), notice: 'User was successfully updated.' }
+          format.html { redirect_to admin_user_path(@user), notice: t('views.admin.users.user_edited_successfully') }
         else
           flash.now[:alert] = @user.errors.full_messages
           format.html { render :edit  }
@@ -75,16 +75,16 @@ module Admin
       query_params = save_query_params
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to admin_users_path + query_params, notice: 'User was successfully destroyed.' }
+        format.html { redirect_to admin_users_path + query_params, notice: t('views.admin.users.user_deleted_successfully') }
       end
     end
 
     def approve
       query_params = save_query_params
-      notice_text = @user.validated ? t('views.admin.users.invalidated') : t('views.admin.users.validated')
+      action = @user.validated ? 'unapproved' : 'approved'
       @user.revert_validation
       respond_to do |format|
-        format.html { redirect_to admin_users_path + query_params, notice: "User was #{notice_text.downcase} successfully."}
+        format.html { redirect_to admin_users_path + query_params, notice: t("views.admin.users.user_#{action.downcase}_successfully") }
       end
     end
 

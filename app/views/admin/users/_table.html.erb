@@ -18,7 +18,7 @@
       <% users.each do |user| %>
       <tr>
         <td><%= link_to user.name, admin_user_path(user) %></td>
-        <td><%= user.validated? ? t('views.admin.users.validated') : t('views.admin.users.not_validated') %></td>
+        <td><%= user.validated? ? t('views.admin.users.approved') : t('views.admin.users.not_approved') %></td>
         <td><%= user.email %></td>
         <td><%= enum_l(user, :role) %></td>
         <td><%= user.created_stores.count %></td>

@@ -80,9 +80,8 @@ en:
         previously: Previously
         previous_location_pin_color: The previous location is represented by the yellow pin
       users:
-        validated: Validated
-        not_validated: Not validated
-        invalidated: Invalidated
+        approved: Approved
+        not_approved: Not approved
         role: Role
         all_roles: All roles
         select_role: Select role
@@ -90,6 +89,10 @@ en:
         pins_created: Pins created
         state: State
         all_states: All states
+        user_edited_successfully: User edited successfully
+        user_deleted_successfully: User deleted successfully
+        user_approved_successfully: User approved successfully
+        user_unapproved_successfully: User unapproved successfully
     shared:
       log_in: Log in
       log_out: Log out

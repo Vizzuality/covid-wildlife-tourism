@@ -14,7 +14,7 @@
 <div class="row">
   <div class="col-lg-6">
     <div class="form-group">
-      <%= select_tag :validated, options_for_select([[t('views.admin.users.validated'), true], [t('views.admin.users.not_validated'), false]], params[:validated]), { include_blank: t('views.admin.users.all_states'), class: 'custom-select', 'aria-label': t('views.admin.users.state') }%>
+      <%= select_tag :validated, options_for_select([[t('views.admin.users.approved'), true], [t('views.admin.users.not_approved'), false]], params[:validated]), { include_blank: t('views.admin.users.all_states'), class: 'custom-select', 'aria-label': t('views.admin.users.state') }%>
     </div>
   </div>
   <div class="col-lg-6">
