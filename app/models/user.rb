@@ -24,6 +24,7 @@
 #  last_sign_in_ip        :inet
 #  organization           :string
 #  position               :string
+#  validated              :boolean          default(FALSE)
 #
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -44,6 +45,7 @@ class User < ApplicationRecord
   has_many :created_stores, class_name: 'Store', foreign_key: :created_by_id, inverse_of: :created_by, dependent: :nullify
 
   enum role: {user: 0, admin: 1}
+  scope :validated, -> { where(validated: true) }
 
   def self.search(search)
     return all unless search

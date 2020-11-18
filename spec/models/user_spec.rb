@@ -24,6 +24,7 @@
 #  last_sign_in_ip        :inet
 #  organization           :string
 #  position               :string
+#  validated              :boolean          default(FALSE)
 #
 require 'rails_helper'
 
