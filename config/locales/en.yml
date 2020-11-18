@@ -126,6 +126,7 @@ en:
       deleted_account: Deleted account
       map: Map
       url_must_start_with_http: The URL must start with <code>http://</code> or <code>https://</code>.
+      can_select_multiple_options_keys: On desktop computers, you can select multiple options using the <kbd>shift</kbd> and <kbd>ctrl</kbd> keys.
   activerecord:
     models:
       store:

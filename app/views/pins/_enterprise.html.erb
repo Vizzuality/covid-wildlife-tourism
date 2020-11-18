@@ -9,7 +9,7 @@
 
 <div class="form-group">
   <label for="store_enterprise_type" class="required"><%= t('views.pins.enterprise_type') %></label>
-  <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required multiple>
+  <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" aria-describedby="store_enterprise_type_note" required multiple>
     <optgroup label="<%= t('views.pins.tourism') %>">
       <option value="photo_tourism"><%= t('activerecord.enums.store.enterprise_types.photo_tourism') %></option>
       <option value="hunting_tourism"><%= t('activerecord.enums.store.enterprise_types.hunting_tourism') %></option>
@@ -25,6 +25,9 @@
       <option value="other"><%= t('activerecord.enums.store.enterprise_types.other') %></option>
     </optgroup>
   </select>
+  <div id="store_enterprise_type_note" class="form-text font-s">
+    <%== t('views.shared.can_select_multiple_options_keys') %>
+  </div>
 </div>
 
 <div class="form-group js-enterprise-type-free-input-group" hidden>

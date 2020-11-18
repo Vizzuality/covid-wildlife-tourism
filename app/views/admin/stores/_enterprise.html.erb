@@ -14,7 +14,7 @@
 
 <div class="form-group">
   <label for="store_enterprise_type" class="required"><%= t('views.pins.enterprise_type') %></label>
-  <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required <%= action_name == 'show' ? 'disabled' : '' %> <% if has_previous_value?(:enterprise_types) %>aria-describedby="enterprise_type_related_pin" <% end %> multiple>
+  <select id="store_enterprise_type" class="custom-select js-enterprise-type-list" required <%= action_name == 'show' ? 'disabled' : '' %> aria-describedby="<% if has_previous_value?(:enterprise_types) %>enterprise_type_related_pin store_enterprise_type_note<% else %>store_enterprise_type_note<% end %>" multiple>
     <optgroup label="<%= t('views.pins.tourism') %>">
       <option value="photo_tourism"><%= t('activerecord.enums.store.enterprise_types.photo_tourism') %></option>
       <option value="hunting_tourism"><%= t('activerecord.enums.store.enterprise_types.hunting_tourism') %></option>
@@ -30,6 +30,9 @@
       <option value="other"><%= t('activerecord.enums.store.enterprise_types.other') %></option>
     </optgroup>
   </select>
+  <div id="store_enterprise_type_note" class="form-text font-s">
+    <%== t('views.shared.can_select_multiple_options_keys') %>
+  </div>
   <% if has_previous_value?(:enterprise_types) %>
   <div id="enterprise_type_related_pin" class="form-text font-s">
     <%= t('views.admin.stores.previously') %>: <strong><%= @related_store.enterprise_types.split(',').map { |value| enum_i18n(Store, :enterprise_type, value, value) }.join(', ') %></strong>
