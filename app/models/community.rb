@@ -38,4 +38,5 @@ class Community < Store
 
   validates :enterprise_type, absence: true
   validates :ownership, absence: true
+  validates :website, http_url: true
 end
