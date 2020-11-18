@@ -97,11 +97,4 @@
       background: $primary;
     }
   }
-
-  &.marker-green {
-    &:not(.marker-community),
-    &.marker-community:after {
-      background: $green-1;
-    }
-  }
 }

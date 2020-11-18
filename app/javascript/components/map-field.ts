@@ -92,7 +92,7 @@ export default class PinsEnterpriseTypeField {
         data: {},
         onClick: () => { },
         classes: [
-          `marker-${this.previousLocation ? 'green' : 'yellow'}`,
+          'marker-yellow',
           `marker-${TYPE_INPUT_EL.value.toLowerCase()}`,
         ],
       },

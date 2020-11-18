@@ -70,25 +70,16 @@ Promise.all([
     const onLoadPins = (pins: Pin[]) => {
       pins = pins;
 
-      map.setMarkers(pins.map(pin => {
-        let color;
-        if (!pin.public) {
-          color = 'green';
-        } else {
-          color = pin.is_owner ? 'blue' : 'yellow';
-        }
-
-        return {
-          id: `${pin.id}`,
-          coordinates: [pin.longitude, pin.latitude],
-          classes: [
-            `marker-${pin.type.toLowerCase()}`,
-            `marker-${color}`,
-          ],
-          data: pin,
-          onClick: onClickMarker,
-        };
-      }));
+      map.setMarkers(pins.map(pin => ({
+        id: `${pin.id}`,
+        coordinates: [pin.longitude, pin.latitude],
+        classes: [
+          `marker-${pin.type.toLowerCase()}`,
+          `marker-${pin.is_owner ? 'blue' : 'yellow'}`,
+        ],
+        data: pin,
+        onClick: onClickMarker,
+      })));
 
       const defaultActivePin = getSearchParam('pin');
       const pin = pins.find(pin => pin.id === +defaultActivePin);

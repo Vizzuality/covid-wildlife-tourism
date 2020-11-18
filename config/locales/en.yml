@@ -78,7 +78,7 @@ en:
         pin_approved_successfully: Pin approved successfully
         pin_approved_unsuccessfully: Unable to approve the pin
         previously: Previously
-        previous_location_pin_color: The previous location is represented by the yellow pin
+        previous_location_pin_color: The previous location is represented by the yellow pin with the white outline
       users:
         approved: Approved
         not_approved: Not approved
