@@ -66,6 +66,11 @@ class User < ApplicationRecord
     validated? ? super : :not_approved
   end
 
+  def revert_validation
+    self.validated = !validated
+    save
+  end
+
   alias_method :text, :display_name
 
   protected

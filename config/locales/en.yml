@@ -78,11 +78,16 @@ en:
         previously: Previously
         previous_location_pin_color: The previous location is represented by the yellow pin
       users:
+        validated: Validated
+        not_validated: Not validated
+        invalidated: Invalidated
         role: Role
         all_roles: All roles
         select_role: Select role
         search_by_name: Search by name
         pins_created: Pins created
+        state: State
+        all_states: All states
     shared:
       log_in: Log in
       log_out: Log out

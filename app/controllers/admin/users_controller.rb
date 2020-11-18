@@ -11,6 +11,7 @@ module Admin
       @users = User.order(:created_at)
         .search(params[:search])
       @users = @users.where(role: params[:role]) if params[:role].present?
+      @users = @users.where(validated: params[:validated]) if params[:validated].present?
 
       respond_to do |format|
         format.html do
@@ -74,6 +75,14 @@ module Admin
       @user.destroy
       respond_to do |format|
         format.html { redirect_to admin_users_path, notice: 'User was successfully destroyed.' }
+      end
+    end
+
+    def validate
+      notice_text = @user.validated ? t('views.admin.users.invalidated') : t('views.admin.users.validated')
+      @user.revert_validation
+      respond_to do |format|
+        format.html { redirect_to admin_user_path, notice: "User was #{notice_text.downcase} successfully."}
       end
     end
 
