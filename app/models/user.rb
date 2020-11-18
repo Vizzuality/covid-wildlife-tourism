@@ -58,6 +58,14 @@ class User < ApplicationRecord
     name.presence || email.presence.split('@')[0]
   end
 
+  def active_for_authentication?
+    super && validated?
+  end
+
+  def inactive_message
+    validated? ? super : :not_approved
+  end
+
   alias_method :text, :display_name
 
   protected
