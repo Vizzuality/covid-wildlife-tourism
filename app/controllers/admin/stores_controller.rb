@@ -23,7 +23,7 @@ module Admin
           @stores = @stores.limit(50)
         end
         format.csv do
-          send_data @stores.to_csv, type: 'csv', filename: 'stores-export.csv'
+          send_data @stores.to_csv, type: 'csv', filename: 'pins-export.csv'
         end
       end
     end
