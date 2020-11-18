@@ -30,7 +30,9 @@ Rails.application.routes.draw do
     end
     resources :manage_stores, only: [:index]
     resources :user_stores, only: [:index, :update]
-    resources :users
+    resources :users do
+      post :approve, on: :member
+    end
   end
 
   require 'sidekiq/web'

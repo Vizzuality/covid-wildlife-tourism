@@ -23,8 +23,12 @@
         <td><%= enum_l(user, :role) %></td>
         <td><%= user.created_stores.count %></td>
         <td>
+          <% if !user.validated? %>
+          <%= link_to t('views.shared.review'), admin_user_path(user), class: 'btn btn-block btn-sm btn-black' %>
+          <% else %>
           <% if can? :edit, user %>
           <%= link_to t('views.shared.edit'), edit_admin_user_path(user), class: 'btn btn-block btn-sm btn-black' %>
+          <% end %>
           <% end %>
           <% if can? :destroy, user %>
           <%= link_to t('views.shared.delete'), admin_user_path(user, state: params[:state], search: params[:search], type: params[:type]), method: :delete, data: { confirm: t('views.shared.delete_user_confirmation') }, class: 'btn btn-block btn-sm btn-danger mt-2' %>

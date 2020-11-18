@@ -15,8 +15,11 @@
 <div class="row mt-5">
   <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4">
     <div class="form-group">
+      <% if !@user.validated? %>
+      <%= link_to t('views.shared.approve'), approve_admin_user_path(@user), method: :post, class: 'btn btn-block btn-black' %>
+      <% else %>
       <%= link_to t('views.shared.edit'), edit_admin_user_path(@user), class: 'btn btn-block btn-black' %>
-
+      <% end %>
     </div>
   </div>
 </div>

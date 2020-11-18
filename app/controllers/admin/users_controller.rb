@@ -72,17 +72,19 @@ module Admin
     # DELETE /users/1
     # DELETE /users/1.json
     def destroy
+      query_params = save_query_params
       @user.destroy
       respond_to do |format|
-        format.html { redirect_to admin_users_path, notice: 'User was successfully destroyed.' }
+        format.html { redirect_to admin_users_path + query_params, notice: 'User was successfully destroyed.' }
       end
     end
 
-    def validate
+    def approve
+      query_params = save_query_params
       notice_text = @user.validated ? t('views.admin.users.invalidated') : t('views.admin.users.validated')
       @user.revert_validation
       respond_to do |format|
-        format.html { redirect_to admin_user_path, notice: "User was #{notice_text.downcase} successfully."}
+        format.html { redirect_to admin_users_path + query_params, notice: "User was #{notice_text.downcase} successfully."}
       end
     end
 
@@ -96,6 +98,15 @@ module Admin
       permitted_params << {store_ids: []} if current_user.admin?
 
       params.require(:user).permit(permitted_params)
+    end
+
+    def save_query_params
+      uri = URI.parse(request.referer)
+      uri.query.present? ? '?' + uri.query : ''
+
+
+    rescue URI::InvalidURIError
+      ''
     end
   end
 end
