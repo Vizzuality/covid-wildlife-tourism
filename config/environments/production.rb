@@ -63,6 +63,7 @@ Rails.application.configure do
   # config.action_mailer.delivery_method = :ses
 
   config.action_mailer.default_url_options = {host: ENV['EMAIL_HOST']}
+  config.action_mailer.default_options = {from: ENV['EMAIL_USERNAME'], reply_to: ENV['EMAIL_USERNAME']}
 
   ActionMailer::Base.smtp_settings = {
       :user_name => ENV['EMAIL_USERNAME'],
