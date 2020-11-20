@@ -1,5 +1,15 @@
 # covid-wildlife-tourism
 
+Covid Wildlife Tourism Africa is an online platform that collects information about the communities and enterprises involved in wildlife tourism in Africa, and that have been impacted by the Covid-19 pandemic.
+
+<p align="center">
+<img src="docs/assets/hero.png" alt="Map page" />
+</p>
+
+The application has been carefully designed and developed so it can run smoothly on high-latency and low-bandwidth mobile connections such as regular 2G and 3G connections.
+
+The production instance of the application is found here: [map.resourceafrica.net](https://map.resourceafrica.net).
+
 ## Dependencies
 
 - Ruby on Rails 6.0.2
