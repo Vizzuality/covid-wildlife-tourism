@@ -67,6 +67,7 @@ en:
       enterprise_type: Enterprise type
       tourism: Tourism
       accommodation: Accommodation
+      select_reliance_level: Select reliance level
     admin:
       stores:
         state: State

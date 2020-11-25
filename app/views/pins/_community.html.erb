@@ -52,11 +52,11 @@
 
 <div class="form-group">
   <%= f.label :farming_reliance, t('views.pins.reliance_on_farming') %>
-  <%= f.select :farming_reliance, Community.farming_reliances.map { |key, value| [key[2..-1].humanize, key] }, {}, class: 'custom-select' %>
+  <%= f.select :farming_reliance, Community.farming_reliances.map { |key, value| [key[2..-1].humanize, key] }, { include_blank: t('views.pins.select_reliance_level') }, class: 'custom-select' %>
 </div>
 
 <div class="form-group">
   <%= f.label :wildlife_reliance, t('views.pins.reliance_on_wildlife') %>
-  <%= f.select :wildlife_reliance, Community.wildlife_reliances.map { |key, value| [key[2..-1].humanize, key] }, {}, class: 'custom-select' %>
+  <%= f.select :wildlife_reliance, Community.wildlife_reliances.map { |key, value| [key[2..-1].humanize, key] }, { include_blank: t('views.pins.select_reliance_level') }, class: 'custom-select' %>
 </div>
 <% end %>
