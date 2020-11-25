@@ -12,3 +12,13 @@
   <%= f.label :role, class: 'required' %>
   <%= f.select :role, enum_options_for_select(User, :role), { include_blank: t('views.admin.users.select_role') }, required: true, disabled: action_name == 'show', class: 'custom-select' %>
 </div>
+
+<div class="form-group">
+  <%= f.label :organization %>
+  <%= f.text_field :organization, autocomplete: "organization", disabled: action_name == 'show', class: 'form-control' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :position %>
+  <%= f.text_field :position, disabled: action_name == 'show', class: 'form-control' %>
+</div>
